@@ -2,20 +2,24 @@ package basePackage;
 
 public class ParkingGarage {
 
+	// Objects
 	private CarsArray cArray;
 	private FloorsArray fArray;
 	private Car currentCar;
 	private Floor currentFloor;
 	
+	// ints for numbers of stuff. Equation: (100*amountFloors) = amountCars + amountSpaces
+	private int amountFloors = 3;		// Amount of Floors to be configured
+	private int amountCars;				// Amount of cars currently parked 
+	private int amountSpaces;			// Amount of empty spaces on lot
 	
-	private int amountFloors;
-	private int amountCars;
+	
 	
 	
 	
 	public ParkingGarage() {
-		cArray = new cArray();
-		fArray = new fArray();
+		cArray = new CarsArray();
+		fArray = new FloorsArray();
 	}
 	
 }
