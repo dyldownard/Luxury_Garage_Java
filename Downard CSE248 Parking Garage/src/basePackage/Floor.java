@@ -29,5 +29,8 @@ public class Floor {
 		return amountSpaces;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return " has " + amountCars + " cars.";
+	}
 }

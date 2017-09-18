@@ -25,6 +25,8 @@ public class FloorsArray {
 	}
 	
 	public void printFloors() {
-		System.out.println();			// TODO print floor with num of cars
+		for (int i = 0; i < aR.length; i++) {
+			System.out.println("	Floor " + (i + 1) + "" +aR[i]);
+		}		
 	}
 }

@@ -20,8 +20,9 @@ public class ParkingGarage {
 	}
 	
 
-	public void garagePrint() {
+	public void printGarage() {
 		System.out.println("Garage made sucessfully. Code: " + amountFloors + " " + amountCars + " " + amountSpaces);
 		System.out.println("\n" + fArray);
+		fArray.printFloors();
 	}
 }
