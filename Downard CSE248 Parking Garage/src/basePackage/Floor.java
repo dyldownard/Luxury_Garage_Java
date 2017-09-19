@@ -12,8 +12,8 @@ public class Floor {
 	
 	public Floor(int spaces, FloorsArray parent) {
 		parentAr = parent;
-		floorCarsAr = new CarsArray(100);
-		amountSpaces = 100;
+		floorCarsAr = new CarsArray(spaces);
+		amountSpaces = spaces;
 		amountCars = 0;
 	}
 
@@ -31,6 +31,6 @@ public class Floor {
 	
 	@Override
 	public String toString() {
-		return " has " + amountCars + " cars.";
+		return " has " + amountCars + " cars with " + amountSpaces + " free spaces. \n		" + floorCarsAr;
 	}
 }
