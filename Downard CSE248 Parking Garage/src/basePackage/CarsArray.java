@@ -14,21 +14,23 @@ public class CarsArray {
 	}
 	
 
-	public Car parkCarSpecific(Car myCar, int space) {
+	public boolean parkCarSpecific(Car myCar, int space) {
 		if (aR[space - 1] == null) {
 			aR[space] = myCar;
 			amountSpaces--;
 			amountCars++;
+			return true;
 		}
-		return myCar;
+		return false;
 	}
-	public Car parkCarNonspecific(Car myCar) {
+	public boolean parkCarNonspecific(Car myCar, int floorNum) {
 		if (amountSpaces!=0 & amountCars!=100) {
 			aR[amountCars] = myCar;
 			amountSpaces--;
 			amountCars++;
+			return true;
 		}
-		return myCar;
+		return false;
 	}
 	
 	@Override

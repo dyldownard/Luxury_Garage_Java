@@ -2,23 +2,33 @@ package basePackage;
 
 public class Floor {
 
-	private FloorsArray parentAr;
+	private int floorNum;
 	private CarsArray floorCarsAr;
 	
 	private int amountCars;
 	private int amountSpaces;
 	
-//--------------------------------------------------------	
+	//--------------------------------------------------------	
 	
-	public Floor(int spaces, FloorsArray parent) {
-		parentAr = parent;
+	public Floor(int spaces, int floorNum) {
+		this.floorNum = floorNum;
 		floorCarsAr = new CarsArray(spaces);
+		
 		amountSpaces = spaces;
 		amountCars = 0;
 	}
 
-//--------------------------------------------------------	
+	//--------------------------------------------------------	
 	
+	public boolean parkCarNonspecific(Car myCar) {
+		return floorCarsAr.parkCarNonspecific(myCar, floorNum);
+	}
+	
+	//--------------------------------------------------------		
+	
+	public int getFloorNum() {
+		return floorNum;
+	}
 	public CarsArray getCarsAr() {
 		return floorCarsAr;
 	}
@@ -28,6 +38,10 @@ public class Floor {
 	public int getAmountSpaces() {
 		return amountSpaces;
 	}
+	public boolean isFull() {
+		return (amountSpaces == 0);
+	}
+	
 	
 	@Override
 	public String toString() {

@@ -8,7 +8,9 @@ public class Car {
 	private String model; private String make; private String year; private String platenum;
 	private int spotnum;
 	
-	
+	public Car(String model) {
+		this.model = model;
+	}
 	
 	
 }

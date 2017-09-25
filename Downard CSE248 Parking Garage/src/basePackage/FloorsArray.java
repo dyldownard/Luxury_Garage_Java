@@ -4,19 +4,34 @@ public class FloorsArray {
 
 	private Floor[] aR;
 	
+	//--------------------------------------------------------		
+	
 	public FloorsArray(int amount, int spaces) {
 		aR = new Floor[amount];
 		for (int i = 0; i < amount; i++) {
-			aR[i] = new Floor(spaces/amount, this);
+			aR[i] = new Floor(spaces/amount, i);
 		}
 	}
+
+	//--------------------------------------------------------	
+	
+	public boolean parkCarNonspecific(Car myCar) {
+		for (int i = 0; i < aR.length; i++) {
+			if (aR[i].isFull() != false) {
+				return aR[i].parkCarNonspecific(myCar);
+			}
+		}
+		return false;
+	}
+	
+	//--------------------------------------------------------		
 	
 	public Floor[] getFloorsArray() {
 		return aR;
 	}
 	
 	public Car search(String arg) {
-		return new Car();
+		return new Car("str");
 	}
 	
 	@Override
