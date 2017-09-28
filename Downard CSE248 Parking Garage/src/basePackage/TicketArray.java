@@ -2,12 +2,27 @@ package basePackage;
 
 public class TicketArray {
 
-	private TicketAndPermit[] aR;
+	private Ticket[] aR;
 	private int nElms;
 	
 	public TicketArray(int amount) {
 		nElms = 0;
-		aR = new TicketAndPermit[amount];
+		aR = new Ticket[amount];
+	}
+	
+	
+	
+	
+	public Ticket createTicket(String name, String liscensePlate, int time, Car myCar) {
+		if (isFull()!=false) {
+			aR[nElms++] =  new Ticket(name, liscensePlate, time);
+		}
+		return null;
+	}
+	
+	
+	public boolean isFull() {
+		return (nElms==aR.length);
 	}
 	
 }
