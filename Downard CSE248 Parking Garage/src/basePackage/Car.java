@@ -1,6 +1,6 @@
 package basePackage;
 
-public class Car {
+public class Car implements CarInterfaces {
 
 	
 	private Ticket tick;
@@ -11,6 +11,7 @@ public class Car {
 	public Car(String model) {
 		this.model = model;
 	}
+	
 	
 	
 }
