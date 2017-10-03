@@ -1,17 +1,23 @@
 package basePackage;
-import java.util.Date;
 
 public class Ticket implements TicketInterfaces{
 
 	
 	private String customerName;
 	private String liscensePlate;
-	private String billingType;
 	private Car myCar;
-	private Date startTime;
+	private QuickDate startTime;
+
+	
+	
+	public Ticket(String customerName, String liscensePlate, QuickDate date) {
+		this.startTime = date;
+		this.customerName = customerName;
+		this.liscensePlate = liscensePlate;
+	}
 
 
-	public Ticket(String name, String liscensePlate, Car myCar) {
-		this.startTime = new Date();
+	public void setCar(Car car) {
+		this.myCar = car;
 	}
 }

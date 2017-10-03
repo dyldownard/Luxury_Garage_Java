@@ -3,8 +3,8 @@ package basePackage;
 public class CarsArray {
 
 	private Car[] aR;
-	private int amountCars;
-	private int amountSpaces;
+	protected int amountCars;
+	protected int amountSpaces;
 
 	
 	public CarsArray(int amount) {
@@ -23,14 +23,18 @@ public class CarsArray {
 		}
 		return false;
 	}
-	public boolean parkCarNonspecific(Car myCar, int floorNum) {
+	
+	public String parkValet(Car myCar, Floor floor) {
 		if (amountSpaces!=0 & amountCars!=100) {
 			aR[amountCars] = myCar;
 			amountSpaces--;
+			floor.amountSpaces--;
 			amountCars++;
-			return true;
+			floor.amountCars++;
+			ParkingGarage.CarParked();
+			return "Car Parked.";
 		}
-		return false;
+		return "Car could not be parked. Error at CarArray.";
 	}
 	
 	@Override
