@@ -5,8 +5,8 @@ public class Floor {
 	private int floorNum;
 	private CarsArray floorCarsAr;
 	
-	private int amountCars;
-	private int amountSpaces;
+	protected int amountCars;
+	protected int amountSpaces;
 	
 	//--------------------------------------------------------	
 	
@@ -20,8 +20,8 @@ public class Floor {
 
 	//--------------------------------------------------------	
 	
-	public boolean parkCarNonspecific(Car myCar) {
-		return floorCarsAr.parkCarNonspecific(myCar, floorNum);
+	public String parkValet(Car myCar) {
+		return floorCarsAr.parkValet(myCar, this);
 	}
 	
 	//--------------------------------------------------------		

@@ -15,13 +15,13 @@ public class FloorsArray {
 
 	//--------------------------------------------------------	
 	
-	public boolean parkCarNonspecific(Car myCar) {
+	public String parkValet(Car myCar) {
 		for (int i = 0; i < aR.length; i++) {
-			if (aR[i].isFull() != false) {
-				return aR[i].parkCarNonspecific(myCar);
+			if (aR[i].isFull() != true) {
+				return aR[i].parkValet(myCar);
 			}
 		}
-		return false;
+		return "Cannot park car, no spots available. You don't get refund.";
 	}
 	
 	//--------------------------------------------------------		
@@ -31,7 +31,7 @@ public class FloorsArray {
 	}
 	
 	public Car search(String arg) {
-		return new Car("str");
+		return null;
 	}
 	
 	@Override
