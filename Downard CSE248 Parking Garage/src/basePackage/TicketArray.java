@@ -1,5 +1,7 @@
 package basePackage;
 
+import ticketsPackage.Ticket;
+
 public class TicketArray {
 
 	private Ticket[] aR;
@@ -15,7 +17,7 @@ public class TicketArray {
 	
 	public Ticket createTicket(String name, String liscensePlate, int time, Car myCar) {
 		if (isFull()!=false) {
-			aR[nElms++] =  new Ticket(name, liscensePlate, time);
+			//aR[nElms++] =  new DepTicket(name, liscensePlate, time);
 		}
 		return null;
 	}

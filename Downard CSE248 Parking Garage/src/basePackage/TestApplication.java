@@ -1,11 +1,11 @@
 package basePackage;
 
+import ticketsPackage.*;
 
 public class TestApplication {
 
 	public static void main(String[] args) {
-		ParkingGarage garage = new ParkingGarage();
-		
+		ParkingGarage garage = new ParkingGarage();		
 		
 		/*
 		QuickDate qD1 = new QuickDate();
@@ -15,7 +15,12 @@ public class TestApplication {
 		WorkTruck truck = new WorkTruck(null, null, null, null, 0);
 		System.out.println((truck instanceof Car) + " " + (truck instanceof WorkTruck));
 		*/
-		for (int i = 0; i < 305; i++) {garage.parkValet(new Sedan("Sedan", "Sedan", "Sedan", "sedan", 1));}
+		Ticket kek = new HourlyRate("Nameu", "Platue", new QuickDate());
+		Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", 1);
+		sed.setTicket(kek);
+		garage.parkValet(sed);
+		System.out.println(sed.getTicket().calcBill());
+		
 		garage.printGarage();
 		
 	}

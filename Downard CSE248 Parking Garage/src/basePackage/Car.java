@@ -1,11 +1,15 @@
 package basePackage;
 
+import ticketsPackage.*;
+
 public abstract class Car {
 
-	
 	private Ticket tick;
-	private String model; private String make; private String year; private String platenum;
+	
+	private String model; private String make; 
+	private String year; private String platenum;
 	private int spotnum;
+	
 	private String spaceType;
 	private double moneyMult;
 	
@@ -24,10 +28,36 @@ public abstract class Car {
 		tick.setCar(this);
 	}
 	
+	public Ticket getTicket() {
+		return this.tick;
+	}
+	
+	public double getMoneyMult() {
+		return moneyMult;
+	}
 	
 	public String getSpaceType() {
 		return this.spaceType;
 	}
-	
-	
+
+	public String getModel() {
+		return model;
+	}
+
+	public String getMake() {
+		return make;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public String getPlatenum() {
+		return platenum;
+	}
+
+	public int getSpotnum() {
+		return spotnum;
+	}
+
 }

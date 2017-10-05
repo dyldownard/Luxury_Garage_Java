@@ -24,6 +24,8 @@ package basePackage;
 public class CarClasses {
 	static final String[] CAR_TYPES = {"WorkTruck", "PickupTruck","Van","Sedan", "Motorcycle", "Bus", "Handicap"};
 	
+	
+	
 	public Car displayArray(String name, String model, String make, String year, String platenum, int spotnum) {
 		if (name.equals("WorkTruck")) { return new WorkTruck(model, make, year, platenum, spotnum); }
 		if (name.equals("PickupTruck")) { return new PickupTruck(model, make, year, platenum, spotnum); }
