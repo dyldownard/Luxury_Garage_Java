@@ -39,6 +39,10 @@ public class TabPanes {
 	}
 	
 	
+	public GUIFloor[] getFloors() {
+		return floorGUIAr;
+	}
+	
 	public TabPane getTabPane() {
 		return this.tpane;
 	}
