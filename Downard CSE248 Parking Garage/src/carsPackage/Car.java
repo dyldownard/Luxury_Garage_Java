@@ -1,5 +1,6 @@
 package carsPackage;
 
+import javafx.scene.paint.Color;
 import ticketsPackage.*;
 
 public abstract class Car {
@@ -10,14 +11,17 @@ public abstract class Car {
 	private String year; private String platenum;
 	private int spotnum;
 	
+	private Color color;
+	
 	private String spaceType;
 	private double moneyMult;
 	
-	public Car(String model, String make, String year, String platenum, int spotnum, String spaceType, double moneyMult) {
+	public Car(String model, String make, String year, String platenum, Color color, int spotnum, String spaceType, double moneyMult) {
 		this.model = model;
 		this.make = make;
 		this.year = year;
 		this.platenum = platenum;
+		this.color = color;
 		this.spotnum = spotnum;
 		this.spaceType = spaceType;
 		this.moneyMult = moneyMult;
@@ -40,6 +44,10 @@ public abstract class Car {
 		return this.spaceType;
 	}
 
+	public Color getColor() {
+		return this.color;
+	}
+	
 	public String getModel() {
 		return model;
 	}

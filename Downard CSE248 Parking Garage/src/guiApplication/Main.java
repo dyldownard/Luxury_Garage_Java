@@ -5,6 +5,7 @@ import carsPackage.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -29,7 +30,7 @@ public class Main extends Application {
 		bpane.setCenter(tpane.getTabPane());
 		
 		for (int i = 0; i < 143; i++) {
-			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", 1);
+			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
 			CarPark.parkValet(sed);
 		}
 		tpane.updateGrid();

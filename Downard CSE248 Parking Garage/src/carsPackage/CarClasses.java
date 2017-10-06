@@ -27,13 +27,13 @@ public class CarClasses {
 	
 	
 	public Car displayArray(String name, String model, String make, String year, String platenum, int spotnum) {
-		if (name.equals("WorkTruck")) { return new WorkTruck(model, make, year, platenum, spotnum); }
-		if (name.equals("PickupTruck")) { return new PickupTruck(model, make, year, platenum, spotnum); }
-		if (name.equals("Van")) { return new Van(model, make, year, platenum, spotnum); }
-		if (name.equals("Sedan")) { return new Sedan(model, make, year, platenum, spotnum); }
-		if (name.equals("Motorcycle")) { return new Motorcycle(model, make, year, platenum, spotnum); }
-		if (name.equals("Bus")) { return new Bus(model, make, year, platenum, spotnum); }
-		if (name.equals("Handicap")) { return new Handicap(model, make, year, platenum, spotnum); }
+		if (name.equals("WorkTruck")) { return new WorkTruck(model, make, year, platenum, null, spotnum); }
+		if (name.equals("PickupTruck")) { return new PickupTruck(model, make, year, platenum, null, spotnum); }
+		if (name.equals("Van")) { return new Van(model, make, year, platenum, null, spotnum); }
+		if (name.equals("Sedan")) { return new Sedan(model, make, year, platenum, null, spotnum); }
+		if (name.equals("Motorcycle")) { return new Motorcycle(model, make, year, platenum, null, spotnum); }
+		if (name.equals("Bus")) { return new Bus(model, make, year, platenum, null, spotnum); }
+		if (name.equals("Handicap")) { return new Handicap(model, make, year, platenum, null, spotnum); }
 		return null;		// cannot return null due to the requirement to get to this point (selecting existing type from dropdown)
 	}
 }

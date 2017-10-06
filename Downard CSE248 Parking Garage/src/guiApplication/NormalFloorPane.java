@@ -20,7 +20,7 @@ public class NormalFloorPane implements GUIFloor {
 	
 	private int floorNumber;
 	
-	private StackPane[] parkingSpots;
+	private ToolTipStackPane[] parkingSpots;
 	private ParkingGarage CarPark;
 	
 	
@@ -35,7 +35,7 @@ public class NormalFloorPane implements GUIFloor {
 		
 		int calcspaces;
 		
-		parkingSpots = new StackPane[spaces];
+		parkingSpots = new ToolTipStackPane[spaces];
 		if (spaces >= 100) {
 			calcspaces = ((spaces + 12)/25)*25;
 			rows = 25;
@@ -63,7 +63,7 @@ public class NormalFloorPane implements GUIFloor {
 				for (int z = 0; z < rows; z++) {
 					if (nElms!=spaces) {
 						
-						StackPane pane = new StackPane();
+						ToolTipStackPane pane = new ToolTipStackPane();
 						if(i%3 == 0) {
 							pane.setStyle("-fx-border-style:  solid none solid solid");
 						}else {
@@ -106,12 +106,15 @@ public class NormalFloorPane implements GUIFloor {
 		for (int i = 0; i < floor.getAmountTotalSpaces(); i++) {
 			if ((Cars[i] == null) && (parkingSpots[i].getChildren().isEmpty() == false)) {// if there is no car but gui shows car
 				parkingSpots[i].getChildren().clear();
+				parkingSpots[i].clearTooltip();
 			}else if ((Cars[i] != null) && (parkingSpots[i].getChildren().isEmpty() == true)) {// if there is car but gui says no car
 				SmartRectangle rect = new SmartRectangle();//put car in gui
-				rect.setStroke(Color.BLACK);
+				rect.setStroke(Cars[i].getColor());
+				rect.setFill(Cars[i].getColor());
 				rect.widthProperty().bind(parkingSpots[i].widthProperty().subtract(10));
 				rect.heightProperty().bind(parkingSpots[51].heightProperty().subtract(8));
 				parkingSpots[i].getChildren().add(rect);
+				parkingSpots[i].setTooltip(Cars[i].getModel());
 			}
 		}
 		
