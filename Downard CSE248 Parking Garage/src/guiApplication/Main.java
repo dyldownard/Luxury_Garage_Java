@@ -1,5 +1,6 @@
 package guiApplication;
 
+import basePackage.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -16,39 +17,41 @@ public class Main extends Application {
 	
 	BorderPane bpane;
 	MenuPane mpane;
-	TabPane tpane;
-	
+	TabPanes tpane;
+	ParkingGarage CarPark;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
+		CarPark = new ParkingGarage();
+		
 		bpane = new BorderPane();
 		mpane = new MenuPane();
-		tpane = new TabPane();
-		Tab tab = new Tab();
-		 tab.setText("new tab");
-		Tab tab2 = new Tab();
-		 tab2.setText("lol");
-		 tab.setContent(new Rectangle(200,200, Color.LIGHTSTEELBLUE));
-		 tab2.setContent(new Rectangle(200,200, Color.BEIGE));
-		 tpane.getTabs().addAll(tab,tab2);
+		tpane = new TabPanes(CarPark);
 		bpane.setTop(mpane.getBar());
-		bpane.setCenter(tpane);
+		bpane.setCenter(tpane.getTabPane());
 		
 		
-		Scene scene = new Scene(bpane, 500, 500);
+		openSetup();
+		
+		
+		
+		
+		Scene scene = new Scene(bpane, 700, 500);
 		primaryStage.setTitle("Parking Lot CSE248");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 
 	
+	public void openSetup() {
+		//TODO opens up most recent file, into view
+	}
 	
 	
 	
-	
-	public void updateTabs() {		//updates tabs of all floors 
-		
+	public void updateTabs() {		
+		//TODO updates tabs of all floors 
 	}
 	
 	
