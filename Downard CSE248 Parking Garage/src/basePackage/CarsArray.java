@@ -1,5 +1,7 @@
 package basePackage;
 
+import carsPackage.*;
+
 public class CarsArray {
 
 	private Car[] aR;
@@ -35,6 +37,10 @@ public class CarsArray {
 			return "Car Parked.";
 		}
 		return "Car could not be parked. Error at CarArray.";
+	}
+	
+	public Car[] getAr() {
+		return aR;
 	}
 	
 	@Override

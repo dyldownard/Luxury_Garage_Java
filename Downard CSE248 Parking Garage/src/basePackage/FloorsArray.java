@@ -1,5 +1,7 @@
 package basePackage;
 
+import carsPackage.Car;
+
 public class FloorsArray {
 
 	private Floor[] aR;
@@ -26,7 +28,7 @@ public class FloorsArray {
 	
 	//--------------------------------------------------------		
 	
-	public Floor[] getFloorsArray() {
+	public Floor[] getAr() {
 		return aR;
 	}
 	

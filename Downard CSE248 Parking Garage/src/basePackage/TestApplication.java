@@ -1,5 +1,7 @@
 package basePackage;
 
+import carsPackage.Car;
+import carsPackage.Sedan;
 import ticketsPackage.*;
 
 public class TestApplication {

@@ -1,10 +1,13 @@
 package basePackage;
 
+import carsPackage.*;
+
 public class Floor {
 
 	private int floorNum;
 	private CarsArray floorCarsAr;
 	
+	protected int amountTotalSpaces;
 	protected int amountCars;
 	protected int amountSpaces;
 	
@@ -13,7 +16,7 @@ public class Floor {
 	public Floor(int spaces, int floorNum) {
 		this.floorNum = floorNum;
 		floorCarsAr = new CarsArray(spaces);
-		
+		amountTotalSpaces = spaces;
 		amountSpaces = spaces;
 		amountCars = 0;
 	}
@@ -34,6 +37,9 @@ public class Floor {
 	}
 	public int getAmountCars() {
 		return amountCars;
+	}
+	public int getAmountTotalSpaces() {
+		return amountTotalSpaces;
 	}
 	public int getAmountSpaces() {
 		return amountSpaces;

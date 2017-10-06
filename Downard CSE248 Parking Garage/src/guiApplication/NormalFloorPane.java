@@ -1,19 +1,16 @@
 package guiApplication;
 
 import basePackage.*;
+import carsPackage.Car;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
+
 
 public class NormalFloorPane implements GUIFloor {	
 
@@ -34,16 +31,16 @@ public class NormalFloorPane implements GUIFloor {
 		this.floorNumber = floor;
 		int nElms = 0;
 		
-		int spaces = 167;
+		int spaces = CarPark.getFloorsArray().getAr()[floor].getAmountTotalSpaces();
 		
 		int calcspaces;
 		
 		parkingSpots = new StackPane[spaces];
 		if (spaces >= 100) {
-			calcspaces = ((spaces + 15)/30)*30;
-			rows = 30;
+			calcspaces = ((spaces + 12)/25)*25;
+			rows = 25;
 			if (calcspaces < spaces) { 
-				calcspaces += 30;
+				calcspaces += 25;
 			}
 		}else {
 			calcspaces = ((spaces + 5)/10)*10;
@@ -53,9 +50,6 @@ public class NormalFloorPane implements GUIFloor {
 			}
 		}
 		
-		
-		
-		System.out.println(calcspaces);
 		
 		columns = calcspaces/rows;
 		int extraColumns = 1;
@@ -78,17 +72,13 @@ public class NormalFloorPane implements GUIFloor {
 						gpane.add(pane, i, z);
 						parkingSpots[nElms++] = pane;
 						GridPane.setHalignment(pane, HPos.CENTER);
+						pane.setAlignment(Pos.CENTER);
 					}
 				}
 			}
 			
 		}
-		SmartRectangle rect = new SmartRectangle();
-		rect.setStroke(Color.AQUA);
-		rect.widthProperty().bind(parkingSpots[51].widthProperty().subtract(3));
-		rect.heightProperty().bind(parkingSpots[51].heightProperty().subtract(3));
-		parkingSpots[51].getChildren().add(rect);
-		parkingSpots[51].setAlignment(Pos.CENTER);
+
 		
 		ColumnConstraints column = new ColumnConstraints();
 		RowConstraints row = new RowConstraints();
@@ -110,7 +100,22 @@ public class NormalFloorPane implements GUIFloor {
 	
 	@Override
 	public void updateGrid() {
-		int amountCars = CarPark.
+		Floor floor = CarPark.getFloorsArray().getAr()[floorNumber];
+		Car[] Cars = floor.getCarsAr().getAr();
+		System.out.println(floor.getCarsAr());
+		for (int i = 0; i < floor.getAmountTotalSpaces(); i++) {
+			if ((Cars[i] == null) && (parkingSpots[i].getChildren().isEmpty() == false)) {// if there is no car but gui shows car
+				parkingSpots[i].getChildren().clear();
+			}else if ((Cars[i] != null) && (parkingSpots[i].getChildren().isEmpty() == true)) {// if there is car but gui says no car
+				SmartRectangle rect = new SmartRectangle();//put car in gui
+				rect.setStroke(Color.BLACK);
+				rect.widthProperty().bind(parkingSpots[i].widthProperty().subtract(10));
+				rect.heightProperty().bind(parkingSpots[51].heightProperty().subtract(8));
+				parkingSpots[i].getChildren().add(rect);
+			}
+		}
+		
+		
 	}
 	
 	public GridPane getGridPane() {

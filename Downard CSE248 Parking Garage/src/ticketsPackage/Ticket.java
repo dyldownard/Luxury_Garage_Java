@@ -1,6 +1,7 @@
 package ticketsPackage;
 
 import basePackage.*;
+import carsPackage.Car;
 
 public interface Ticket {
 

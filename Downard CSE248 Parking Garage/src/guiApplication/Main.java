@@ -1,13 +1,10 @@
 package guiApplication;
 
 import basePackage.*;
+import carsPackage.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -31,13 +28,19 @@ public class Main extends Application {
 		bpane.setTop(mpane.getBar());
 		bpane.setCenter(tpane.getTabPane());
 		
+		for (int i = 0; i < 143; i++) {
+			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", 1);
+			CarPark.parkValet(sed);
+		}
+		tpane.updateGrid();
+		
 		
 		openSetup();
 		
 		
 		
 		
-		Scene scene = new Scene(bpane, 700, 500);
+		Scene scene = new Scene(bpane, 700, 700);
 		primaryStage.setTitle("Parking Lot CSE248");
 		primaryStage.setScene(scene);
 		primaryStage.show();

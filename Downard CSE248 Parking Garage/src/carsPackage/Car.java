@@ -1,4 +1,4 @@
-package basePackage;
+package carsPackage;
 
 import ticketsPackage.*;
 

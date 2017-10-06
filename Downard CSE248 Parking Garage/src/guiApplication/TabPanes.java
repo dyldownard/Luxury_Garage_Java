@@ -18,7 +18,7 @@ public class TabPanes {
 		floorGUIAr = new GUIFloor[floors];
 		for (int i = 0; i < floors; i++) {
 			//TODO create Floors
-			if (CarPark.getFloorsArray().getFloorsArray()[i] instanceof /*Normal*/Floor) {
+			if (CarPark.getFloorsArray().getAr()[i] instanceof /*Normal*/Floor) {
 				tabAr[i] = new Tab("Floor " + (i + 1));
 				NormalFloorPane newFloor = new NormalFloorPane(CarPark, i);
 				floorGUIAr[i] = newFloor;
@@ -32,7 +32,7 @@ public class TabPanes {
 		
 	}
 	
-	public void updateGrid(int space) {
+	public void updateGrid() {
 		for (int i = 0; i < floorGUIAr.length; i++) {
 			floorGUIAr[i].updateGrid();
 		}

@@ -1,5 +1,6 @@
 package basePackage;
 
+import carsPackage.Car;
 import ticketsPackage.Ticket;
 
 public class TicketArray {

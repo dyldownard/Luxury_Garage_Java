@@ -1,5 +1,7 @@
 package basePackage;
 
+import carsPackage.Car;
+
 public class ParkingGarage {
 
 	final public static double BASE_RATE = 1.0; // base payment scale, multiplicitive (per hour)
