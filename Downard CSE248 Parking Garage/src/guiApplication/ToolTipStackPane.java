@@ -1,17 +1,23 @@
 package guiApplication;
 
+import carsPackage.Car;
+
+import java.util.Arrays;
+
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 
 public class ToolTipStackPane extends StackPane {
 
 	private Tooltip myTooltip;
 	private SmartRectangle car;
+	private Label myLabel;
 	
 	private int spotNum;
 	private int floorNum;
 	
+	private String[] allowedTypes;
 	
 	public ToolTipStackPane() {
 		super();
@@ -35,6 +41,9 @@ public class ToolTipStackPane extends StackPane {
 		return this.car!=null;
 	}
 	
+	public boolean isAllowed(Car myCar) {
+		return Arrays.asList(allowedTypes).contains(myCar.getSpaceType());
+	}
 	
 	public void clearTooltip() {
 		Tooltip.uninstall(this, this.myTooltip);
@@ -55,6 +64,18 @@ public class ToolTipStackPane extends StackPane {
 	}
 	public void setFloorNum(int floorNum) {
 		this.floorNum = floorNum;
+	}
+	public String[] getAllowedTypes() {
+		return allowedTypes;
+	}
+	public void setAllowedTypes(String[] allowedTypes) {
+		this.allowedTypes = allowedTypes;
+	}
+	public Label getLabel() {
+		return this.myLabel;
+	}
+	public void setLabel(Label myLabel) {
+		this.myLabel = myLabel;
 	}
 	
 }

@@ -23,6 +23,7 @@ public class NormalFloorPane implements GUIFloor {
 	private ToolTipStackPane[] parkingSpots;
 	private ParkingGarage CarPark;
 	
+	private String[] allowedTypes = {"Sedan","Pickup Truck", "Van", "Motorcylce","Handicapped"};
 	
 	public NormalFloorPane(ParkingGarage CarPark, int floor) {
 		gpane = new GridPane();
@@ -37,10 +38,10 @@ public class NormalFloorPane implements GUIFloor {
 		
 		parkingSpots = new ToolTipStackPane[spaces];
 		if (spaces >= 100) {
-			calcspaces = ((spaces + 12)/25)*25;
-			rows = 25;
+			calcspaces = ((spaces + 10)/20)*20;
+			rows = 20;
 			if (calcspaces < spaces) { 
-				calcspaces += 25;
+				calcspaces += 20;
 			}
 		}else {
 			calcspaces = ((spaces + 5)/10)*10;
@@ -70,8 +71,10 @@ public class NormalFloorPane implements GUIFloor {
 							pane.setStyle("-fx-border-style: solid solid solid none");
 						}
 						gpane.add(pane, i, z);
+						pane.setAllowedTypes(allowedTypes);	// all spots in this lot are the same;
 						parkingSpots[nElms++] = pane;
 						label.setText(nElms + "");
+						pane.setLabel(label);
 						pane.getChildren().add(label);
 						pane.setSpotNum(nElms);
 						pane.setFloorNum(this.floorNumber);
@@ -111,7 +114,9 @@ public class NormalFloorPane implements GUIFloor {
 			if ((Cars[i] == null) && (parkingSpots[i].hasCar() == true)) {// if there is no car but gui shows car
 				parkingSpots[i].getChildren().clear();
 				parkingSpots[i].clearTooltip();
-				Label label = new Label(i + "");
+				parkingSpots[i].setCar(null);
+				Label label = new Label((i + 1) + "");
+				parkingSpots[i].setLabel(label);
 				parkingSpots[i].getChildren().add(label);
 			}else if ((Cars[i] != null) && (parkingSpots[i].hasCar() == false)) {// if there is car but gui says no car
 				parkingSpots[i].getChildren().clear();
@@ -119,16 +124,23 @@ public class NormalFloorPane implements GUIFloor {
 				rect.setStroke(Cars[i].getColor());
 				rect.setFill(Cars[i].getColor());
 				rect.widthProperty().bind(parkingSpots[i].widthProperty().subtract(10));
-				rect.heightProperty().bind(parkingSpots[51].heightProperty().subtract(8));
-				Label label = new Label(i + "");
+				rect.heightProperty().bind(parkingSpots[i].heightProperty().subtract(8));
+				Label label = new Label((i + 1) + "");
 				label.setStyle("-fx-background-color: black");
 				label.setTextFill(Color.WHITE);
+				parkingSpots[i].setLabel(label);
 				parkingSpots[i].getChildren().addAll(rect, label);
 				parkingSpots[i].setTooltip(Cars[i].getModel());
+				parkingSpots[i].setCar(rect);
 			}
 		}
 		
 		
+	}
+	
+	
+	public String[] getAllowedTypes() {
+		return this.allowedTypes;
 	}
 	
 	@Override
@@ -139,5 +151,10 @@ public class NormalFloorPane implements GUIFloor {
 	public GridPane getGridPane() {
 		return this.gpane;
 		
+	}
+
+	@Override
+	public int getFloorNum() {
+		return this.floorNumber;
 	}
 }

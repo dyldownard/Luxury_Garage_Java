@@ -8,12 +8,14 @@ public class ParkingGarage {
 	final public static int AMOUNT_FLOORS = 3;			// Amount of Floors to be configured
 	final public static int AMOUNT_TOTAL_SPACES = 300;	// Total spaces on lot
 	
+	final public static String[] CAR_TYPES = {"WorkTruck", "PickupTruck","Van","Sedan", "Motorcycle", "Bus", "Handicap"};
+	final public static String[] TICKET_TYPES = {"HourlyRate", "MinutelyRate", "MonthlyRate"};
+	
+	
 	// Objects
 	protected static CarsArray cArray;
 	private FloorsArray fArray;
 	private TicketArray tArray;
-	private Car currentCar;
-	private Floor currentFloor;
 	
 	// ints for numbers of stuff. Equation: (100*amountFloors) = amountCars + amountSpaces
 	

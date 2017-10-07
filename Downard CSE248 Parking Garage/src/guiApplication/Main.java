@@ -5,19 +5,17 @@ import carsPackage.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 	
-	
-	
-	
+	Stage tempStage;
 	BorderPane bpane;
 	MenuPane mpane;
 	TabPanes tpane;
+	ParkCarPane parkPane;
+	
 	ParkingGarage CarPark;
 	
 	int amountTabs;
@@ -36,7 +34,7 @@ public class Main extends Application {
 		bpane.setTop(mpane.getBar());
 		bpane.setCenter(tpane.getTabPane());
 		
-		for (int i = 0; i < 143; i++) {
+		for (int i = 0; i < 35; i++) {
 			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
 			CarPark.parkValet(sed);
 		}
@@ -66,6 +64,9 @@ public class Main extends Application {
 	
 	public void setEventMethods() {
 		setCarClicked();
+		setHovered();
+		setUnhovered();
+		setParkGo();
 	}
 	
 	private void setCarClicked() {
@@ -74,30 +75,59 @@ public class Main extends Application {
 				final ToolTipStackPane actionStack = tpane.getFloors()[i].getStackPanes()[j];
 				
 				actionStack.setOnMouseClicked(e -> {
-					GridPane temppane = new GridPane();
-					Scene tempScene = new Scene(temppane, 500, 500);
-					Stage tempStage = new Stage();
-					tempStage.setTitle("Test");
-					tempStage.setScene(tempScene);
-					tempStage.show();
+					if (actionStack.hasCar() == false) {
+						parkPane = new ParkCarPane(actionStack.getSpotNum(), tpane.getFloors()[actionStack.getFloorNum()]);
+						Scene tempScene = new Scene(parkPane.getGridPane(), 500, 500);
+						tempStage = new Stage();
+						
+						tempStage.setTitle("Test");
+						tempStage.setScene(tempScene);
+						parkPane.getDatePicker().requestFocus();
+						tempStage.showAndWait();
+					}else {
+						
+					}
 				});
 			}
 		}
 	}
 	
-//	private void setPark() {
-//		mpane.getAbout().setOnAction(e -> { 
-//			Scene aboutTemp = new Scene(aboutPane, 400, 550);
-//			
-//			Stage aboutStage = new Stage();
-//			aboutStage.setTitle("About");
-//			aboutStage.setScene(aboutTemp);
-//			aboutStage.show();
-//		});
-//	}
+
 	
 	
+	private void setParkGo() {
+		parkPane.getPark().setOnMouseClicked(e -> {
+			//TODO finish parking idiot
+			updateTabs();
+			tempStage.close();
+		});
+	}
+
 	
+	private void setHovered() {
+		for(int i = 0; i < tpane.getFloors().length; i++) {
+			for(int j = 0; j < tpane.getFloors()[i].getStackPanes().length; j++) {
+				final ToolTipStackPane actionStack = tpane.getFloors()[i].getStackPanes()[j];
+				actionStack.setOnMouseEntered(e -> {
+					actionStack.getLabel().setTextFill(Color.RED);
+				});
+			}
+		}
+	}
+	private void setUnhovered() {
+		for(int i = 0; i < tpane.getFloors().length; i++) {
+			for(int j = 0; j < tpane.getFloors()[i].getStackPanes().length; j++) {
+				final ToolTipStackPane actionStack = tpane.getFloors()[i].getStackPanes()[j];
+				actionStack.setOnMouseExited(e -> {
+					if (actionStack.hasCar() == true) {
+						actionStack.getLabel().setTextFill(Color.WHITE);
+					}else {
+						actionStack.getLabel().setTextFill(Color.BLACK);
+					}
+				});
+			}
+		}
+	}
 	
 	public static void main(String[] args) {
 		launch(args);
