@@ -17,27 +17,34 @@ public class CarsArray {
 	}
 	
 
-	public String parkCar(Car myCar, GUIFloor floor, Floor parent, int space) {
+	public String parkCar(Car myCar, GUIFloor floor, int space) {
 		aR[space] = myCar;
 		amountSpaces--;
 		amountCars++;
-		parent.CarParked();
 		floor.getGarage().CarParked();
+		floor.getGarage().getCarsArray().AddCarLot(myCar);
 		floor.getGarage().getTicketsArray().addTicket(myCar.getTicket());
 		return "Car Parked.";
 	}
 	
-	public String parkValet(Car myCar, Floor floor) {
+	public String parkValet(Car myCar, ParkingGarage park) {
 		// TODO assign to cartype and floortype
-		if (amountSpaces!=0 & amountCars!=100) {
-			aR[amountCars] = myCar;
-			amountSpaces--;
-			amountCars++;
-			floor.CarParked();
-			ParkingGarage.CarParked();
-			return "Car Parked.";
-		}
-		return "Car could not be parked. Error at CarArray.";
+		aR[amountCars] = myCar;
+		amountSpaces--;
+		amountCars++;
+		park.CarParked();
+		park.getCarsArray().AddCarLot(myCar);
+		return "Car Parked.";
+	}
+	
+	public boolean isFull() {
+		return amountSpaces == 0;
+	}
+	
+	public void AddCarLot(Car myCar) {
+		aR[amountCars] = myCar;
+		amountSpaces--;
+		amountCars++;
 	}
 	
 	public Car[] getAr() {

@@ -141,19 +141,19 @@ public class ParkCarPane {
 		ColorBox.setPromptText("ColorBox");
 		
 		TicketType.getItems().addAll(
-			ParkingGarage.TICKET_TYPES
+			floor.getGarage().TICKET_TYPES
 		);		
 		TicketType.setPromptText("Ticket Type");
 		
 		if (spot > 0) {
-			parktype= new Label("Attempting to Park Car in spot " + spot + " on floor " + (floor.getFloorNum() + 1));
+			parktype= new Label("Attempting to Park Car in spot " + pane.getSpotName() + " on floor " + (floor.getFloorNum() + 1));
 			parktype.setFont(Font.font("Calibri",20));
 			CarType.getItems().addAll(
 				floor.getStackPanes()[spot - 1].getAllowedTypes()
 			);
 		}else {
 			CarType.getItems().addAll(
-				ParkingGarage.CAR_TYPES
+				floor.getGarage().CAR_TYPES
 			);
 		}
 		CarType.setPromptText("Car Type");
@@ -249,7 +249,7 @@ public class ParkCarPane {
 					
 					
 				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
-					System.out.println("one of the 20 different exceptions triggered. good job.");
+					System.out.println("cannot be triggered by user error, only programmer's error via Car/Tickets set up wrong.");
 					e1.printStackTrace();
 				}
 				mainGUI.updateTabs();

@@ -1,5 +1,7 @@
 package basePackage;
 
+import java.util.Arrays;
+
 import carsPackage.Car;
 import guiApplication.GUIFloor;
 import guiApplication.ToolTipStackPane;
@@ -27,13 +29,13 @@ public class FloorsArray {
 	}
 	
 	
-	public String parkValet(Car myCar) {
+	public String parkValet(Car myCar, ParkingGarage park) {
 		for (int i = 0; i < aR.length; i++) {
-			if (aR[i].isFull() != true) {
-				return aR[i].parkValet(myCar);
+			if (aR[i].isFull(myCar.getSpaceType()) == false && Arrays.asList(aR[i].getTypesAllowed()).contains(myCar.getSpaceType())) {
+				return aR[i].parkValet(myCar, park);
 			}
 		}
-		return "Cannot park car, no spots available. You don't get refund.";
+		return "Cannot park car, no spots available.";
 	}
 	
 	//--------------------------------------------------------		

@@ -53,7 +53,7 @@ public class NormalFloorPane implements GUIFloor {
 		
 		
 		columns = calcspaces/rows;
-		int extraColumns = 1;
+		int extraColumns = 1;		// needs extra column on end
 		extraColumns += (columns-1)/2;
 		columns += extraColumns;
 		
@@ -75,8 +75,10 @@ public class NormalFloorPane implements GUIFloor {
 						parkingSpots[nElms++] = pane;
 						label.setText(nElms + "");
 						pane.setLabel(label);
+						pane.setActualType("Normal");
 						pane.getChildren().add(label);
 						pane.setSpotNum(nElms);
+						pane.setSpotName(nElms + "");
 						pane.setFloorNum(this.floorNumber);
 						GridPane.setHalignment(pane, HPos.CENTER);
 						pane.setAlignment(Pos.CENTER);
@@ -109,7 +111,7 @@ public class NormalFloorPane implements GUIFloor {
 	public void updateGrid() {
 		Floor floor = CarPark.getFloorsArray().getAr()[floorNumber];
 		Car[] Cars = floor.getCarsAr().getAr();
-		System.out.println(floor.getCarsAr());
+		System.out.println(floor.getCarsAr());						//remove
 		for (int i = 0; i < floor.getAmountTotalSpaces(); i++) {
 			if ((Cars[i] == null) && (parkingSpots[i].hasCar() == true)) {// if there is no car but gui shows car
 				parkingSpots[i].getChildren().clear();
@@ -136,11 +138,6 @@ public class NormalFloorPane implements GUIFloor {
 		}
 		
 		
-	}
-	
-	
-	public String[] getAllowedTypes() {
-		return this.allowedTypes;
 	}
 	
 	@Override

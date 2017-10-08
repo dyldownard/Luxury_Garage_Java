@@ -24,12 +24,12 @@ public class TabPanes {
 				floorGUIAr[i] = newFloor;
 				tabAr[i].setContent(newFloor.getGridPane());
 				tabAr[i].setClosable(false);
-//			}else if (CarPark.getFloorsArray().getAr()[i] instanceof GroundFloor) {
-//				tabAr[i] = new Tab("Ground Floor " + (i + 1));
-//				GroundFloorPane newFloor = new GroundFloorPane(CarPark, i);
-//				floorGUIAr[i] = newFloor;
-//				tabAr[i].setContent(newFloor.getGridPane());
-//				tabAr[i].setClosable(false);
+			}else if (CarPark.getFloorsArray().getAr()[i] instanceof GroundFloor) {
+				tabAr[i] = new Tab("Ground Floor " + (i + 1));
+				GroundFloorPane newFloor = new GroundFloorPane(CarPark, i);
+				floorGUIAr[i] = newFloor;
+				tabAr[i].setContent(newFloor.getGridPane());
+				tabAr[i].setClosable(false);
 			}
 			tpane.getTabs().add(tabAr[i]);
 		}
@@ -44,6 +44,9 @@ public class TabPanes {
 		}
 	}
 	
+	public int getAmountTabs() {
+		return tabAr.length;
+	}
 	
 	public GUIFloor[] getFloors() {
 		return floorGUIAr;

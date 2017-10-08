@@ -9,6 +9,8 @@ public class NormalFloor implements Floor {
 	private int floorNum;
 	private CarsArray floorCarsAr;
 	
+	private String[] AllowedTypes = {"Normal", "Handicapped", "Motorcycle"};
+	
 	protected int amountTotalSpaces;
 	protected int amountCars;
 	protected int amountSpaces;
@@ -26,11 +28,14 @@ public class NormalFloor implements Floor {
 	//--------------------------------------------------------	
 	@Override
 	public String parkCar(Car myCar, GUIFloor floor, int spot, ToolTipStackPane pane) {
-		return floorCarsAr.parkCar(myCar, floor, this, spot);
+		CarParked();
+		return floorCarsAr.parkCar(myCar, floor, spot);
 	}
+	
 	@Override
-	public String parkValet(Car myCar) {
-		return floorCarsAr.parkValet(myCar, this);
+	public String parkValet(Car myCar, ParkingGarage park) {
+		CarParked();
+		return floorCarsAr.parkValet(myCar, park);
 	}
 	
 	//--------------------------------------------------------		
@@ -56,7 +61,7 @@ public class NormalFloor implements Floor {
 		return amountSpaces;
 	}
 	@Override
-	public boolean isFull() {
+	public boolean isFull(String type) {
 		return (amountSpaces == 0);
 	}
 	@Override
@@ -79,6 +84,41 @@ public class NormalFloor implements Floor {
 
 	@Override
 	public void HandiParked() {
+	}
+
+	@Override
+	public String[] getTypesAllowed() {
+		return this.AllowedTypes;
+	}
+
+	@Override
+	public int getBusAmount() {
+		return 0;
+	}
+
+	@Override
+	public int getHandiAmount() {
+		return 0;
+	}
+
+	@Override
+	public int getMotoAmount() {
+		return 0;
+	}
+
+	@Override
+	public CarsArray getMotoAr() {
+		return null;
+	}
+
+	@Override
+	public CarsArray getHandiAr() {
+		return null;
+	}
+
+	@Override
+	public CarsArray getBusAr() {
+		return null;
 	}
 	
 }

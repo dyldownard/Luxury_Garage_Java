@@ -15,10 +15,12 @@ public class ToolTipStackPane extends StackPane {
 	private Label myLabel;
 	
 	private int spotNum;
+	private int specialSpotNum;
 	private int floorNum;
 	
 	private String[] allowedTypes;
 	private String actualType;
+	private String spotName;
 	
 	public ToolTipStackPane() {
 		super();
@@ -83,5 +85,17 @@ public class ToolTipStackPane extends StackPane {
 	}
 	public String getActualType() {
 		return this.actualType;
+	}
+	public void setSpotName(String name) {
+		this.spotName = name;
+	}
+	public String getSpotName() {
+		return this.spotName;
+	}
+	public void setSpecialSpot(int spot) {
+		this.specialSpotNum = spot;
+	}
+	public int getSpecialSpot() {
+		return this.specialSpotNum;
 	}
 }

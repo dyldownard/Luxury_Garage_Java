@@ -7,59 +7,71 @@ import ticketsPackage.Ticket;
 
 public class ParkingGarage {
 
-	final public static double BASE_RATE = 1.0; // base payment scale, multiplicitive (per hour)
-	final public static String[] FLOORS = {"NormalFloor", "NormalFloor", "NormalFloor"};
-	public static int AMOUNT_TOTAL_SPACES = 300;	// Total NORMAL (non-motorcycle or bus or handicap) spaces on lot
+	final public double BASE_RATE = 1.0; // base payment scale, multiplicitive (per hour)
+	final public String[] FLOORS = {"GroundFloor", "NormalFloor", "NormalFloor"};
+	public int AMOUNT_TOTAL_SPACES = 300;	// Total NORMAL (non-motorcycle or bus or handicap) spaces on lot
 	
-	final public static String[] CAR_TYPES = {"WorkTruck", "PickupTruck","Van","Sedan", "Motorcycle", "Bus", "Handicap"};
-	final public static String[] TICKET_TYPES = {"HourlyRate", "MinutelyRate", "MonthlyRate"};
+	final public String[] CAR_TYPES = {"WorkTruck", "PickupTruck","Van","Sedan", "Motorcycle", "Bus", "Handicap"};
+	final public String[] TICKET_TYPES = {"HourlyRate", "MinutelyRate", "MonthlyRate"};
 	
 	
 	
 	// Objects
-	protected static CarsArray cArray;
+	private CarsArray cArray;
 	private FloorsArray fArray;
 	private TicketArray tArray;
 	
 	// ints for numbers of stuff. Equation: (100*amountFloors) = amountCars + amountSpaces
 	
-	protected static int TOTAL_amountCars;						// Amount of cars currently parked 
-	protected static int TOTAL_amountEmptySpaces;				// Amount of empty spaces on lot
+	protected int TOTAL_amountCars;						// Amount of cars currently parked 
+	protected int TOTAL_amountEmptySpaces;				// Amount of empty spaces on lot
 	
 	
 	public ParkingGarage() {
 		TOTAL_amountEmptySpaces = AMOUNT_TOTAL_SPACES;
-		cArray = new CarsArray(AMOUNT_TOTAL_SPACES);
 		fArray = new FloorsArray(FLOORS, AMOUNT_TOTAL_SPACES, this);
+		cArray = new CarsArray(AMOUNT_TOTAL_SPACES);
 		tArray = new TicketArray(AMOUNT_TOTAL_SPACES);
 	}
 	
 	public String parkCar(Car myCar, Ticket realTick, GUIFloor floor, int spotnum, ToolTipStackPane pane) {
-		myCar.setTicket(realTick);
-		return fArray.parkCar(myCar, floor, spotnum, pane);
+		if (isTrulyFull() == false) {
+			myCar.setTicket(realTick);
+			return fArray.parkCar(myCar, floor, spotnum, pane);
+		}
+		return "Lot is full.";
 	}
 	
 	
-	//TODO when attempting to park handicap / motor, TRY to park via handi/motor first( if handi cap for i handi, for i normal)
+	public void pickUp() {
+		
+	}
+	
+	
+	
 	public String parkValet(Car myCar, Ticket realTick) {
 		myCar.setTicket(realTick);
-		if (myCar.getSpaceType().equals("Normal") || myCar.getSpaceType().equals("Handicapped")) {
-			return fArray.parkValet(myCar);
-		}
-		return "Vehicle not permitted for Valet becuase we're underpaid college students";
+		return fArray.parkValet(myCar, this);
 	}
 	
-	public static void CarParked() {
+	public void CarParked() {
 		TOTAL_amountCars++;
-		cArray.amountCars++;
 		TOTAL_amountEmptySpaces--;
-		cArray.amountSpaces--;
+	}
+	
+	
+	// go through each floor and check if all lots are full
+	public boolean isTrulyFull() {
+		return false;	
 	}
 	
 	public FloorsArray getFloorsArray() {
 		return fArray;
 	}
 	
+	public CarsArray getCarsArray() {
+		return cArray;
+	}
 	public TicketArray getTicketsArray() {
 		return tArray;
 	}

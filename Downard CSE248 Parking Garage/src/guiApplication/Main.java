@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import ticketsPackage.*;
 
 public class Main extends Application {
 	
@@ -17,6 +18,8 @@ public class Main extends Application {
 	ParkCarPane parkPane;
 	
 	ParkingGarage CarPark;
+	
+	boolean inAction;
 	
 	int amountTabs;
 	
@@ -29,15 +32,17 @@ public class Main extends Application {
 		CarPark = new ParkingGarage();
 		
 		bpane = new BorderPane();
-		mpane = new MenuPane();
 		tpane = new TabPanes(CarPark);
+		mpane = new MenuPane();
 		bpane.setTop(mpane.getBar());
 		bpane.setCenter(tpane.getTabPane());
 		
-//		for (int i = 0; i < 35; i++) {
-//			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
-//			CarPark.parkValet(sed);
-//		}
+		
+		for (int i = 0; i < 301; i++) {
+			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
+			Ticket tick = new HourlyRate("Ted", "Bundy", new QuickDate());
+			CarPark.parkValet(sed, tick);
+		}
 		updateTabs();
 		
 		setEventMethods();
@@ -63,6 +68,7 @@ public class Main extends Application {
 	}
 	
 	public void setEventMethods() {
+		inAction = false;
 		setCarClicked();
 		setHovered();
 		setUnhovered();
@@ -72,18 +78,19 @@ public class Main extends Application {
 		for(int i = 0; i < tpane.getFloors().length; i++) {
 			for(int j = 0; j < tpane.getFloors()[i].getStackPanes().length; j++) {
 				final ToolTipStackPane actionStack = tpane.getFloors()[i].getStackPanes()[j];
-				
+			
 				actionStack.setOnMouseClicked(e -> {
-					if (actionStack.hasCar() == false) {
+					if (actionStack.hasCar() == false && inAction == false) {
 						parkPane = new ParkCarPane(actionStack.getSpotNum(), tpane.getFloors()[actionStack.getFloorNum()], actionStack);
 						parkPane.setMain(this);
 						Scene tempScene = new Scene(parkPane.getGridPane(), 500, 500);
 						tempStage = new Stage();
-						
+						inAction = true;
 						tempStage.setTitle("Test");
 						tempStage.setScene(tempScene);
 						parkPane.getDatePicker().requestFocus();
 						tempStage.showAndWait();
+						inAction = false;
 					}else {
 						
 					}
