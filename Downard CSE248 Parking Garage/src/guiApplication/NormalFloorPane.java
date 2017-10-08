@@ -152,7 +152,12 @@ public class NormalFloorPane implements GUIFloor {
 		return this.gpane;
 		
 	}
-
+	
+	@Override
+	public ParkingGarage getGarage() {
+		return this.CarPark;
+	}
+	
 	@Override
 	public int getFloorNum() {
 		return this.floorNumber;

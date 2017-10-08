@@ -68,4 +68,8 @@ public abstract class Car {
 		return spotnum;
 	}
 
+	@Override
+	public String toString() {
+		return "ye";
+	}
 }

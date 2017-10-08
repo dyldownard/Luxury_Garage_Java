@@ -1,6 +1,7 @@
 package basePackage;
 
 import carsPackage.Car;
+import ticketsPackage.Ticket;
 
 public class ParkingGarage {
 
@@ -37,7 +38,12 @@ public class ParkingGarage {
 	}
 	*/
 	
-	public String parkValet(Car myCar) {
+	public String parkCar(Car myCar, Ticket realTick) {
+		
+		return null;
+	}
+	
+	public String parkValet(Car myCar, Ticket realTick) {
 		if (myCar.getSpaceType().equals("Normal") || myCar.getSpaceType().equals("Handicapped")) {
 			return fArray.parkValet(myCar);
 		}

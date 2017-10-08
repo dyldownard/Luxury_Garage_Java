@@ -27,7 +27,7 @@ public class TimePicker {
 		
 		
 		SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,24);
-		SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,60,0,5);
+		SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,0,5);
 		
 		hourspinner.setValueFactory(valueFactorHour);
 		minutespinner.setValueFactory(valueFactorMinute);
@@ -47,7 +47,8 @@ public class TimePicker {
 		}
 		
 		hbox.getChildren().addAll(label, hourspinner,minutespinner, conversion);
-		setChanged();
+		setChangedH();
+		setChangedM();
 	}
 	
 	public TimePicker(int h, int m) {
@@ -84,14 +85,15 @@ public class TimePicker {
 		
 		
 		hbox.getChildren().addAll(label, hourspinner,minutespinner, conversion);
-		setChanged(h,m);
+		setChangedH(h,m);
+		setChangedM(h,m);
 	}
 	
 	
 	public HBox getHBox() {
 		return this.hbox;
 	}
-	private void setChanged() {
+	private void setChangedH() {
 		hourspinner.setOnMouseClicked(e -> {
 			if (hourspinner.getValue() > 12) {
 				if (minutespinner.getValue() == 0) {
@@ -108,19 +110,35 @@ public class TimePicker {
 			}
 		});
 	}
-	
-	private void setChanged(int h, int m) {
+	private void setChangedM() {
+		minutespinner.setOnMouseClicked(e -> {
+			if (hourspinner.getValue() > 12) {
+				if (minutespinner.getValue() == 0) {
+					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+				}else {
+					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+				}
+			}else {
+				if (minutespinner.getValue() == 0) {
+					conversion.setText(hourspinner.getValue() + ":00 AM");
+				}else {
+					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+				}
+			}
+		});
+	}
+	private void setChangedH(int h, int m) {
 		hourspinner.setOnMouseClicked(e -> {
 			if (hourspinner.getValue() > h) {
 				SpinnerValueFactory<Integer> valueFactorMinute;
 				if (m <= minutespinner.getValue()) {
-					valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,60,minutespinner.getValue(),5);
+					valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
 				}else {
-					valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,60,m,5);
+					valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,m,5);
 				}
 				minutespinner.setValueFactory(valueFactorMinute);
 			}else {
-				SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(m,60,m,5);
+				SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,m,5);
 				minutespinner.setValueFactory(valueFactorMinute);
 			}
 			if (hourspinner.getValue() > 12) {
@@ -137,5 +155,29 @@ public class TimePicker {
 				}
 			}
 		});
+	}
+	private void setChangedM(int h, int m) {
+		minutespinner.setOnMouseClicked(e -> {
+			if (hourspinner.getValue() > 12) {
+				if (minutespinner.getValue() == 0) {
+					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+				}else {
+					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+				}
+			}else {
+				if (minutespinner.getValue() == 0) {
+					conversion.setText(hourspinner.getValue() + ":00 AM");
+				}else {
+					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+				}
+			}
+		});
+	}
+	
+	public int getHour() {
+		return this.hourspinner.getValue();
+	}
+	public int getMin() {
+		return this.minutespinner.getValue();
 	}
 }

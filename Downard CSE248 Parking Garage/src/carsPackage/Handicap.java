@@ -2,7 +2,7 @@ package carsPackage;
 
 import javafx.scene.paint.Color;
 
-class Handicap extends Car {
+public class Handicap extends Car {
 	
 	private static double moneyMult = 0.99;
 	private static String spaceType = "Handicapped";	// i will go on the assumption that a bus cannot be considered "handicapped"

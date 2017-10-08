@@ -2,7 +2,7 @@ package carsPackage;
 
 import javafx.scene.paint.Color;
 
-class WorkTruck extends Car {
+public class WorkTruck extends Car {
 	
 	private static double moneyMult = 5.0;
 	private static String spaceType = "Large";

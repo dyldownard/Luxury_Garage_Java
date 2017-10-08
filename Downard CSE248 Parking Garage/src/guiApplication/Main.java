@@ -34,10 +34,10 @@ public class Main extends Application {
 		bpane.setTop(mpane.getBar());
 		bpane.setCenter(tpane.getTabPane());
 		
-		for (int i = 0; i < 35; i++) {
-			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
-			CarPark.parkValet(sed);
-		}
+//		for (int i = 0; i < 35; i++) {
+//			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
+//			CarPark.parkValet(sed);
+//		}
 		updateTabs();
 		
 		setEventMethods();
@@ -66,7 +66,6 @@ public class Main extends Application {
 		setCarClicked();
 		setHovered();
 		setUnhovered();
-		setParkGo();
 	}
 	
 	private void setCarClicked() {
@@ -77,6 +76,7 @@ public class Main extends Application {
 				actionStack.setOnMouseClicked(e -> {
 					if (actionStack.hasCar() == false) {
 						parkPane = new ParkCarPane(actionStack.getSpotNum(), tpane.getFloors()[actionStack.getFloorNum()]);
+						parkPane.setMain(this);
 						Scene tempScene = new Scene(parkPane.getGridPane(), 500, 500);
 						tempStage = new Stage();
 						
@@ -90,17 +90,6 @@ public class Main extends Application {
 				});
 			}
 		}
-	}
-	
-
-	
-	
-	private void setParkGo() {
-		parkPane.getPark().setOnMouseClicked(e -> {
-			//TODO finish parking idiot
-			updateTabs();
-			tempStage.close();
-		});
 	}
 
 	
