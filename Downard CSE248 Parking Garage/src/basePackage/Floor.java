@@ -1,56 +1,22 @@
 package basePackage;
 
 import carsPackage.*;
+import guiApplication.GUIFloor;
+import guiApplication.ToolTipStackPane;
 
-public class Floor {
+public interface Floor {
 
-	private int floorNum;
-	private CarsArray floorCarsAr;
+	public String parkValet(Car myCar);
+	public String parkCar(Car myCar, GUIFloor floor, int spot, ToolTipStackPane pane);
+	public int getFloorNum();
+	public CarsArray getCarsAr();
+	public int getAmountCars();
+	public int getAmountTotalSpaces();
+	public int getAmountSpaces();
+	public boolean isFull();
+	public void CarParked();
+	public void MotoParked();
+	public void BusParked();
+	public void HandiParked();
 	
-	protected int amountTotalSpaces;
-	protected int amountCars;
-	protected int amountSpaces;
-	
-	//--------------------------------------------------------	
-	
-	public Floor(int spaces, int floorNum) {
-		this.floorNum = floorNum;
-		floorCarsAr = new CarsArray(spaces);
-		amountTotalSpaces = spaces;
-		amountSpaces = spaces;
-		amountCars = 0;
-	}
-
-	//--------------------------------------------------------	
-	
-	public String parkValet(Car myCar) {
-		return floorCarsAr.parkValet(myCar, this);
-	}
-	
-	//--------------------------------------------------------		
-	
-	public int getFloorNum() {
-		return floorNum;
-	}
-	public CarsArray getCarsAr() {
-		return floorCarsAr;
-	}
-	public int getAmountCars() {
-		return amountCars;
-	}
-	public int getAmountTotalSpaces() {
-		return amountTotalSpaces;
-	}
-	public int getAmountSpaces() {
-		return amountSpaces;
-	}
-	public boolean isFull() {
-		return (amountSpaces == 0);
-	}
-	
-	
-	@Override
-	public String toString() {
-		return " has " + amountCars + " cars with " + amountSpaces + " free spaces. \n		" + floorCarsAr;
-	}
 }

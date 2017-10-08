@@ -13,12 +13,9 @@ public class TicketArray {
 		aR = new Ticket[amount];
 	}
 	
-	
-	
-	
-	public Ticket createTicket(String name, String liscensePlate, int time, Car myCar) {
+	public Ticket addTicket(Ticket tick) {
 		if (isFull()!=false) {
-			//aR[nElms++] =  new DepTicket(name, liscensePlate, time);
+			aR[nElms++] =  tick;
 		}
 		return null;
 	}

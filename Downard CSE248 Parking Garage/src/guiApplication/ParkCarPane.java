@@ -48,11 +48,12 @@ public class ParkCarPane {
 	
 	private int spot;
 	private GUIFloor floor;
+	private ToolTipStackPane pane;
 	
-	
-	public ParkCarPane(int spot, GUIFloor floor) {
+	public ParkCarPane(int spot, GUIFloor floor, ToolTipStackPane pane) {
 		this.spot = spot;
 		this.floor = floor;
+		this.pane = pane;
 		
 		gpane = new GridPane();
 		parktypepane = new StackPane();
@@ -165,7 +166,7 @@ public class ParkCarPane {
 	public GridPane getGridPane() {
 		return this.gpane;
 	}
-	
+
 	public Button getPark() {
 		return this.Park;
 	}
@@ -242,7 +243,7 @@ public class ParkCarPane {
 					if (spot <= 0) {
 						System.out.println(floor.getGarage().parkValet((Car) realCar, (Ticket) realTick));
 					} else {
-						System.out.println(floor.getGarage().parkCar((Car) realCar, (Ticket) realTick));
+						System.out.println(floor.getGarage().parkCar((Car) realCar, (Ticket) realTick, floor, spot, pane));
 					}
 					
 					

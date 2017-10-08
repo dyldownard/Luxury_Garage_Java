@@ -75,7 +75,7 @@ public class Main extends Application {
 				
 				actionStack.setOnMouseClicked(e -> {
 					if (actionStack.hasCar() == false) {
-						parkPane = new ParkCarPane(actionStack.getSpotNum(), tpane.getFloors()[actionStack.getFloorNum()]);
+						parkPane = new ParkCarPane(actionStack.getSpotNum(), tpane.getFloors()[actionStack.getFloorNum()], actionStack);
 						parkPane.setMain(this);
 						Scene tempScene = new Scene(parkPane.getGridPane(), 500, 500);
 						tempStage = new Stage();

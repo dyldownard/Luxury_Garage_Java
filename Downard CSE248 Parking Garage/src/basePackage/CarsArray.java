@@ -1,6 +1,7 @@
 package basePackage;
 
 import carsPackage.*;
+import guiApplication.GUIFloor;
 
 public class CarsArray {
 
@@ -16,23 +17,23 @@ public class CarsArray {
 	}
 	
 
-	public boolean parkCarSpecific(Car myCar, int space) {
-		if (aR[space - 1] == null) {
-			aR[space] = myCar;
-			amountSpaces--;
-			amountCars++;
-			return true;
-		}
-		return false;
+	public String parkCar(Car myCar, GUIFloor floor, Floor parent, int space) {
+		aR[space] = myCar;
+		amountSpaces--;
+		amountCars++;
+		parent.CarParked();
+		floor.getGarage().CarParked();
+		floor.getGarage().getTicketsArray().addTicket(myCar.getTicket());
+		return "Car Parked.";
 	}
 	
 	public String parkValet(Car myCar, Floor floor) {
+		// TODO assign to cartype and floortype
 		if (amountSpaces!=0 & amountCars!=100) {
 			aR[amountCars] = myCar;
 			amountSpaces--;
-			floor.amountSpaces--;
 			amountCars++;
-			floor.amountCars++;
+			floor.CarParked();
 			ParkingGarage.CarParked();
 			return "Car Parked.";
 		}

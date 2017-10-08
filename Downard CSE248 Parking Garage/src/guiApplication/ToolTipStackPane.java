@@ -18,6 +18,7 @@ public class ToolTipStackPane extends StackPane {
 	private int floorNum;
 	
 	private String[] allowedTypes;
+	private String actualType;
 	
 	public ToolTipStackPane() {
 		super();
@@ -77,5 +78,10 @@ public class ToolTipStackPane extends StackPane {
 	public void setLabel(Label myLabel) {
 		this.myLabel = myLabel;
 	}
-	
+	public void setActualType(String type) {
+		this.actualType = type;
+	}
+	public String getActualType() {
+		return this.actualType;
+	}
 }
