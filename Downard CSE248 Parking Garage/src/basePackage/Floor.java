@@ -25,5 +25,6 @@ public interface Floor {
 	public void MotoParked();
 	public void BusParked();
 	public void HandiParked();
+	public void carPicked(Car myCar);
 	
 }

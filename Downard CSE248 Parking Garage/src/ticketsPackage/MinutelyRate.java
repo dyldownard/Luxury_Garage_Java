@@ -57,11 +57,6 @@ public class MinutelyRate implements Ticket{
 	}
 
 
-	public QuickDate getStartTime() {
-		return startTime;
-	}
-
-
 	public Car getMyCar() {
 		return myCar;
 	}
@@ -69,6 +64,18 @@ public class MinutelyRate implements Ticket{
 
 	@Override
 	public void setTicket(Ticket tick) {
+	}
+
+
+	@Override
+	public String getName() {
+		return this.customerName;
+	}
+
+
+	@Override
+	public QuickDate getDate() {
+		return this.startTime;
 	}
 
 	

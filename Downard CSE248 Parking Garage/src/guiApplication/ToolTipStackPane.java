@@ -3,7 +3,7 @@ package guiApplication;
 import carsPackage.Car;
 
 import java.util.Arrays;
-
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
@@ -13,7 +13,7 @@ public class ToolTipStackPane extends StackPane {
 	private Tooltip myTooltip;
 	private SmartRectangle car;
 	private Label myLabel;
-	
+	private Car realCar;
 	private int spotNum;
 	private int specialSpotNum;
 	private int floorNum;
@@ -21,6 +21,8 @@ public class ToolTipStackPane extends StackPane {
 	private String[] allowedTypes;
 	private String actualType;
 	private String spotName;
+	
+	private DatePicker localdate;
 	
 	public ToolTipStackPane() {
 		super();
@@ -93,9 +95,21 @@ public class ToolTipStackPane extends StackPane {
 		return this.spotName;
 	}
 	public void setSpecialSpot(int spot) {
-		this.specialSpotNum = spot;
+		this.specialSpotNum = (spot - 1);
 	}
 	public int getSpecialSpot() {
 		return this.specialSpotNum;
+	}
+	public void setRealCar(Car myCar) {
+		this.realCar = myCar;
+	}
+	public Car getRealCar() {
+		return realCar;
+	}
+	public DatePicker getLocaldate() {
+		return localdate;
+	}
+	public void setLocaldate(DatePicker localdate) {
+		this.localdate = localdate;
 	}
 }

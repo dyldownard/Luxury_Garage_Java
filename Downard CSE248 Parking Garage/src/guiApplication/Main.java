@@ -16,6 +16,7 @@ public class Main extends Application {
 	MenuPane mpane;
 	TabPanes tpane;
 	ParkCarPane parkPane;
+	PickupCarPane pickPane;
 	
 	ParkingGarage CarPark;
 	
@@ -38,13 +39,25 @@ public class Main extends Application {
 		bpane.setCenter(tpane.getTabPane());
 		
 		
-		for (int i = 0; i < 301; i++) {
-			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
-			Ticket tick = new HourlyRate("Ted", "Bundy", new QuickDate());
-			CarPark.parkValet(sed, tick);
-		}
-		updateTabs();
+//		for (int i = 0; i < 130; i++) {
+//			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
+//			Ticket tick = new HourlyRate("Ted", "Bundy", new QuickDate());
+//			CarPark.parkValet(sed, tick);
+//		}
 		
+		
+//		Ticket tick = new HourlyRate("Ted", "Bundy", new QuickDate());
+//		Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
+//		CarPark.parkValet(sed, tick);
+//		updateTabs();
+//		sed.PickCar();
+//		System.out.println(sed.getFloor().getFloorNum() + "  " + sed.getFloor().getAmountCars());
+//		CarPark.getFloorsArray().getAr()[sed.getFloor().getFloorNum()].getCarsAr().getAr()[sed.getSpotnum()] = null;
+//
+//		sed = null;
+//		
+//		System.gc();
+		updateTabs();
 		setEventMethods();
 		
 		openSetup();
@@ -86,13 +99,21 @@ public class Main extends Application {
 						Scene tempScene = new Scene(parkPane.getGridPane(), 500, 500);
 						tempStage = new Stage();
 						inAction = true;
-						tempStage.setTitle("Test");
+						tempStage.setTitle("Park Car");
 						tempStage.setScene(tempScene);
 						parkPane.getDatePicker().requestFocus();
 						tempStage.showAndWait();
 						inAction = false;
-					}else {
+					}else if(actionStack.hasCar() == true && inAction == false) {
+						pickPane = new PickupCarPane(actionStack.getRealCar(), actionStack);
 						
+						Scene tempScene = new Scene(pickPane.getBorderPane(), 500, 500);
+						tempStage = new Stage();
+						inAction = true;
+						tempStage.setTitle("Pickup Car");
+						tempStage.setScene(tempScene);
+						tempStage.showAndWait();
+						inAction = false;
 					}
 				});
 			}

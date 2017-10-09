@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+
 import carsPackage.*;
 import basePackage.ParkingGarage;
 import basePackage.QuickDate;
@@ -21,7 +23,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import ticketsPackage.Ticket;
+import ticketsPackage.*;
 
 public class ParkCarPane {
 
@@ -228,8 +230,9 @@ public class ParkCarPane {
 						newCol = Color.GRAY;
 					}
 					
+					pane.setLocaldate(datePick);
 					LocalDateTime newDate = LocalDateTime.of(datePick.getValue().getYear(), datePick.getValue().getMonth(), datePick.getValue().getDayOfMonth(), timePick.getHour(), timePick.getMin());
-					ZoneOffset zoneOffset = ZoneId.systemDefault().getRules().getOffset(newDate);
+					ZonedDateTime samezone = newDate.atZone(ZoneId.of("America/New_York"));
 					String myclass = CarType.getValue().replaceAll("\\s+", "");
 					Class<?> myCar = Class.forName("carsPackage." + myclass);
 					Constructor<?> create = myCar.getConstructor(String.class,String.class, String.class, String.class, Color.class, int.class);
@@ -238,13 +241,17 @@ public class ParkCarPane {
 					myclass = TicketType.getValue().replaceAll("\\s+", "");
 					Class<?> myTicket = Class.forName("ticketsPackage." + myclass);
 					create = myTicket.getConstructor(String.class, String.class, QuickDate.class);
-					Object realTick = create.newInstance(name.getText(), plate.getText(), new QuickDate(newDate.toEpochSecond(zoneOffset)));
+					Object realTick = create.newInstance(name.getText(), plate.getText(), new QuickDate(samezone.toInstant().toEpochMilli()));
+				
+					pane.setRealCar((Car) realCar);
+					
 					
 					if (spot <= 0) {
-						System.out.println(floor.getGarage().parkValet((Car) realCar, (Ticket) realTick));
+						System.out.println(floor.getGarage().parkValet((Car) realCar,(Ticket) realTick));
 					} else {
-						System.out.println(floor.getGarage().parkCar((Car) realCar, (Ticket) realTick, floor, spot, pane));
+						System.out.println(floor.getGarage().parkCar((Car) realCar,(Ticket) realTick, floor, (spot - 1), pane));
 					}
+
 					
 					
 					

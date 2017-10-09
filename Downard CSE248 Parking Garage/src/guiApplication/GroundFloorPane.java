@@ -28,7 +28,7 @@ public class GroundFloorPane implements GUIFloor{
 	private ToolTipStackPane[] motoSpots;
 	private ParkingGarage CarPark;
 	
-	private String[] allowedNormalTypes = {"Sedan","Pickup Truck", "Van", "Motorcylce","Handicapped"};
+	private String[] allowedNormalTypes = {"Sedan","Pickup Truck", "Van", "Motorcycle","Handicap"};
 	private String[] allowedLargeTypes = {"Bus", "Work Truck"};
 	private String[] allowedMotorTypes = {"Motorcycle"};
 	private String[] allowedHandiTypes = {"Handicapped"};
@@ -119,7 +119,7 @@ public class GroundFloorPane implements GUIFloor{
 						pane.setAllowedTypes(allowedMotorTypes);
 						parkingSpots[nElms++] = pane;
 						motoSpots[mElms++] = pane;
-						label.setText(hElms + "M");
+						label.setText(mElms + "M");
 						pane.setLabel(label);
 						pane.setActualType("Motorcycle");
 						pane.getChildren().add(label);
@@ -134,7 +134,7 @@ public class GroundFloorPane implements GUIFloor{
 			}else {	// normals
 				if ((i-2)%3 != 0) {
 					for (int z = 0; z < rows; z++) {
-						if (nElms!=parkingSpots.length) {
+						if (cElms!=spaces) {
 							ToolTipStackPane pane = new ToolTipStackPane();
 							Label label = new Label();
 							if((i-4)%(3) == 0) {
@@ -185,7 +185,8 @@ public class GroundFloorPane implements GUIFloor{
 		System.out.println(floor.getCarsAr());					// REMOVE
 		//update each seperately, normal cars first:
 		Car[] NormalCars = floor.getCarsAr().getAr();
-		for (int i = 0; i < floor.getAmountCars(); i++) {
+		for (int i = 0; i < floor.getAmountTotalSpaces(); i++) {
+			System.out.println((i+ 1) + " " + (NormalCars[i] == null));
 			if ((NormalCars[i] == null) && (carSpots[i].hasCar() == true)) {// if there is no car but gui shows car
 				carSpots[i].getChildren().clear();
 				carSpots[i].clearTooltip();
@@ -205,7 +206,7 @@ public class GroundFloorPane implements GUIFloor{
 				label.setTextFill(Color.WHITE);
 				carSpots[i].setLabel(label);
 				carSpots[i].getChildren().addAll(rect, label);
-				carSpots[i].setTooltip(NormalCars[i].getModel());
+				carSpots[i].setTooltip(NormalCars[i].getModel() + ", " + NormalCars[i].getTicket().getName());
 				carSpots[i].setCar(rect);
 			}
 		}
@@ -230,7 +231,7 @@ public class GroundFloorPane implements GUIFloor{
 				label.setTextFill(Color.WHITE);
 				motoSpots[i].setLabel(label);
 				motoSpots[i].getChildren().addAll(rect, label);
-				motoSpots[i].setTooltip(Motorcycles[i].getModel());
+				motoSpots[i].setTooltip(Motorcycles[i].getModel() + ", " + Motorcycles[i].getTicket().getName());
 				motoSpots[i].setCar(rect);
 			}
 		}
@@ -255,7 +256,7 @@ public class GroundFloorPane implements GUIFloor{
 				label.setTextFill(Color.WHITE);
 				handiSpots[i].setLabel(label);
 				handiSpots[i].getChildren().addAll(rect, label);
-				handiSpots[i].setTooltip(Handicaps[i].getModel());
+				handiSpots[i].setTooltip(Handicaps[i].getModel() + ", " + Handicaps[i].getTicket().getName());
 				handiSpots[i].setCar(rect);
 			}
 		}
@@ -280,7 +281,7 @@ public class GroundFloorPane implements GUIFloor{
 				label.setTextFill(Color.WHITE);
 				busSpots[i].setLabel(label);
 				busSpots[i].getChildren().addAll(rect, label);
-				busSpots[i].setTooltip(Buses[i].getModel());
+				busSpots[i].setTooltip(Buses[i].getModel() + ", " + Buses[i].getTicket().getName());
 				busSpots[i].setCar(rect);
 			}
 		}		

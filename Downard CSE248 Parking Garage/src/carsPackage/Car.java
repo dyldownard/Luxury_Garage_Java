@@ -1,5 +1,7 @@
 package carsPackage;
 
+import basePackage.CarsArray;
+import basePackage.Floor;
 import javafx.scene.paint.Color;
 import ticketsPackage.*;
 
@@ -10,6 +12,9 @@ public abstract class Car {
 	private String model; private String make; 
 	private String year; private String platenum;
 	private int spotnum;
+	
+	private Floor myFloor;
+	private CarsArray myFloorCarAr;
 	
 	private Color color;
 	
@@ -64,10 +69,30 @@ public abstract class Car {
 		return platenum;
 	}
 
+	public void setSpotNum(int spot) {
+		this.spotnum = spot;
+	}
+	
 	public int getSpotnum() {
 		return spotnum;
 	}
-
+	public void setFloor(Floor myFloor) {
+		this.myFloor = myFloor;
+	}
+	public Floor getFloor() {
+		return this.myFloor;
+	}
+	public void setFloorCarAr(CarsArray carAr) {
+		this.myFloorCarAr = carAr;
+	}
+	public CarsArray getFloorCarAr() {
+		return this.myFloorCarAr;
+	}
+	
+	public void PickCar() {
+		this.myFloorCarAr.CarPicked(this, spotnum);
+	}
+	
 	@Override
 	public String toString() {
 		return "ye";

@@ -8,7 +8,7 @@ public class CarsArray {
 	private Car[] aR;
 	protected int amountCars;
 	protected int amountSpaces;
-
+	private ParkingGarage mygarage;
 	
 	public CarsArray(int amount) {
 		aR = new Car[amount];
@@ -18,7 +18,9 @@ public class CarsArray {
 	
 
 	public String parkCar(Car myCar, GUIFloor floor, int space) {
+		System.out.println(space + "space");
 		aR[space] = myCar;
+		myCar.setSpotNum(space);
 		amountSpaces--;
 		amountCars++;
 		floor.getGarage().CarParked();
@@ -28,8 +30,16 @@ public class CarsArray {
 	}
 	
 	public String parkValet(Car myCar, ParkingGarage park) {
-		// TODO assign to cartype and floortype
-		aR[amountCars] = myCar;
+		this.mygarage = park;
+		int temp = 0;			//making sure that it gets the first slot available
+		for (int i = 0; i < aR.length; i++) {
+			if (aR[i] == null) {
+				temp = i;
+				break;
+			}
+		}
+		aR[temp] = myCar;
+		myCar.setSpotNum(temp);
 		amountSpaces--;
 		amountCars++;
 		park.CarParked();
@@ -41,8 +51,25 @@ public class CarsArray {
 		return amountSpaces == 0;
 	}
 	
+	public void CarPicked(Car myCar, int spotnum) {
+		amountSpaces++;
+		amountCars--;
+		mygarage.CarPicked();
+		this.aR[spotnum] = null;
+		myCar.getFloor().carPicked(myCar);
+
+	}
+	
+
 	public void AddCarLot(Car myCar) {
-		aR[amountCars] = myCar;
+		int temp = 0;			//making sure that it gets the first slot available
+		for (int i = 0; i < aR.length; i++) {
+			if (aR[i] == null) {
+				temp = i;
+				break;
+			}
+		}
+		aR[temp] = myCar;
 		amountSpaces--;
 		amountCars++;
 	}

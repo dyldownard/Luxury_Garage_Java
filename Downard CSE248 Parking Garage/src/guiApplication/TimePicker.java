@@ -13,6 +13,8 @@ public class TimePicker {
 	private Spinner<Integer> hourspinner;
 	private Spinner<Integer> minutespinner;
 	private Label conversion;
+	private int initialh;
+	private int initialm;
 	
 	public TimePicker() {
 		hbox = new HBox();
@@ -52,6 +54,8 @@ public class TimePicker {
 	}
 	
 	public TimePicker(int h, int m) {
+		initialh = h;
+		initialm = m;
 		hbox = new HBox();
 		label = new Label("HH:MM");
 		hourspinner = new Spinner<Integer>();
@@ -64,7 +68,7 @@ public class TimePicker {
 		
 		
 		SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,24);
-		SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(m,60,m,5);
+		SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,m,5);
 		
 		hourspinner.setValueFactory(valueFactorHour);
 		minutespinner.setValueFactory(valueFactorMinute);
@@ -129,16 +133,17 @@ public class TimePicker {
 	}
 	private void setChangedH(int h, int m) {
 		hourspinner.setOnMouseClicked(e -> {
-			if (hourspinner.getValue() > h) {
+			System.out.println(hourspinner.getValue() + " " + h);
+			if (hourspinner.getValue() > initialh) {
 				SpinnerValueFactory<Integer> valueFactorMinute;
-				if (m <= minutespinner.getValue()) {
+				if (initialm <= minutespinner.getValue()) {
 					valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
 				}else {
-					valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,m,5);
+					valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,initialm,5);
 				}
 				minutespinner.setValueFactory(valueFactorMinute);
 			}else {
-				SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,m,5);
+				SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(initialm,55,initialm,5);
 				minutespinner.setValueFactory(valueFactorMinute);
 			}
 			if (hourspinner.getValue() > 12) {
@@ -173,7 +178,12 @@ public class TimePicker {
 			}
 		});
 	}
-	
+	public Spinner<Integer> getMinSpin() {
+		return this.minutespinner;
+	}
+	public Spinner<Integer> getHourSpin() {
+		return this.hourspinner;
+	}
 	public int getHour() {
 		return this.hourspinner.getValue();
 	}

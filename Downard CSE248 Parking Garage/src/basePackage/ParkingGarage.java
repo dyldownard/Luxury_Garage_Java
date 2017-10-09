@@ -35,35 +35,27 @@ public class ParkingGarage {
 	}
 	
 	public String parkCar(Car myCar, Ticket realTick, GUIFloor floor, int spotnum, ToolTipStackPane pane) {
-		if (isTrulyFull() == false) {
-			myCar.setTicket(realTick);
-			return fArray.parkCar(myCar, floor, spotnum, pane);
-		}
-		return "Lot is full.";
+		myCar.setTicket(realTick);
+		return fArray.parkCar(myCar, floor, spotnum, pane);
 	}
-	
-	
-	public void pickUp() {
-		
-	}
-	
-	
 	
 	public String parkValet(Car myCar, Ticket realTick) {
 		myCar.setTicket(realTick);
 		return fArray.parkValet(myCar, this);
 	}
 	
+	
+	
 	public void CarParked() {
 		TOTAL_amountCars++;
 		TOTAL_amountEmptySpaces--;
 	}
 	
-	
-	// go through each floor and check if all lots are full
-	public boolean isTrulyFull() {
-		return false;	
+	public void CarPicked() {
+		TOTAL_amountCars--;
+		TOTAL_amountEmptySpaces--;
 	}
+	
 	
 	public FloorsArray getFloorsArray() {
 		return fArray;

@@ -48,15 +48,23 @@ public class GroundFloor implements Floor {
 	@Override
 	public String parkCar(Car myCar, GUIFloor floor, int spot, ToolTipStackPane pane) {
 		if (pane.getActualType().equals("Normal")) {
+			myCar.setFloor(this);
+			myCar.setFloorCarAr(NormalCarsAr);
 			CarParked();
 			return NormalCarsAr.parkCar(myCar, floor, pane.getSpecialSpot());
 		}else if(pane.getActualType().equals("Motorcycle")) {
+			myCar.setFloor(this);
+			myCar.setFloorCarAr(MotorcycleAr);
 			MotoParked();
 			return MotorcycleAr.parkCar(myCar, floor, pane.getSpecialSpot());
 		}else if(pane.getActualType().equals("Large")) {
+			myCar.setFloor(this);
+			myCar.setFloorCarAr(BusAr);
 			BusParked();
 			return BusAr.parkCar(myCar, floor, pane.getSpecialSpot());
 		}else if(pane.getActualType().equals("Handicapped")) {
+			myCar.setFloor(this);
+			myCar.setFloorCarAr(HandiAr);
 			HandiParked();
 			return HandiAr.parkCar(myCar, floor, pane.getSpecialSpot());			
 		}
@@ -67,15 +75,23 @@ public class GroundFloor implements Floor {
 	@Override
 	public String parkValet(Car myCar, ParkingGarage park) {
 		if (myCar.getSpaceType().equals("Handicapped") && amountHandiEmpty != 0) {
+			myCar.setFloor(this);
+			myCar.setFloorCarAr(NormalCarsAr);
 			HandiParked();
 			return HandiAr.parkValet(myCar, park);
 		}else if(myCar.getSpaceType().equals("Motorcycle") && amountMotoEmpty != 0) {
+			myCar.setFloor(this);
+			myCar.setFloorCarAr(MotorcycleAr);
 			MotoParked();
 			return MotorcycleAr.parkValet(myCar, park);
 		}else if(myCar.getSpaceType().equals("Large") && amountBusEmpty != 0) {
+			myCar.setFloor(this);
+			myCar.setFloorCarAr(BusAr);
 			BusParked();
 			return BusAr.parkValet(myCar, park);
 		}else if((myCar.getSpaceType().equals("Normal") || myCar.getSpaceType().equals("Motorcycle") || myCar.getSpaceType().equals("Handicapped")) && amountNormalEmpty != 0) {
+			myCar.setFloor(this);
+			myCar.setFloorCarAr(HandiAr);
 			CarParked();
 			return NormalCarsAr.parkValet(myCar, park);
 		}
@@ -123,7 +139,7 @@ public class GroundFloor implements Floor {
 	@Override
 	public void CarParked() {
 		this.amountNormalCars++;
-		this.amountNormalSpaces--;
+		this.amountNormalEmpty--;
 	}
 
 	@Override
@@ -184,5 +200,16 @@ public class GroundFloor implements Floor {
 	@Override
 	public CarsArray getBusAr() {
 		return this.BusAr;
+	}
+
+
+	@Override
+	public void carPicked(Car myCar) {
+		switch (myCar.getSpaceType()) {
+		case "Large": this.amountBusCars--; this.amountBusEmpty++;
+		case "Normal": this.amountNormalCars--; this.amountNormalEmpty++;
+		case "Handicapped": this.amountHandiCars--; this.amountHandiEmpty++;
+		case "Motorcycle": this.amountMotoCars--; this.amountMotoEmpty++;
+		}
 	}
 }

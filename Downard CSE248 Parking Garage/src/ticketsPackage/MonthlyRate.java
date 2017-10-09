@@ -6,7 +6,7 @@ import carsPackage.Car;
 public class MonthlyRate implements Ticket{
 
 	
-	private double rate = 230.00D;	// 230.00 USD PER MONTHLY (unit of time monthly)
+	private double rate = 2300.00D;	// 2300.00 USD PER MONTHLY (unit of time monthly)
 	
 	private String customerName;
 	private String liscensePlate;
@@ -57,10 +57,6 @@ public class MonthlyRate implements Ticket{
 	}
 
 
-	public QuickDate getStartTime() {
-		return startTime;
-	}
-
 
 	public Car getMyCar() {
 		return myCar;
@@ -69,6 +65,18 @@ public class MonthlyRate implements Ticket{
 
 	@Override
 	public void setTicket(Ticket tick) {
+	}
+
+
+	@Override
+	public String getName() {
+		return this.customerName;
+	}
+
+
+	@Override
+	public QuickDate getDate() {
+		return this.startTime;
 	}
 
 	

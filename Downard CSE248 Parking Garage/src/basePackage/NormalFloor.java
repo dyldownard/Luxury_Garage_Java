@@ -28,12 +28,16 @@ public class NormalFloor implements Floor {
 	//--------------------------------------------------------	
 	@Override
 	public String parkCar(Car myCar, GUIFloor floor, int spot, ToolTipStackPane pane) {
+		myCar.setFloor(this);
+		myCar.setFloorCarAr(floorCarsAr);
 		CarParked();
 		return floorCarsAr.parkCar(myCar, floor, spot);
 	}
 	
 	@Override
 	public String parkValet(Car myCar, ParkingGarage park) {
+		myCar.setFloor(this);
+		myCar.setFloorCarAr(floorCarsAr);
 		CarParked();
 		return floorCarsAr.parkValet(myCar, park);
 	}
@@ -119,6 +123,12 @@ public class NormalFloor implements Floor {
 	@Override
 	public CarsArray getBusAr() {
 		return null;
+	}
+
+	@Override
+	public void carPicked(Car myCar) {
+		this.amountCars--;
+		this.amountSpaces++;
 	}
 	
 }

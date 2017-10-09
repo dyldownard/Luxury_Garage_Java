@@ -1,6 +1,7 @@
 package guiApplication;
 
 import basePackage.*;
+import ticketsPackage.Ticket;
 import carsPackage.Car;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -132,7 +133,7 @@ public class NormalFloorPane implements GUIFloor {
 				label.setTextFill(Color.WHITE);
 				parkingSpots[i].setLabel(label);
 				parkingSpots[i].getChildren().addAll(rect, label);
-				parkingSpots[i].setTooltip(Cars[i].getModel());
+				parkingSpots[i].setTooltip(Cars[i].getModel() + ", " + Cars[i].getTicket().getName());
 				parkingSpots[i].setCar(rect);
 			}
 		}
