@@ -1,8 +1,10 @@
 package basePackage;
 
+import java.io.Serializable;
+
 import ticketsPackage.Ticket;
 
-public class TicketArray {
+public class TicketArray implements Serializable{
 
 	private Ticket[] aR;
 	private int nElms;

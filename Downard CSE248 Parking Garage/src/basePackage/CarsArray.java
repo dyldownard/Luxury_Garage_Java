@@ -1,9 +1,11 @@
 package basePackage;
 
+import java.io.Serializable;
+
 import carsPackage.*;
 import guiApplication.GUIFloor;
 
-public class CarsArray {
+public class CarsArray implements Serializable{
 
 	private Car[] aR;
 	protected int amountCars;

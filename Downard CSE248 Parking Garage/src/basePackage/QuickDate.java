@@ -5,9 +5,11 @@ import java.util.Date;
 @SuppressWarnings("deprecation")
 public class QuickDate extends Date {
 
-	private static final long serialVersionUID = 2308350077349978096L;
 	
-	// original date
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6646815970544194006L;
 	final private int Years;
 	final private int Months;
 	final private int Days;

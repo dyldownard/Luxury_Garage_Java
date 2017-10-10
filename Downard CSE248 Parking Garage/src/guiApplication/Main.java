@@ -3,6 +3,7 @@ package guiApplication;
 import basePackage.*;
 import carsPackage.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -11,6 +12,7 @@ import ticketsPackage.*;
 
 public class Main extends Application {
 	
+	Stage primaryStage;
 	Stage tempStage;
 	BorderPane bpane;
 	MenuPane mpane;
@@ -20,7 +22,7 @@ public class Main extends Application {
 	
 	ParkingGarage CarPark;
 	
-	boolean inAction;
+	Boolean inAction;
 	
 	int amountTabs;
 	
@@ -29,13 +31,14 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		this.primaryStage = primaryStage;
 		
 		CarPark = new ParkingGarage();
 		
 		bpane = new BorderPane();
 		tpane = new TabPanes(CarPark);
-		mpane = new MenuPane();
-		bpane.setTop(mpane.getBar());
+		mpane = new MenuPane(primaryStage, inAction);
+		bpane.setTop(mpane.getMenu());
 		bpane.setCenter(tpane.getTabPane());
 		
 		
@@ -85,6 +88,13 @@ public class Main extends Application {
 		setCarClicked();
 		setHovered();
 		setUnhovered();
+		setExited();
+	}
+	
+	private void setExited() {
+		primaryStage.setOnCloseRequest(e -> {
+			Platform.exit();
+		});
 	}
 	
 	private void setCarClicked() {

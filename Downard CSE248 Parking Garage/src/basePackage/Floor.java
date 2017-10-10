@@ -1,10 +1,12 @@
 package basePackage;
 
+import java.io.Serializable;
+
 import carsPackage.*;
 import guiApplication.GUIFloor;
 import guiApplication.ToolTipStackPane;
 
-public interface Floor {
+public interface Floor extends Serializable{
 
 	public String parkValet(Car myCar, ParkingGarage park);
 	public String parkCar(Car myCar, GUIFloor floor, int spot, ToolTipStackPane pane);

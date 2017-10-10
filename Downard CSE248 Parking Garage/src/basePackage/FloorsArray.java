@@ -1,12 +1,13 @@
 package basePackage;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import carsPackage.Car;
 import guiApplication.GUIFloor;
 import guiApplication.ToolTipStackPane;
 
-public class FloorsArray {
+public class FloorsArray implements Serializable{
 
 	private Floor[] aR;
 	

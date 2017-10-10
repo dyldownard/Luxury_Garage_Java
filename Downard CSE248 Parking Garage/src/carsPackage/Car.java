@@ -1,11 +1,13 @@
 package carsPackage;
 
+import java.io.Serializable;
+
 import basePackage.CarsArray;
 import basePackage.Floor;
 import javafx.scene.paint.Color;
 import ticketsPackage.*;
 
-public abstract class Car {
+public abstract class Car implements Serializable{
 
 	private Ticket tick;
 	

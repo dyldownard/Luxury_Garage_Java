@@ -75,7 +75,7 @@ public class ParkCarPane {
 		ColorBox = new ComboBox<String>();
 		CarTypeColorBox = new HBox();
 		datePick = new DatePicker();
-		timePick = new TimePicker(5,30);
+		timePick = new TimePicker();
 		dateTime = new HBox();
 		TicketType = new ComboBox<String>();
 		Park = new Button("Park Car");

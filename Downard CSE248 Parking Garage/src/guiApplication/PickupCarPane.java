@@ -1,5 +1,6 @@
 package guiApplication;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -50,9 +51,9 @@ public class PickupCarPane {
 		dateTime = new HBox();
 		datePick = new DatePicker();
 		if (myCar.getTicket().getDate().getMinutes() < 55) {
-			timePick = new TimePicker(myCar.getTicket().getDate().getHours(), (myCar.getTicket().getDate().getMinutes() + 5));
+			timePick = new TimePicker(myCar.getTicket().getDate().getHours(), (myCar.getTicket().getDate().getMinutes() + 5), this);
 		} else {
-			timePick = new TimePicker((myCar.getTicket().getDate().getHours() + 1), 0);
+			timePick = new TimePicker((myCar.getTicket().getDate().getHours() + 1), 0, this);
 		}
 		hoursPer = new HBox();
 		hoursBetwix = new Label();
@@ -96,24 +97,9 @@ public class PickupCarPane {
 		
 		BorderPane.setAlignment(vbox, Pos.CENTER);
 		
-		setActionTimeM();
-		setActionTimeH();
 		setActionDate();
 	}
 	
-	
-	
-	private void setActionTimeM() {
-		timePick.getMinSpin().setOnMouseClicked(e -> {
-			updateDifference();
-		});
-	}
-	
-	private void setActionTimeH() {
-		timePick.getHourSpin().setOnMouseClicked(e -> {
-			updateDifference();
-		});
-	}
 	
 	private void setActionDate() {
 		datePick.setOnAction(e -> {
@@ -124,22 +110,23 @@ public class PickupCarPane {
 	// Time Frame will always be 1 above, this is under the assumption that you are either 1:59 or 2:01, as a Real
 	// life Parking Lot company would attempt to rig it to make more money. No such thing as "on time."
 	
-	private void updateDifference() {
+	public void updateDifference() {
 		LocalDateTime newDate = LocalDateTime.of(datePick.getValue().getYear(), datePick.getValue().getMonth(), datePick.getValue().getDayOfMonth(), timePick.getHour(), timePick.getMin());
 		ZonedDateTime samezone = newDate.atZone(ZoneId.of("America/New_York"));
 		QuickDate endDate = new QuickDate(samezone.toInstant().toEpochMilli());
+		DecimalFormat b = new DecimalFormat(".##");
 		if (myTick instanceof MonthlyRate) {
 			hoursBetwix.setText("Months: " + (myTick.getDate().compareMonths(endDate) + 1));
 			perHour.setText(myTick.getRate() + " per Month");
-			amountDue.setText(myTick.calcBill() + "USD is the amount due");
+			amountDue.setText(b.format(myTick.calcBill()) + "USD is the amount due");
 		}else if(myTick instanceof HourlyRate) {
 			hoursBetwix.setText("Hours: " + (myTick.getDate().compareHours(endDate) + 1));
 			perHour.setText(myTick.getRate() + " per Hour");
-			amountDue.setText(myTick.calcBill() + "USD is the amount due");
+			amountDue.setText(b.format(myTick.calcBill()) + "USD is the amount due");
 		}else if(myTick instanceof MinutelyRate) {
 			hoursBetwix.setText("Minutes: " + (myTick.getDate().compareMinutes(endDate) + 1));
 			perHour.setText(myTick.getRate() + " per Minute");
-			amountDue.setText(myTick.calcBill() + "USD is the amount due");
+			amountDue.setText(b.format(myTick.calcBill()) + "USD is the amount due");
 		}
 	}
 	

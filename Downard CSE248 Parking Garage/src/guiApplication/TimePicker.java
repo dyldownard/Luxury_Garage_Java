@@ -16,6 +16,8 @@ public class TimePicker {
 	private int initialh;
 	private int initialm;
 	
+	private PickupCarPane parent;
+	
 	public TimePicker() {
 		hbox = new HBox();
 		label = new Label("HH:MM");
@@ -28,7 +30,7 @@ public class TimePicker {
 		minutespinner.setPrefSize(60, 20);
 		
 		
-		SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,24);
+		SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23);
 		SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,0,5);
 		
 		hourspinner.setValueFactory(valueFactorHour);
@@ -49,11 +51,12 @@ public class TimePicker {
 		}
 		
 		hbox.getChildren().addAll(label, hourspinner,minutespinner, conversion);
-		setChangedH();
-		setChangedM();
+		//setChangedH();
+		//setChangedM();
 	}
 	
-	public TimePicker(int h, int m) {
+	public TimePicker(int h, int m, PickupCarPane parent) {
+		this.parent = parent;
 		initialh = h;
 		initialm = m;
 		hbox = new HBox();
@@ -94,46 +97,49 @@ public class TimePicker {
 	}
 	
 	
+	
 	public HBox getHBox() {
 		return this.hbox;
 	}
-	private void setChangedH() {
-		hourspinner.setOnMouseClicked(e -> {
-			if (hourspinner.getValue() > 12) {
-				if (minutespinner.getValue() == 0) {
-					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
-				}else {
-					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
-				}
-			}else {
-				if (minutespinner.getValue() == 0) {
-					conversion.setText(hourspinner.getValue() + ":00 AM");
-				}else {
-					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
-				}
-			}
-		});
-	}
-	private void setChangedM() {
-		minutespinner.setOnMouseClicked(e -> {
-			if (hourspinner.getValue() > 12) {
-				if (minutespinner.getValue() == 0) {
-					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
-				}else {
-					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
-				}
-			}else {
-				if (minutespinner.getValue() == 0) {
-					conversion.setText(hourspinner.getValue() + ":00 AM");
-				}else {
-					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
-				}
-			}
-		});
-	}
+//	private void setChangedH() {
+//		hourspinner.setOnMouseClicked(e -> {
+//			parent.updateDifference();
+//			if (hourspinner.getValue() > 12) {
+//				if (minutespinner.getValue() == 0) {
+//					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+//				}else {
+//					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+//				}
+//			}else {
+//				if (minutespinner.getValue() == 0) {
+//					conversion.setText(hourspinner.getValue() + ":00 AM");
+//				}else {
+//					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+//				}
+//			}
+//		});
+//	}
+//	private void setChangedM() {
+//		minutespinner.setOnMouseClicked(e -> {
+//			parent.updateDifference();
+//			if (hourspinner.getValue() > 12) {
+//				if (minutespinner.getValue() == 0) {
+//					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+//				}else {
+//					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+//				}
+//			}else {
+//				if (minutespinner.getValue() == 0) {
+//					conversion.setText(hourspinner.getValue() + ":00 AM");
+//				}else {
+//					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+//				}
+//			}
+//		});
+//	}
 	private void setChangedH(int h, int m) {
 		hourspinner.setOnMouseClicked(e -> {
-			System.out.println(hourspinner.getValue() + " " + h);
+			parent.updateDifference();
 			if (hourspinner.getValue() > initialh) {
 				SpinnerValueFactory<Integer> valueFactorMinute;
 				if (initialm <= minutespinner.getValue()) {
@@ -163,6 +169,7 @@ public class TimePicker {
 	}
 	private void setChangedM(int h, int m) {
 		minutespinner.setOnMouseClicked(e -> {
+			parent.updateDifference();
 			if (hourspinner.getValue() > 12) {
 				if (minutespinner.getValue() == 0) {
 					conversion.setText((hourspinner.getValue()-12) + ":00 PM");

@@ -1,12 +1,14 @@
 package basePackage;
 
+import java.io.Serializable;
+
 import carsPackage.Car;
 import guiApplication.GUIFloor;
 import guiApplication.ToolTipStackPane;
 import ticketsPackage.Ticket;
 
-public class ParkingGarage {
-
+public class ParkingGarage implements Serializable{
+	
 	final public double BASE_RATE = 1.0; // base payment scale, multiplicitive (per hour)
 	final public String[] FLOORS = {"GroundFloor", "NormalFloor", "NormalFloor"};
 	public int AMOUNT_TOTAL_SPACES = 300;	// Total NORMAL (non-motorcycle or bus or handicap) spaces on lot

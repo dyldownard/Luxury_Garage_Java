@@ -172,8 +172,7 @@ public class GroundFloorPane implements GUIFloor{
 	    for (int i = 0; i < rows; i++) {
 	    	 gpane.getRowConstraints().add(row);
 	    }
-	    
-		//gpane.setGridLinesVisible(true);
+
 	    
 		gpane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE); // Default width and height
 	    gpane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
@@ -186,7 +185,6 @@ public class GroundFloorPane implements GUIFloor{
 		//update each seperately, normal cars first:
 		Car[] NormalCars = floor.getCarsAr().getAr();
 		for (int i = 0; i < floor.getAmountTotalSpaces(); i++) {
-			System.out.println((i+ 1) + " " + (NormalCars[i] == null));
 			if ((NormalCars[i] == null) && (carSpots[i].hasCar() == true)) {// if there is no car but gui shows car
 				carSpots[i].getChildren().clear();
 				carSpots[i].clearTooltip();
