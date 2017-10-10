@@ -80,4 +80,5 @@ public class MinutelyRate implements Ticket{
 		return this.ticketNum;
 	}
 	
+	
 }

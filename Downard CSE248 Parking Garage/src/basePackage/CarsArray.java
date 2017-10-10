@@ -28,7 +28,6 @@ public class CarsArray implements Serializable{
 		amountCars++;
 		floor.getGarage().CarParked();
 		floor.getGarage().getCarsArray().AddCarLot(myCar);
-		floor.getGarage().getTicketsArray().addTicket(myCar.getTicket());
 		return "Car Parked.";
 	}
 	
@@ -63,6 +62,28 @@ public class CarsArray implements Serializable{
 
 	}
 	
+	public Car searchTicket(String tick) {
+		for (int i = 0; i < aR.length; i++) {
+			if (aR[i] == null) {
+				return null;
+			}
+			if (tick.equals(aR[i].getTicket().getTickNum())) {
+				return aR[i];
+			}
+		}
+		return null;
+	}
+	public Car searchPlate(String plate) {
+		for (int i = 0; i < aR.length; i++) {
+			if (aR[i] == null) {
+				return null;
+			}
+			if (plate.equals(aR[i].getPlatenum())) {
+				return aR[i];
+			}
+		}
+		return null;
+	}
 
 	public void AddCarLot(Car myCar) {
 		int temp = 0;			//making sure that it gets the first slot available

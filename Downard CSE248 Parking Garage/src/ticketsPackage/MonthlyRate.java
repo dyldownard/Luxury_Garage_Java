@@ -12,6 +12,7 @@ public class MonthlyRate implements Ticket{
 	private String liscensePlate;
 	private QuickDate startTime;
 	
+
 	private String ticketNum;
 	private Car myCar;
 	

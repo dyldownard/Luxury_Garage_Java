@@ -8,7 +8,7 @@ public class Bus extends Car {
 	final public static String spaceType = "Small";
 	
 	public Bus(String model, String make, String year, String platenum, Color color, int spotnum) {
-		super(model, make, year, platenum, color, spotnum, spaceType, moneyMult);
+		super(model, make, year, platenum, color, spotnum, spaceType, MONEY_MULT);
 	}
 
 }

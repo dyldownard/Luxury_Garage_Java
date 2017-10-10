@@ -9,27 +9,29 @@ import java.time.ZonedDateTime;
 import basePackage.ParkingGarage;
 import basePackage.QuickDate;
 import carsPackage.Car;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import ticketsPackage.*;
 
 public class PickupCarPane {
 
-	BorderPane bpane;
+	GridPane gpane;
 	HBox methodFind;
 	TextField method;
 	Button Find;
-	VBox vbox;
 	Label name;
 	HBox dateTime;
 	DatePicker datePick;
@@ -46,7 +48,6 @@ public class PickupCarPane {
 	ToolTipStackPane parent;
 	
 	Ticket myTick;
-	// TODO make 3; one accepts Car (click on gui), One search by Plate#, one by Ticket#
 	
 	public PickupCarPane(Car myCar, ToolTipStackPane parent, ParkingGarage carPark, Main main) {
 		this.carPark = carPark;
@@ -54,8 +55,8 @@ public class PickupCarPane {
 		this.parent = parent;
 		myTick = myCar.getTicket();
 		
-		bpane = new BorderPane();
-		vbox = new VBox();
+		
+		gpane = new GridPane();
 		name = new Label("Picking up " + parent.getSpotName() + " on floor " + (parent.getFloorNum() + 1));
 		dateTime = new HBox();
 		datePick = new DatePicker();
@@ -94,18 +95,41 @@ public class PickupCarPane {
         
 		name.setFont(Font.font("Calibri",20));
 		
-		vbox.getChildren().addAll(name, dateTime, hoursPer, amountDue, pay);
-		vbox.setAlignment(Pos.CENTER);
-		vbox.setSpacing(20);
+		
+	    
+		//gpane.setGridLinesVisible(true);
+	    
+		gpane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE); // Default width and height
+	    gpane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+		
+		name.setAlignment(Pos.CENTER);
 		dateTime.getChildren().addAll(datePick, timePick.getHBox());
 		dateTime.setAlignment(Pos.CENTER);
 		hoursPer.getChildren().addAll(hoursBetwix, perHour);
 		hoursPer.setAlignment(Pos.CENTER);
 		hoursPer.setSpacing(10);
-		bpane.setCenter(vbox);
+		pay.setAlignment(Pos.CENTER);
+
+		gpane.add(name, 0, 1);
+		GridPane.setHalignment(name, HPos.CENTER);
+		gpane.add(dateTime, 0, 2);
+		GridPane.setHalignment(dateTime, HPos.CENTER);
+		gpane.add(hoursPer, 0, 3);
+		GridPane.setHalignment(hoursPer, HPos.CENTER);
+		gpane.add(amountDue, 0, 4);
+		GridPane.setHalignment(amountDue, HPos.CENTER);
+		gpane.add(pay, 0, 5);
+		GridPane.setHalignment(pay, HPos.CENTER);
+		gpane.setAlignment(Pos.CENTER);
 		
 		
-		BorderPane.setAlignment(vbox, Pos.CENTER);
+		
+		RowConstraints row = new RowConstraints();
+	    row.setPercentHeight(100/6);
+	    for (int i = 0; i < 6; i++) {
+	        gpane.getRowConstraints().add(row);
+	    }
+	    
 		pickupCar();
 		setActionDate();
 	}
@@ -143,7 +167,6 @@ public class PickupCarPane {
 	public void pickupCar() {
 		pay.setOnMouseClicked(e -> {
 			if (amountDue.getText().equals("") == false) {
-				System.out.println("XD");
 				parent.getRealCar().PickCar();
 				carPark.getCarsArray().getAr()[parent.getRealCar().getSpotGlobalArray()] = null;
 				carPark.getFloorsArray().getAr()[parent.getRealCar().getFloor().getFloorNum()].getCarsAr().getAr()[parent.getRealCar().getSpotnum()] = null;
@@ -152,8 +175,8 @@ public class PickupCarPane {
 		});
 	}
 	
-	public BorderPane getBorderPane() {
-		return bpane;
+	public GridPane getGridPane() {
+		return gpane;
 	}
 	
 	

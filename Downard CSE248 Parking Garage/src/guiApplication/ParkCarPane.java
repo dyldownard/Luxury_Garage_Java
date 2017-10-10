@@ -179,6 +179,8 @@ public class ParkCarPane {
 				floor.getStackPanes()[spot - 1].getAllowedTypes()
 			);
 		}else {
+			parktype= new Label("Valet Parking Service at No Extra Charge");
+			parktype.setFont(Font.font("Calibri",20));
 			CarType.getItems().addAll(
 				floor.getGarage().CAR_TYPES
 			);
@@ -281,6 +283,11 @@ public class ParkCarPane {
 	
 	private void giveTicketNumber(Ticket realTick) {		// cant cast and use method at same time, stupid work-around put in another method
 		realTick.setTickNum(ticketNum);
+		System.out.println(ticketNum);
+	}
+	
+	private ToolTipStackPane getPanefromCar(Car realCar) {
+		return realCar.getMyPane();
 	}
 	
 	private void setParkGo() {
@@ -301,7 +308,7 @@ public class ParkCarPane {
 						newCol = Color.GRAY;
 					}
 					
-					pane.setLocaldate(datePick);
+					
 					LocalDateTime newDate = LocalDateTime.of(datePick.getValue().getYear(), datePick.getValue().getMonth(), datePick.getValue().getDayOfMonth(), timePick.getHour(), timePick.getMin());
 					ZonedDateTime samezone = newDate.atZone(ZoneId.of("America/New_York"));
 					String myclass = CarType.getValue().replaceAll("\\s+", "");
@@ -314,15 +321,20 @@ public class ParkCarPane {
 					create = myTicket.getConstructor(String.class, String.class, QuickDate.class);
 					Object realTick = create.newInstance(name.getText(), plate.getText(), new QuickDate(samezone.toInstant().toEpochMilli()));
 				
-					pane.setRealCar((Car) realCar);
 					
 					
-					if (spot <= 0) {
+					if (spot < 0) {
 						System.out.println(floor.getGarage().parkValet((Car) realCar,(Ticket) realTick));
+						mainGUI.updateTabs();
+						pane = getPanefromCar((Car) realCar);
 					} else {
 						System.out.println(floor.getGarage().parkCar((Car) realCar,(Ticket) realTick, floor, (spot - 1), pane));
 					}
 					
+					
+					
+					pane.setRealCar((Car) realCar);
+					pane.setLocaldate(datePick);
 					giveTicketNumber((Ticket) realTick);
 					
 				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {

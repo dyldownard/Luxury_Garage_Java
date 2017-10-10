@@ -123,6 +123,7 @@ public class NormalFloorPane implements GUIFloor {
 				parkingSpots[i].getChildren().add(label);
 			}else if ((Cars[i] != null) && (parkingSpots[i].hasCar() == false)) {// if there is car but gui says no car
 				parkingSpots[i].getChildren().clear();
+				Cars[i].setMyPane(parkingSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
 				rect.setStroke(Cars[i].getColor());
 				rect.setFill(Cars[i].getColor());

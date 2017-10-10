@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import basePackage.CarsArray;
 import basePackage.Floor;
+import guiApplication.ToolTipStackPane;
 import javafx.scene.paint.Color;
 import ticketsPackage.*;
 
@@ -20,7 +21,7 @@ public abstract class Car implements Serializable{
 	
 	private int spotGlobalArray;
 	
-	
+	private ToolTipStackPane myPane;
 	private Color color;
 	
 	private String spaceType;
@@ -108,5 +109,13 @@ public abstract class Car implements Serializable{
 	@Override
 	public String toString() {
 		return "ye";
+	}
+
+	public ToolTipStackPane getMyPane() {
+		return myPane;
+	}
+
+	public void setMyPane(ToolTipStackPane myPane) {
+		this.myPane = myPane;
 	}
 }

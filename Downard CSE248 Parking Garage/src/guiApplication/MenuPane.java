@@ -35,11 +35,11 @@ public class MenuPane {
 	
 	private Button doIt;
 	
-	private Stage primaryStage;
+	//private Stage primaryStage;
 	Boolean inAction; 
 	
 	public MenuPane(Stage primaryStage, Boolean action){
-		this.primaryStage = primaryStage;
+		//this.primaryStage = primaryStage;
 		inAction = action;
 		
 		bar = new MenuBar();
@@ -70,29 +70,44 @@ public class MenuPane {
 	}
 	
 	
+	
 	public MenuBar getMenu() {
 		return this.bar;
 	}
 	
+	public MenuItem getValet() {
+		return this.valet;
+	}
+	
+	public MenuItem getTicketSearch() {
+		return this.pTicket;
+	}
+	
+	public MenuItem getPlateSearch() {
+		return this.pPlate;
+	}
 	
 	private void onNew() {
 		newPark.setOnAction(e -> {
-			VBox vbox = new VBox();
-			Label popLabel = new Label("This will delete your current work. Do you want to save?");
-			doIt = new Button("Proceed");
-			popLabel.setFont(Font.font("Calibri",20));
-			
-			vbox.getChildren().addAll(popLabel, doIt);
-			vbox.setAlignment(Pos.CENTER);
-			vbox.setSpacing(20);
-
-			Stage popStage = new Stage();
-			popStage.setTitle("WARNING");
-			Scene popScene = new Scene(vbox, 500, 100);
-			popStage.setScene(popScene);
-			popStage.showAndWait();
-			
+			if (inAction.booleanValue() == false) {
+				inAction = true;
+				VBox vbox = new VBox();
+				Label popLabel = new Label("This will delete your current work. Do you want to save?");
+				doIt = new Button("Proceed");
+				popLabel.setFont(Font.font("Calibri",20));
+				
+				vbox.getChildren().addAll(popLabel, doIt);
+				vbox.setAlignment(Pos.CENTER);
+				vbox.setSpacing(20);
+	
+				Stage popStage = new Stage();
+				popStage.setAlwaysOnTop(true);
+				popStage.setTitle("WARNING");
+				Scene popScene = new Scene(vbox, 500, 100);
+				popStage.setScene(popScene);
+				popStage.showAndWait();
+				inAction = false;
+			}
 		});
 	}
 }
-

@@ -21,7 +21,6 @@ public class ParkingGarage implements Serializable{
 	// Objects
 	private CarsArray cArray;
 	private FloorsArray fArray;
-	private TicketArray tArray;
 	
 	// ints for numbers of stuff. Equation: (100*amountFloors) = amountCars + amountSpaces
 	
@@ -33,7 +32,6 @@ public class ParkingGarage implements Serializable{
 		TOTAL_amountEmptySpaces = AMOUNT_TOTAL_SPACES;
 		fArray = new FloorsArray(FLOORS, AMOUNT_TOTAL_SPACES, this);
 		cArray = new CarsArray(AMOUNT_TOTAL_SPACES, this);
-		tArray = new TicketArray(AMOUNT_TOTAL_SPACES);
 	}
 	
 	public String parkCar(Car myCar, Ticket realTick, GUIFloor floor, int spotnum, ToolTipStackPane pane) {
@@ -46,7 +44,17 @@ public class ParkingGarage implements Serializable{
 		return fArray.parkValet(myCar, this);
 	}
 	
+	public Car searchTicket(String number) {
+		return cArray.searchTicket(number);
+	}
 	
+	public Car searchCar(String plate) {
+		return cArray.searchPlate(plate);
+	}
+	
+	public boolean isFull() {
+		return TOTAL_amountCars == AMOUNT_TOTAL_SPACES;
+	}
 	
 	public void CarParked() {
 		TOTAL_amountCars++;
@@ -66,10 +74,7 @@ public class ParkingGarage implements Serializable{
 	public CarsArray getCarsArray() {
 		return cArray;
 	}
-	public TicketArray getTicketsArray() {
-		return tArray;
-	}
-	
+
 	public int getAmountCars() {
 		return TOTAL_amountCars;
 	}

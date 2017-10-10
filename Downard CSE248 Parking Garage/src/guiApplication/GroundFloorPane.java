@@ -194,6 +194,7 @@ public class GroundFloorPane implements GUIFloor{
 				carSpots[i].getChildren().add(label);
 			}else if ((NormalCars[i] != null) && (carSpots[i].hasCar() == false)) {// if there is car but gui says no car
 				carSpots[i].getChildren().clear();
+				NormalCars[i].setMyPane(carSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
 				rect.setStroke(NormalCars[i].getColor());
 				rect.setFill(NormalCars[i].getColor());
@@ -219,6 +220,7 @@ public class GroundFloorPane implements GUIFloor{
 				motoSpots[i].getChildren().add(label);
 			}else if ((Motorcycles[i] != null) && (motoSpots[i].hasCar() == false)) {// if there is car but gui says no car
 				motoSpots[i].getChildren().clear();
+				Motorcycles[i].setMyPane(motoSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
 				rect.setStroke(Motorcycles[i].getColor());
 				rect.setFill(Motorcycles[i].getColor());
@@ -244,6 +246,7 @@ public class GroundFloorPane implements GUIFloor{
 				handiSpots[i].getChildren().add(label);
 			}else if ((Handicaps[i] != null) && (handiSpots[i].hasCar() == false)) {// if there is car but gui says no car
 				handiSpots[i].getChildren().clear();
+				Handicaps[i].setMyPane(handiSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
 				rect.setStroke(Handicaps[i].getColor());
 				rect.setFill(Handicaps[i].getColor());
@@ -269,6 +272,7 @@ public class GroundFloorPane implements GUIFloor{
 				busSpots[i].getChildren().add(label);
 			}else if ((Buses[i] != null) && (busSpots[i].hasCar() == false)) {// if there is car but gui says no car
 				busSpots[i].getChildren().clear();
+				Buses[i].setMyPane(busSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
 				rect.setStroke(Buses[i].getColor());
 				rect.setFill(Buses[i].getColor());
