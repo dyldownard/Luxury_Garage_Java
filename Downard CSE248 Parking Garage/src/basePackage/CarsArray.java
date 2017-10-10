@@ -17,6 +17,8 @@ public class CarsArray implements Serializable{
 	protected int amountSpaces;
 	private ParkingGarage mygarage;
 	
+	//--------------------------------------------------------	
+	
 	public CarsArray(int amount, ParkingGarage mygarage) {
 		this.mygarage = mygarage;
 		aR = new Car[amount];
@@ -24,6 +26,7 @@ public class CarsArray implements Serializable{
 		amountSpaces = amount;
 	}
 	
+	//--------------------------------------------------------	
 
 	public String parkCar(Car myCar, GUIFloor floor, int space) {
 		System.out.println(space + "space");
@@ -54,9 +57,7 @@ public class CarsArray implements Serializable{
 		return "Car Parked.";
 	}
 	
-	public boolean isFull() {
-		return amountSpaces == 0;
-	}
+	//--------------------------------------------------------	
 	
 	public void CarPicked(Car myCar, int spotnum) {
 		amountSpaces++;
@@ -67,31 +68,10 @@ public class CarsArray implements Serializable{
 		myCar.getFloor().carPicked(myCar);
 
 	}
-	
-	public Car searchTicket(String tick) {
-		for (int i = 0; i < aR.length; i++) {
-			if (aR[i] == null) {
-				return null;
-			}
-			if (tick.equals(aR[i].getTicket().getTickNum())) {
-				return aR[i];
-			}
-		}
-		return null;
-	}
-	public Car searchPlate(String plate) {
-		for (int i = 0; i < aR.length; i++) {
-			if (aR[i] == null) {
-				return null;
-			}
-			if (plate.equals(aR[i].getPlatenum())) {
-				return aR[i];
-			}
-		}
-		return null;
-	}
 
-	public void AddCarLot(Car myCar) {
+	//--------------------------------------------------------	
+	
+	public void AddCarLot(Car myCar) {		// used in global
 		int temp = 0;			//making sure that it gets the first slot available
 		for (int i = 0; i < aR.length; i++) {
 			if (aR[i] == null) {
@@ -106,8 +86,41 @@ public class CarsArray implements Serializable{
 		amountCars++;
 	}
 	
+	//--------------------------------------------------------	
+	
+	public Car searchTicket(String tick) {
+		for (int i = 0; i < aR.length; i++) {
+			if (aR[i] == null) {
+				return null;
+			}
+			if (tick.equals(aR[i].getTicket().getTickNum())) {
+				return aR[i];
+			}
+		}
+		return null;
+	}
+	
+	
+	public Car searchPlate(String plate) {
+		for (int i = 0; i < aR.length; i++) {
+			if (aR[i] == null) {
+				return null;
+			}
+			if (plate.equals(aR[i].getPlatenum())) {
+				return aR[i];
+			}
+		}
+		return null;
+	}
+	
+	//--------------------------------------------------------	
+	
 	public Car[] getAr() {
 		return aR;
+	}
+	
+	public boolean isFull() {
+		return amountSpaces == 0;
 	}
 	
 	@Override

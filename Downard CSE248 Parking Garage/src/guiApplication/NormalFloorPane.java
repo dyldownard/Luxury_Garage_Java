@@ -29,6 +29,8 @@ public class NormalFloorPane implements GUIFloor {
 	
 	private String[] allowedTypes = {"Sedan","Pickup Truck", "Van", "Motorcylce","Handicapped"};
 	
+	//--------------------------------------------------------	
+	
 	public NormalFloorPane(ParkingGarage CarPark, int floor) {
 		gpane = new GridPane();
 		gpane.setAlignment(Pos.TOP_CENTER);
@@ -111,6 +113,8 @@ public class NormalFloorPane implements GUIFloor {
 
 	}
 	
+	//--------------------------------------------------------	
+	
 	@Override
 	public void updateGrid() {
 		Floor floor = CarPark.getFloorsArray().getAr()[floorNumber];
@@ -146,6 +150,8 @@ public class NormalFloorPane implements GUIFloor {
 		
 		
 	}
+	
+	//--------------------------------------------------------	
 	
 	@Override
 	public ToolTipStackPane[] getStackPanes() {

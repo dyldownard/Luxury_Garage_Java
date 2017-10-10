@@ -21,6 +21,8 @@ public class TimePicker implements Serializable {
 	private Label conversion;
 	private PickupCarPane parent;
 	
+	//--------------------------------------------------------	
+	
 	public TimePicker() {
 		hbox = new HBox();
 		label = new Label("HH:MM");
@@ -57,6 +59,8 @@ public class TimePicker implements Serializable {
 		setChangedH(-1,-1);
 		setChangedM(-1,-1);
 	}
+	
+	//--------------------------------------------------------	
 	
 	public TimePicker(int h, int m, PickupCarPane parent) {
 		this.parent = parent;
@@ -97,12 +101,7 @@ public class TimePicker implements Serializable {
 		setChangedM(h,m);
 	}
 	
-	
-	
-	public HBox getHBox() {
-		return this.hbox;
-	}
-	
+	//--------------------------------------------------------	
 	
 	private void setChangedH(int h, int m) {
 		hourspinner.setOnMouseClicked(e -> {
@@ -200,6 +199,13 @@ public class TimePicker implements Serializable {
 			}
 		});
 	}
+	
+	//--------------------------------------------------------	
+
+	public HBox getHBox() {
+		return this.hbox;
+	}
+	
 	public Spinner<Integer> getMinSpin() {
 		return this.minutespinner;
 	}

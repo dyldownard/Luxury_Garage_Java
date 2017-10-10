@@ -63,6 +63,8 @@ public class ParkCarPane implements Serializable {
 	private GUIFloor floor;
 	private ToolTipStackPane pane;
 	
+	//--------------------------------------------------------	
+	
 	public ParkCarPane(int spot, GUIFloor floor, ToolTipStackPane pane) {
 		this.spot = spot;
 		this.floor = floor;
@@ -198,6 +200,7 @@ public class ParkCarPane implements Serializable {
 		setCarChange();
 	}
 	
+	//--------------------------------------------------------	
 	
 	public GridPane getGridPane() {
 		return this.gpane;
@@ -214,6 +217,8 @@ public class ParkCarPane implements Serializable {
 	public void setMain(Main MainGUI) {
 		this.mainGUI = MainGUI;
 	}
+	
+	//--------------------------------------------------------	
 	
 	private String checkItems() {
 		if (name.getText().equals("") == true) {
@@ -246,17 +251,7 @@ public class ParkCarPane implements Serializable {
 		return "";
 	}
 	
-	private void setTicketChange() {
-		TicketType.setOnAction(e -> {
-			UpdatePrice();
-		});
-	}
-	
-	private void setCarChange() {
-		CarType.setOnAction(e -> {
-			UpdatePrice();
-		});
-	}
+	//--------------------------------------------------------	
 	
 	private void UpdatePrice() {
 		if (CarType.getSelectionModel().isEmpty() == false && TicketType.getSelectionModel().isEmpty() == false) {
@@ -286,6 +281,20 @@ public class ParkCarPane implements Serializable {
 		}
 	}
 	
+	//--------------------------------------------------------	
+	
+	private void setTicketChange() {
+		TicketType.setOnAction(e -> {
+			UpdatePrice();
+		});
+	}
+	
+	private void setCarChange() {
+		CarType.setOnAction(e -> {
+			UpdatePrice();
+		});
+	}
+	
 	private void giveTicketNumber(Ticket realTick) {		// cant cast and use method at same time, stupid work-around put in another method
 		realTick.setTickNum(ticketNum);
 		System.out.println(ticketNum);
@@ -297,6 +306,8 @@ public class ParkCarPane implements Serializable {
 	private void giveColor(Car realCar, Color newCol) {
 		realCar.setColor(newCol, ColorBox.getValue());
 	}
+	
+	//--------------------------------------------------------	
 	
 	private void setParkGo() {
 		this.getPark().setOnMouseClicked(e -> {

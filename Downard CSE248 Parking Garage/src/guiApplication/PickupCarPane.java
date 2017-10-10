@@ -52,6 +52,8 @@ public class PickupCarPane implements Serializable{
 	
 	Ticket myTick;
 	
+	//--------------------------------------------------------	
+	
 	public PickupCarPane(Car myCar, ToolTipStackPane parent, ParkingGarage carPark, Main main) {
 		this.carPark = carPark;
 		this.main = main;
@@ -97,10 +99,6 @@ public class PickupCarPane implements Serializable{
         datePick.setDayCellFactory(dayCellFactory);
         
 		name.setFont(Font.font("Calibri",20));
-		
-		
-	    
-		//gpane.setGridLinesVisible(true);
 	    
 		gpane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE); // Default width and height
 	    gpane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
@@ -137,6 +135,7 @@ public class PickupCarPane implements Serializable{
 		setActionDate();
 	}
 	
+	//--------------------------------------------------------	
 	
 	private void setActionDate() {
 		datePick.setOnAction(e -> {
@@ -144,6 +143,7 @@ public class PickupCarPane implements Serializable{
 		});
 	}
 	
+	//--------------------------------------------------------	
 	// Time Frame will always be 1 above, this is under the assumption that you are either 1:59 or 2:01, as a Real
 	// life Parking Lot company would attempt to rig it to make more money. No such thing as "on time."
 	
@@ -167,6 +167,8 @@ public class PickupCarPane implements Serializable{
 		}
 	}
 	
+	//--------------------------------------------------------	
+	
 	public void pickupCar() {
 		pay.setOnMouseClicked(e -> {
 			if (amountDue.getText().equals("") == false) {
@@ -181,7 +183,4 @@ public class PickupCarPane implements Serializable{
 	public GridPane getGridPane() {
 		return gpane;
 	}
-	
-	
-	
 }

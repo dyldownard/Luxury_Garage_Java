@@ -39,6 +39,7 @@ public class GroundFloorPane implements GUIFloor {
 	private String[] allowedMotorTypes = {"Motorcycle"};
 	private String[] allowedHandiTypes = {"Handicap"};
 
+	//--------------------------------------------------------	
 	
 	public GroundFloorPane(ParkingGarage CarPark, int floor) {
 		gpane = new GridPane();
@@ -168,6 +169,7 @@ public class GroundFloorPane implements GUIFloor {
 			}
 		}
 		
+		
 		ColumnConstraints column = new ColumnConstraints();
 		RowConstraints row = new RowConstraints();
 	    column.setPercentWidth(100/columns);
@@ -179,11 +181,12 @@ public class GroundFloorPane implements GUIFloor {
 	    	 gpane.getRowConstraints().add(row);
 	    }
 
-	    
 		gpane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE); // Default width and height
 	    gpane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 	}
 
+	//--------------------------------------------------------	
+	
 	@Override
 	public void updateGrid() {
 		Floor floor = CarPark.getFloorsArray().getAr()[floorNumber];
@@ -303,6 +306,8 @@ public class GroundFloorPane implements GUIFloor {
 		}		
 	}
 
+	//--------------------------------------------------------	
+	
 	@Override
 	public ToolTipStackPane[] getStackPanes() {
 		return this.parkingSpots;

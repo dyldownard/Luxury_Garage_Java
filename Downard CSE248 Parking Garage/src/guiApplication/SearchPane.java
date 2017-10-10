@@ -27,6 +27,8 @@ public class SearchPane implements Serializable{
 	Label result;
 	Main main;
 	
+	//--------------------------------------------------------	
+	
 	public SearchPane(String giventype, Main main) {
 		this.main = main;
 		
@@ -59,17 +61,7 @@ public class SearchPane implements Serializable{
 		setOnSearchGo();
 	}
 	
-	
-	public VBox getVBox() {
-		return this.vbox;
-	}
-	public Label getResult() {
-		return this.result;
-	}
-	
-	public Button getGo() {
-		return this.search;
-	}
+	//--------------------------------------------------------	
 	
 	public Car getSearchResult(ParkingGarage park) {
 		
@@ -80,6 +72,8 @@ public class SearchPane implements Serializable{
 			return park.searchCar(searchby.getText());
 		}
 	}
+	
+	//--------------------------------------------------------	
 	
 	public boolean isFound(ParkingGarage park) {
 		if (type.getText().equals("Ticket#:")) {
@@ -94,6 +88,8 @@ public class SearchPane implements Serializable{
 		return true;
 	}
 	
+	//--------------------------------------------------------	
+	
 	private void setOnSearchGo() {
 		search.setOnMouseClicked(e -> {
 			try {
@@ -102,5 +98,18 @@ public class SearchPane implements Serializable{
 				e1.printStackTrace();
 			}
 		});
+	}
+	
+	//--------------------------------------------------------	
+	
+	public VBox getVBox() {
+		return this.vbox;
+	}
+	public Label getResult() {
+		return this.result;
+	}
+	
+	public Button getGo() {
+		return this.search;
 	}
 }

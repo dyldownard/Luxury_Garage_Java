@@ -28,6 +28,7 @@ public class ToolTipStackPane extends StackPane implements Serializable {
 	private String actualType;
 	private String spotName;
 
+	//--------------------------------------------------------	
 	
 	public ToolTipStackPane() {
 		super();
@@ -37,6 +38,8 @@ public class ToolTipStackPane extends StackPane implements Serializable {
 		this.spotNum = spotNum;
 		this.floorNum = floorNum;
 	}
+	
+	//--------------------------------------------------------	
 	
 	public void setTooltip(String text) {
 		myTooltip = new Tooltip(text);

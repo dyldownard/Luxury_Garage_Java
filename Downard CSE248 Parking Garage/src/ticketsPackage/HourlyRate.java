@@ -22,12 +22,15 @@ public class HourlyRate implements Ticket{
 	private String ticketNum;
 	private Car myCar;
 	
+	//--------------------------------------------------------	
+	
 	public HourlyRate(String customerName, String liscensePlate, QuickDate date) {
 		this.customerName = customerName;
 		this.liscensePlate = liscensePlate;
 		this.startTime = date;
 	}
 	
+	//--------------------------------------------------------	
 	
 	@Override
 	public Ticket setCar(Car myCar) {

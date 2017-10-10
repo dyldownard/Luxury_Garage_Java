@@ -33,27 +33,33 @@ public class Main extends Application implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	Stage primaryStage;
+	private Stage primaryStage;
 	Stage tempStage;
-	BorderPane bpane;
-	MenuPane mpane;
-	TabPanes tpane;
-	ParkCarPane parkPane;
-	PickupCarPane pickPane;
-	SearchPane searchPane;
-	Stage fileStage;
-	SaveQuestionPane savePane;
+	private BorderPane bpane;
+	private MenuPane mpane;
+	private TabPanes tpane;
+	private ParkCarPane parkPane;
+	private PickupCarPane pickPane;
+	private SearchPane searchPane;
+	private Stage fileStage;
+	private SaveQuestionPane savePane;
 	
-	ParkingGarage CarPark;
+	private ParkingGarage CarPark;
 	
-	Main main;
+	private Main main;
 	
-	Boolean inAction;
+	private Boolean inAction;
 	
 	int amountTabs;
 	
 	int i;		// for setaction array
 	int j;
+	
+	//--------------------------------------------------------	
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -78,11 +84,8 @@ public class Main extends Application implements Serializable {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
 	
-	public void updateTabs() {		
-		tpane.updateGrid();
-	}
+	//--------------------------------------------------------	
 	
 	public void setEventMethods() {
 		setCarClicked();
@@ -96,6 +99,8 @@ public class Main extends Application implements Serializable {
 		setNew();
 		setAbout();
 	}
+	
+	//--------------------------------------------------------	
 	
 	private void setAbout() {
 		mpane.getAbout().setOnAction(e -> {
@@ -138,18 +143,8 @@ public class Main extends Application implements Serializable {
     		BuildNew(newPark);
 		});
 	}
-	public void BuildNew() {
-		CarPark.CheckTicks();
-		tpane = new TabPanes(CarPark);
-		bpane.setCenter(tpane.getTabPane());
-	}
 	
-	public void BuildNew(ParkingGarage park) {
-		this.CarPark = park;
-		tpane = new TabPanes(CarPark);
-		bpane.setCenter(tpane.getTabPane());
-	}
-	
+	//--------------------------------------------------------	
 	
 	public void openRecent() {
 		try {
@@ -197,7 +192,6 @@ public class Main extends Application implements Serializable {
 		}
 	}
 	
-	
 	public void SaveWithClose() {
 		try {
 			FileChooser filesave = new FileChooser();
@@ -226,7 +220,6 @@ public class Main extends Application implements Serializable {
 		}
 	}
 	
-	
 	public void Save() {
 		try {
 			FileChooser filesave = new FileChooser();
@@ -253,51 +246,14 @@ public class Main extends Application implements Serializable {
 			d.printStackTrace();
 		}
 	}
+	
 	public void onSaveRequest() {
 		mpane.getSave().setOnAction(e -> {
 			Save();
 		});
 	}
 	
-	private void setOnTickSearch() {
-		mpane.getTicketSearch().setOnAction(e -> {
-			if (inAction == false) {
-				searchPane = new SearchPane("tick", this);
-				inAction = true;
-				Scene tempScene = new Scene(searchPane.getVBox(), 400, 300);
-				tempStage = new Stage();
-				tempStage.setTitle("Search");
-				tempStage.setScene(tempScene);
-				tempStage.showAndWait();
-				inAction = false;
-			}
-		});
-	}
-	
-	private void setOnCarSearch() {
-		mpane.getPlateSearch().setOnAction(e -> {
-			if (inAction == false) {
-				searchPane = new SearchPane("car", this);
-				inAction = true;
-				Scene tempScene = new Scene(searchPane.getVBox(), 400, 300);
-				tempStage = new Stage();
-				tempStage.setTitle("Search");
-				tempStage.setScene(tempScene);
-				tempStage.showAndWait();
-				inAction = false;
-			}
-		});
-	}
-	
-	public void SearchGo() throws InterruptedException {
-		if(searchPane.isFound(CarPark) == true) {
-			tempStage.close();
-			Thread.sleep(1000);
-			PickupCar(searchPane.getSearchResult(CarPark));
-		}else {
-			searchPane.getResult().setText("Could not find from entry.");
-		}
-	}
+	//--------------------------------------------------------	
 	
 	private void setCarClicked() {
 		for(int i = 0; i < tpane.getFloors().length; i++) {
@@ -377,6 +333,9 @@ public class Main extends Application implements Serializable {
 		inAction = false;
 		updateTabs();
 	}
+	
+	//--------------------------------------------------------	
+	
 	private void setHovered() {
 		for(int i = 0; i < tpane.getFloors().length; i++) {
 			for(int j = 0; j < tpane.getFloors()[i].getStackPanes().length; j++) {
@@ -402,7 +361,65 @@ public class Main extends Application implements Serializable {
 		}
 	}
 	
-	public static void main(String[] args) {
-		launch(args);
+	//--------------------------------------------------------	
+	
+	private void setOnTickSearch() {
+		mpane.getTicketSearch().setOnAction(e -> {
+			if (inAction == false) {
+				searchPane = new SearchPane("tick", this);
+				inAction = true;
+				Scene tempScene = new Scene(searchPane.getVBox(), 400, 300);
+				tempStage = new Stage();
+				tempStage.setTitle("Search");
+				tempStage.setScene(tempScene);
+				tempStage.showAndWait();
+				inAction = false;
+			}
+		});
+	}
+	
+	private void setOnCarSearch() {
+		mpane.getPlateSearch().setOnAction(e -> {
+			if (inAction == false) {
+				searchPane = new SearchPane("car", this);
+				inAction = true;
+				Scene tempScene = new Scene(searchPane.getVBox(), 400, 300);
+				tempStage = new Stage();
+				tempStage.setTitle("Search");
+				tempStage.setScene(tempScene);
+				tempStage.showAndWait();
+				inAction = false;
+			}
+		});
+	}
+	
+	//--------------------------------------------------------	
+	
+	public void SearchGo() throws InterruptedException {
+		if(searchPane.isFound(CarPark) == true) {
+			tempStage.close();
+			Thread.sleep(1000);
+			PickupCar(searchPane.getSearchResult(CarPark));
+		}else {
+			searchPane.getResult().setText("Could not find from entry.");
+		}
+	}
+	
+	//--------------------------------------------------------	
+	
+	public void updateTabs() {		
+		tpane.updateGrid();
+	}
+	
+	public void BuildNew() {
+		CarPark.CheckTicks();
+		tpane = new TabPanes(CarPark);
+		bpane.setCenter(tpane.getTabPane());
+	}
+	
+	public void BuildNew(ParkingGarage park) {
+		this.CarPark = park;
+		tpane = new TabPanes(CarPark);
+		bpane.setCenter(tpane.getTabPane());
 	}
 }

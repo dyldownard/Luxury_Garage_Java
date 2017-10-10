@@ -13,6 +13,8 @@ public class AboutTextPane {
 	Text dash;
 	Text dash2;
 	
+	//--------------------------------------------------------	
+	
 	public AboutTextPane() {
 		vbox = new VBox();
 		
@@ -33,6 +35,8 @@ public class AboutTextPane {
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setSpacing(30);
 	}
+	
+	//--------------------------------------------------------	
 
 	public VBox getVBox() {
 		return this.vbox;

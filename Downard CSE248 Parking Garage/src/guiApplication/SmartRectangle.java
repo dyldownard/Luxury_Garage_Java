@@ -11,6 +11,8 @@ public class SmartRectangle extends Rectangle implements Serializable{
 	 */
 	private static final long serialVersionUID = -1089646282919353722L;
 
+	//--------------------------------------------------------	
+	
 	@Override
 	public boolean isResizable() {
 		return true;

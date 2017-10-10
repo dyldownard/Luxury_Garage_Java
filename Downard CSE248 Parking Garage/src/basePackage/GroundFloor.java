@@ -36,6 +36,7 @@ public class GroundFloor implements Floor {
 	protected int amountBusCars = 0;
 	protected int amountBusEmpty = amountBusSpaces;
 	
+	//--------------------------------------------------------	
 	
 	public GroundFloor(int spaces, int floorNum, ParkingGarage lot) {
 		this.floorNum = floorNum;
@@ -49,6 +50,7 @@ public class GroundFloor implements Floor {
 		amountNormalCars = 0;
 	}
 	
+	//--------------------------------------------------------	
 	
 	@Override
 	public String parkCar(Car myCar, GUIFloor floor, int spot, ToolTipStackPane pane) {
@@ -103,6 +105,30 @@ public class GroundFloor implements Floor {
 		return "Lot full for car type: " + myCar.getSpaceType();
 	}
 
+	//--------------------------------------------------------	
+
+	@Override
+	public void carPicked(Car myCar) {
+		switch (myCar.getSpaceType()) {
+		case "Large": this.amountBusCars--; this.amountBusEmpty++;
+		case "Normal": this.amountNormalCars--; this.amountNormalEmpty++;
+		case "Handicapped": this.amountHandiCars--; this.amountHandiEmpty++;
+		case "Motorcycle": this.amountMotoCars--; this.amountMotoEmpty++;
+		}
+	}
+	
+	//--------------------------------------------------------	
+	
+	@Override
+	public boolean isFull(String spaceType) {
+		switch (spaceType) {
+		case "Large": return BusAr.isFull();
+		case "Normal": return NormalCarsAr.isFull();
+		case "Handicapped": return HandiAr.isFull();
+		case "Motorcycle": return MotorcycleAr.isFull();
+		}
+		return true;
+	}
 	
 	@Override
 	public int getFloorNum() {
@@ -128,17 +154,6 @@ public class GroundFloor implements Floor {
 	@Override
 	public int getAmountSpaces() {
 		return this.amountNormalSpaces;
-	}
-
-	@Override
-	public boolean isFull(String spaceType) {
-		switch (spaceType) {
-		case "Large": return BusAr.isFull();
-		case "Normal": return NormalCarsAr.isFull();
-		case "Handicapped": return HandiAr.isFull();
-		case "Motorcycle": return MotorcycleAr.isFull();
-		}
-		return true;
 	}
 
 	@Override
@@ -205,16 +220,5 @@ public class GroundFloor implements Floor {
 	@Override
 	public CarsArray getBusAr() {
 		return this.BusAr;
-	}
-
-
-	@Override
-	public void carPicked(Car myCar) {
-		switch (myCar.getSpaceType()) {
-		case "Large": this.amountBusCars--; this.amountBusEmpty++;
-		case "Normal": this.amountNormalCars--; this.amountNormalEmpty++;
-		case "Handicapped": this.amountHandiCars--; this.amountHandiEmpty++;
-		case "Motorcycle": this.amountMotoCars--; this.amountMotoEmpty++;
-		}
 	}
 }

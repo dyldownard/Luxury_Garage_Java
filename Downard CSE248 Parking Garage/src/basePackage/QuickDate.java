@@ -17,6 +17,7 @@ public class QuickDate extends Date {
 	final private int Hours;
 	final private int Minutes;
 
+	//--------------------------------------------------------	
 
 	public QuickDate(long date) {
 		super(date);
@@ -27,7 +28,7 @@ public class QuickDate extends Date {
 		Minutes = super.getMinutes();
 	}
 		
-	//----------------------
+	//--------------------------------------------------------	
 	public int compareYears(QuickDate endDate) {
 		long secs = (endDate.getTime() - this.getTime()) / 1000;
 		return (int) secs / 315536000;
@@ -52,6 +53,8 @@ public class QuickDate extends Date {
 		long secs = (endDate.getTime() - this.getTime()) / 1000;
 		return (int) secs / 60;
 	}
+	
+	//--------------------------------------------------------	
 
 	public int getYears() {
 		return Years;

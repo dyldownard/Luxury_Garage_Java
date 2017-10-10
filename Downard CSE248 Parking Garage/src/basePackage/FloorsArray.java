@@ -33,7 +33,6 @@ public class FloorsArray implements Serializable{
 		return aR[floor.getFloorNum()].parkCar(myCar, floor, spot, pane);
 	}
 	
-	
 	public String parkValet(Car myCar, ParkingGarage park) {
 		for (int i = 0; i < aR.length; i++) {
 			if (aR[i].isFull(myCar.getSpaceType()) == false && Arrays.asList(aR[i].getTypesAllowed()).contains(myCar.getSpaceType())) {
@@ -53,14 +52,4 @@ public class FloorsArray implements Serializable{
 		return null;
 	}
 	
-	@Override
-	public String toString() {
-		return "FloorsArray has " + aR.length + " floors.";
-	}
-	
-	public void printFloors() {
-		for (int i = 0; i < aR.length; i++) {
-			System.out.println("	Floor " + (i + 1) + "" +aR[i]);
-		}		
-	}
 }

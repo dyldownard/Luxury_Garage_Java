@@ -34,6 +34,7 @@ public class ParkingGarage implements Serializable{
 	protected int TOTAL_amountCars;						// Amount of cars currently parked 
 	protected int TOTAL_amountEmptySpaces;				// Amount of empty spaces on lot
 	
+	//--------------------------------------------------------	
 	
 	public ParkingGarage() {
 		TOTAL_amountEmptySpaces = AMOUNT_TOTAL_SPACES;
@@ -42,11 +43,21 @@ public class ParkingGarage implements Serializable{
 		tickAr = new Ticket[AMOUNT_TOTAL_SPACES];
 	}
 	
+	//--------------------------------------------------------	
+	
 	public String parkCar(Car myCar, Ticket realTick, GUIFloor floor, int spotnum, ToolTipStackPane pane) {
 		myCar.setTicket(realTick);
 		addTicket(realTick);
 		return fArray.parkCar(myCar, floor, spotnum, pane);
 	}
+	
+	public String parkValet(Car myCar, Ticket realTick) {
+		myCar.setTicket(realTick);
+		addTicket(realTick);
+		return fArray.parkValet(myCar, this);
+	}
+	
+	//--------------------------------------------------------	
 	
 	public void CheckTicks() {
 		for (int i = 0; i < AMOUNT_TOTAL_SPACES; i++) {
@@ -72,11 +83,7 @@ public class ParkingGarage implements Serializable{
 		tickAr[spot] = null;
 	}
 	
-	public String parkValet(Car myCar, Ticket realTick) {
-		myCar.setTicket(realTick);
-		addTicket(realTick);
-		return fArray.parkValet(myCar, this);
-	}
+	//--------------------------------------------------------	
 	
 	public Car searchTicket(String number) {
 		return cArray.searchTicket(number);
@@ -85,6 +92,8 @@ public class ParkingGarage implements Serializable{
 	public Car searchCar(String plate) {
 		return cArray.searchPlate(plate);
 	}
+	
+	//--------------------------------------------------------	
 	
 	public boolean isFull() {
 		return TOTAL_amountCars == AMOUNT_TOTAL_SPACES;
@@ -111,19 +120,5 @@ public class ParkingGarage implements Serializable{
 
 	public int getAmountCars() {
 		return TOTAL_amountCars;
-	}
-
-	@Override
-	public String toString() {
-		return TOTAL_amountCars + " " ;
-	}
-	
-	public void printGarage() {
-		System.out.println("||-------------------------------------------------||");
-		System.out.println("Garage made sucessfully. Code: "  + " " + TOTAL_amountCars + " " + AMOUNT_TOTAL_SPACES);
-		System.out.println("\n" + fArray);
-		fArray.printFloors();
-		System.out.println("\n" + cArray);
-		System.out.println("||-------------------------------------------------||");
 	}
 }

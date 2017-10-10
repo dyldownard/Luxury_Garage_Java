@@ -16,6 +16,8 @@ public class TabPanes implements Serializable {
 	private Tab[] tabAr;
 	private GUIFloor[] floorGUIAr;
 	
+	//--------------------------------------------------------	
+	
 	public TabPanes(ParkingGarage CarPark) {
 		//TODO MAKE TABPANES
 		int floors = CarPark.FLOORS.length;
@@ -38,17 +40,19 @@ public class TabPanes implements Serializable {
 				tabAr[i].setClosable(false);
 			}
 			tpane.getTabs().add(tabAr[i]);
-		}
-		
-		
+		}	
 		
 	}
+	
+	//--------------------------------------------------------	
 	
 	public void updateGrid() {
 		for (int i = 0; i < floorGUIAr.length; i++) {
 			floorGUIAr[i].updateGrid();
 		}
 	}
+	
+	//--------------------------------------------------------	
 	
 	public int getAmountTabs() {
 		return tabAr.length;

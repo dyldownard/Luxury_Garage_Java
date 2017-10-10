@@ -16,6 +16,8 @@ public class SaveQuestionPane {
 	Button nothanks;
 	Main main;
 	
+	//--------------------------------------------------------	
+	
 	public SaveQuestionPane(Main main) {
 		this.main = main;
 		
@@ -35,8 +37,8 @@ public class SaveQuestionPane {
 		setNo();
 	}
 	
-
-
+	//--------------------------------------------------------	
+	
 	public VBox getvbox() {
 		return this.vbox;
 	}

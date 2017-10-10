@@ -36,6 +36,8 @@ public abstract class Car implements Serializable{
 	private String spaceType;
 	public final double MONEY_MULT;
 	
+	//--------------------------------------------------------	
+	
 	public Car(String model, String make, String year, String platenum, Color color, int spotnum, String spaceType, double moneyMult) {
 		this.model = model;
 		this.make = make;
@@ -47,10 +49,7 @@ public abstract class Car implements Serializable{
 		this.MONEY_MULT = moneyMult;
 	}
 	
-	public void setTicket(Ticket tick) {
-		this.tick = tick;
-		tick.setCar(this);
-	}
+	//--------------------------------------------------------	
 	
 	public void updateColor() {
 		Color newCol = Color.BLACK;
@@ -66,6 +65,13 @@ public abstract class Car implements Serializable{
 			newCol = Color.GRAY;
 		}
 		this.color = newCol;
+	}
+	
+	//--------------------------------------------------------	
+	
+	public void setTicket(Ticket tick) {
+		this.tick = tick;
+		tick.setCar(this);
 	}
 	
 	public Ticket getTicket() {
@@ -137,7 +143,7 @@ public abstract class Car implements Serializable{
 
 	@Override
 	public String toString() {
-		return "ye";
+		return "Vroom";
 	}
 
 	public ToolTipStackPane getMyPane() {
