@@ -1,13 +1,19 @@
 package guiApplication;
 
+import java.io.Serializable;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.HBox;
 
-public class TimePicker {
+public class TimePicker implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6170856550357698165L;
 	private HBox hbox;
 	private Label label; 
 	private Spinner<Integer> hourspinner;

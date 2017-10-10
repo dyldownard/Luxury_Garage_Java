@@ -1,6 +1,16 @@
 package guiApplication;
 
 
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import basePackage.*;
 import carsPackage.Car;
 import javafx.application.Application;
@@ -12,10 +22,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class Main extends Application {
+public class Main extends Application implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	Stage primaryStage;
 	Stage tempStage;
@@ -25,8 +41,12 @@ public class Main extends Application {
 	ParkCarPane parkPane;
 	PickupCarPane pickPane;
 	SearchPane searchPane;
+	Stage fileStage;
+	SaveQuestionPane savePane;
 	
 	ParkingGarage CarPark;
+	
+	Main main;
 	
 	Boolean inAction;
 	
@@ -39,44 +59,19 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		inAction = false;
+		this.main = this;
 		this.primaryStage = primaryStage;
-	
-		CarPark = new ParkingGarage();
 		
 		bpane = new BorderPane();
-		tpane = new TabPanes(CarPark);
+		
 		mpane = new MenuPane(primaryStage, inAction);
 		bpane.setTop(mpane.getMenu());
-		bpane.setCenter(tpane.getTabPane());
 		
-		
-		
-//		for (int i = 0; i < 130; i++) {
-//			Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
-//			Ticket tick = new HourlyRate("Ted", "Bundy", new QuickDate());
-//			CarPark.parkValet(sed, tick);
-//		}
-		
-		
-//		Ticket tick = new HourlyRate("Ted", "Bundy", new QuickDate());
-//		Car sed = new Sedan("Sedan", "Sedan", "Sedan", "sedan", new Color(Math.random(),Math.random(),Math.random(), 1), 1);
-//		CarPark.parkValet(sed, tick);
-//		updateTabs();
-//		sed.PickCar();
-//		System.out.println(sed.getFloor().getFloorNum() + "  " + sed.getFloor().getAmountCars());
-//		CarPark.getFloorsArray().getAr()[sed.getFloor().getFloorNum()].getCarsAr().getAr()[sed.getSpotnum()] = null;
-//
-//		sed = null;
-//		
-//		System.gc();
+		openRecent();
+	
 		Platform.setImplicitExit(false);
 		updateTabs();
 		setEventMethods();
-		
-		openSetup();
-		
-		
-		
 		
 		Scene scene = new Scene(bpane, 700, 700);
 		primaryStage.setTitle("Parking Lot CSE248");
@@ -84,10 +79,6 @@ public class Main extends Application {
 		primaryStage.show();
 	}
 
-	
-	public void openSetup() {
-		//TODO opens up most recent file, into view
-	}
 	
 	public void updateTabs() {		
 		tpane.updateGrid();
@@ -101,6 +92,20 @@ public class Main extends Application {
 		parkValet();
 		setOnTickSearch();
 		setOnCarSearch();
+		onSaveRequest();
+		setNew();
+		setAbout();
+	}
+	
+	private void setAbout() {
+		mpane.getAbout().setOnAction(e -> {
+			inAction = true;
+    		AboutTextPane about = new AboutTextPane(); 
+    		tempStage = new Stage();
+    		tempStage.setScene(new Scene(about.getVBox(), 400, 500));
+    		tempStage.showAndWait();
+    		inAction = false;
+		});
 	}
 	
 	private void setExited() {
@@ -110,16 +115,148 @@ public class Main extends Application {
             	if (inAction == true) {
             		closeEvent.consume();
             	}else {
+            		inAction = true;
+            		savePane = new SaveQuestionPane(main); 
+            		tempStage = new Stage();
+            		tempStage.setScene(new Scene(savePane.getvbox(), 300, 200));
+            		tempStage.showAndWait();
             		Platform.exit();
             	}
             }
         });
 	}
 	
+	private void setNew() {
+		mpane.getNew().setOnAction(e -> {
+			inAction = true;
+    		savePane = new SaveQuestionPane(main); 
+    		tempStage = new Stage();
+    		tempStage.setScene(new Scene(savePane.getvbox(), 300, 200));
+    		tempStage.showAndWait();
+    		inAction = false;
+    		ParkingGarage newPark = new ParkingGarage();
+    		BuildNew(newPark);
+		});
+	}
+	public void BuildNew() {
+		CarPark.CheckTicks();
+		tpane = new TabPanes(CarPark);
+		bpane.setCenter(tpane.getTabPane());
+	}
+	
+	public void BuildNew(ParkingGarage park) {
+		this.CarPark = park;
+		tpane = new TabPanes(CarPark);
+		bpane.setCenter(tpane.getTabPane());
+	}
 	
 	
+	public void openRecent() {
+		try {
+			
+			String dir = "Saves/";
+		    File list = new File(dir);
+		    File[] files = list.listFiles(new FileFilter() {          
+		        public boolean accept(File file) {
+		            return file.isFile();
+		        }
+		    });
+		    long lastMod = Long.MIN_VALUE;
+		    File mostrecent = null;
+		    for (File file : files) {
+		        if (file.lastModified() > lastMod) {
+		            mostrecent = file;
+		            lastMod = file.lastModified();
+		        }
+		    }
+		    
+		    if (mostrecent == null) {
+		    	BuildNew(new ParkingGarage());
+		    	updateTabs();
+		    }else { 
+			    FileInputStream filestream = new FileInputStream(mostrecent);
+			    ObjectInputStream objectstream = new ObjectInputStream(filestream);
+				
+			    ParkingGarage newPark = (ParkingGarage) objectstream.readObject();
+			    
+				objectstream.close();
+				filestream.close();
+				this.CarPark = null;
+				CarPark = newPark;
+				BuildNew();
+				updateTabs();
+		    }
+		}	catch (FileNotFoundException d) {
+			System.out.println("File not found");
+		} catch (ClassNotFoundException d) {
+
+			d.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	
+	public void SaveWithClose() {
+		try {
+			FileChooser filesave = new FileChooser();
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("LOT Files (*.lot)", "*.lot");
+			File defaultDirectory = new File("Saves");
+			filesave.setInitialDirectory(defaultDirectory);
+            filesave.getExtensionFilters().add(extFilter);
+            CarPark.CheckTicks();
+            File file = filesave.showSaveDialog(fileStage);
+            if (file != null) {
+				FileOutputStream f = new FileOutputStream(file);
+				ObjectOutputStream o = new ObjectOutputStream(f);
+	
+				// Write objects to file
+				o.writeObject(CarPark);
+				
+				o.close();
+				f.close();
+            }
+            inAction = false;
+            tempStage.close();
+		}catch (FileNotFoundException d) {
+			d.printStackTrace();
+		}catch (IOException d) {
+			d.printStackTrace();
+		}
+	}
+	
+	
+	public void Save() {
+		try {
+			FileChooser filesave = new FileChooser();
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("LOT Files (*.lot)", "*.lot");
+			File defaultDirectory = new File("Saves");
+			filesave.setInitialDirectory(defaultDirectory);
+            filesave.getExtensionFilters().add(extFilter);
+            CarPark.CheckTicks();
+            File file = filesave.showSaveDialog(fileStage);
+            if (file != null) {
+				FileOutputStream f = new FileOutputStream(file);
+				ObjectOutputStream o = new ObjectOutputStream(f);
+	
+				// Write objects to file
+				o.writeObject(CarPark);
+				
+				o.close();
+				f.close();
+            }
+            inAction = false;
+		}catch (FileNotFoundException d) {
+			d.printStackTrace();
+		}catch (IOException d) {
+			d.printStackTrace();
+		}
+	}
 	public void onSaveRequest() {
-		
+		mpane.getSave().setOnAction(e -> {
+			Save();
+		});
 	}
 	
 	private void setOnTickSearch() {
@@ -234,7 +371,7 @@ public class Main extends Application {
 		
 		inAction = true;
 		tempStage.setAlwaysOnTop(true);
-		tempStage.setTitle("Pickup Car");
+		tempStage.setTitle("Pickup Car - If empty resize window");
 		tempStage.setScene(new Scene(pickPane.getGridPane(),400,400));
 		tempStage.showAndWait();
 		inAction = false;

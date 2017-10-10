@@ -1,5 +1,6 @@
 package guiApplication;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
@@ -25,8 +26,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import ticketsPackage.*;
 
-public class ParkCarPane {
+public class ParkCarPane implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6329106506803959803L;
 	private GridPane gpane;
 	private StackPane parktypepane;
 	private Label parktype;
@@ -44,7 +49,7 @@ public class ParkCarPane {
 	private TextField year;
 	private TextField plate;
 	private Label pricePerX;
-	private DatePicker datePick;
+	private transient DatePicker datePick;
 	private TimePicker timePick;
 	private ComboBox<String> CarType;
 	private ComboBox<String> ColorBox;
@@ -289,6 +294,9 @@ public class ParkCarPane {
 	private ToolTipStackPane getPanefromCar(Car realCar) {
 		return realCar.getMyPane();
 	}
+	private void giveColor(Car realCar, Color newCol) {
+		realCar.setColor(newCol, ColorBox.getValue());
+	}
 	
 	private void setParkGo() {
 		this.getPark().setOnMouseClicked(e -> {
@@ -327,14 +335,16 @@ public class ParkCarPane {
 						System.out.println(floor.getGarage().parkValet((Car) realCar,(Ticket) realTick));
 						mainGUI.updateTabs();
 						pane = getPanefromCar((Car) realCar);
+						giveColor((Car) realCar, newCol);
 					} else {
 						System.out.println(floor.getGarage().parkCar((Car) realCar,(Ticket) realTick, floor, (spot - 1), pane));
+						giveColor((Car) realCar, newCol);
 					}
 					
 					
 					
 					pane.setRealCar((Car) realCar);
-					pane.setLocaldate(datePick);
+					pane.setLocaldate(datePick.getValue());
 					giveTicketNumber((Ticket) realTick);
 					
 				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {

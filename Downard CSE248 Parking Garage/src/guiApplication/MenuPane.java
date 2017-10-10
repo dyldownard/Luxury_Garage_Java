@@ -1,21 +1,24 @@
 package guiApplication;
 
+import java.io.Serializable;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-public class MenuPane {
+public class MenuPane implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1936241993618090380L;
 
 	private MenuBar bar;
 	
@@ -87,6 +90,20 @@ public class MenuPane {
 		return this.pPlate;
 	}
 	
+	public MenuItem getSave() {
+		return this.save;
+	}
+	
+	public MenuItem getNew() {
+		return this.newPark;
+	}
+	
+	public MenuItem getAbout() {
+		return this.about;
+	}
+	public MenuItem getOpen() {
+		return this.open;
+	}
 	private void onNew() {
 		newPark.setOnAction(e -> {
 			if (inAction.booleanValue() == false) {

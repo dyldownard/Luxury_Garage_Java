@@ -6,13 +6,19 @@ import carsPackage.Car;
 public class HourlyRate implements Ticket{
 
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1991745572749878514L;
+
 	final static public double RATE = 10.00D;	// 10.00 USD PER HOUR (unit of time hourly)
 	
 	private String customerName;
 	private String liscensePlate;
 	private QuickDate startTime;
 	
-	
+	private int ticketSpotGlobal;
 	private String ticketNum;
 	private Car myCar;
 	
@@ -78,6 +84,17 @@ public class HourlyRate implements Ticket{
 	@Override
 	public String getTickNum() {
 		return this.ticketNum;
+	}
+	
+	@Override
+	public void setTicketGlobal(int spot) {
+		this.ticketSpotGlobal = spot;
+	}
+
+
+	@Override
+	public int getTicketSpot() {
+		return this.ticketSpotGlobal;
 	}
 	
 }

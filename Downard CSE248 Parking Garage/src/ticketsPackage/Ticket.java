@@ -15,4 +15,6 @@ public interface Ticket extends Serializable{
 	QuickDate getDate();
 	void setTickNum(String ticketNum);
 	String getTickNum();
+	void setTicketGlobal(int spot);
+	int getTicketSpot();
 }

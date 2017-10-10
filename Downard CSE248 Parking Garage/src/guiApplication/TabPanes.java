@@ -1,11 +1,17 @@
 package guiApplication;
 
+import java.io.Serializable;
+
 import basePackage.*;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
-public class TabPanes {
+public class TabPanes implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7646345453138502181L;
 	private TabPane tpane;
 	private Tab[] tabAr;
 	private GUIFloor[] floorGUIAr;

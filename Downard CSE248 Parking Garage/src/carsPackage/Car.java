@@ -1,6 +1,7 @@
 package carsPackage;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import basePackage.CarsArray;
 import basePackage.Floor;
@@ -10,11 +11,18 @@ import ticketsPackage.*;
 
 public abstract class Car implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2685261214214120697L;
+
 	private Ticket tick;
 	
 	private String model; private String make; 
 	private String year; private String platenum;
 	private int spotnum;
+	
+	public LocalDate localDate;
 	
 	private Floor myFloor;
 	private CarsArray myFloorCarAr;
@@ -22,7 +30,8 @@ public abstract class Car implements Serializable{
 	private int spotGlobalArray;
 	
 	private ToolTipStackPane myPane;
-	private Color color;
+	private transient Color color;
+	private String colorS;
 	
 	private String spaceType;
 	public final double MONEY_MULT;
@@ -43,6 +52,22 @@ public abstract class Car implements Serializable{
 		tick.setCar(this);
 	}
 	
+	public void updateColor() {
+		Color newCol = Color.BLACK;
+		if (colorS.equals("Black")) {
+			newCol = Color.BLACK;
+		}else if(colorS.equals("White")) {
+			newCol = Color.WHITE;
+		}else if(colorS.equals("Red")) {
+			newCol = Color.RED;
+		}else if(colorS.equals("Blue")) {
+			newCol = Color.BLUE;
+		}else if(colorS.equals("Gray")) {
+			newCol = Color.GRAY;
+		}
+		this.color = newCol;
+	}
+	
 	public Ticket getTicket() {
 		return this.tick;
 	}
@@ -54,7 +79,11 @@ public abstract class Car implements Serializable{
 	public String getSpaceType() {
 		return this.spaceType;
 	}
-
+	public void setColor(Color color, String colorS) {
+		this.color = color;
+		this.colorS = colorS;
+	}
+	
 	public Color getColor() {
 		return this.color;
 	}

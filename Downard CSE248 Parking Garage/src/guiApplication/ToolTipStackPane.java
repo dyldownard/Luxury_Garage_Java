@@ -2,17 +2,23 @@ package guiApplication;
 
 import carsPackage.Car;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Arrays;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 
-public class ToolTipStackPane extends StackPane {
+public class ToolTipStackPane extends StackPane implements Serializable {
 
-	private Tooltip myTooltip;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6113502194214916131L;
+	private transient Tooltip myTooltip;
 	private SmartRectangle car;
-	private Label myLabel;
+	private transient Label myLabel;
 	private Car realCar;
 	private int spotNum;
 	private int specialSpotNum;
@@ -21,8 +27,7 @@ public class ToolTipStackPane extends StackPane {
 	private String[] allowedTypes;
 	private String actualType;
 	private String spotName;
-	
-	private DatePicker localdate;
+
 	
 	public ToolTipStackPane() {
 		super();
@@ -106,10 +111,10 @@ public class ToolTipStackPane extends StackPane {
 	public Car getRealCar() {
 		return realCar;
 	}
-	public DatePicker getLocaldate() {
-		return localdate;
+	public LocalDate getLocaldate() {
+		return this.realCar.localDate;
 	}
-	public void setLocaldate(DatePicker localdate) {
-		this.localdate = localdate;
+	public void setLocaldate(LocalDate localdate) {
+		this.realCar.localDate = localdate;
 	}
 }

@@ -1,5 +1,6 @@
 package guiApplication;
 
+
 import basePackage.Floor;
 import basePackage.ParkingGarage;
 import carsPackage.Car;
@@ -12,9 +13,14 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 
-public class GroundFloorPane implements GUIFloor{
+public class GroundFloorPane implements GUIFloor {
 
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5793826252048034953L;
 	private GridPane gpane;
 	private int columns;
 	private int rows;
@@ -194,6 +200,7 @@ public class GroundFloorPane implements GUIFloor{
 				carSpots[i].getChildren().add(label);
 			}else if ((NormalCars[i] != null) && (carSpots[i].hasCar() == false)) {// if there is car but gui says no car
 				carSpots[i].getChildren().clear();
+				NormalCars[i].updateColor();
 				NormalCars[i].setMyPane(carSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
 				rect.setStroke(NormalCars[i].getColor());
@@ -207,6 +214,7 @@ public class GroundFloorPane implements GUIFloor{
 				carSpots[i].getChildren().addAll(rect, label);
 				carSpots[i].setTooltip(NormalCars[i].getModel() + ", " + NormalCars[i].getTicket().getName());
 				carSpots[i].setCar(rect);
+				carSpots[i].setRealCar(NormalCars[i]);
 			}
 		}
 		Car[] Motorcycles = floor.getMotoAr().getAr();
@@ -220,6 +228,7 @@ public class GroundFloorPane implements GUIFloor{
 				motoSpots[i].getChildren().add(label);
 			}else if ((Motorcycles[i] != null) && (motoSpots[i].hasCar() == false)) {// if there is car but gui says no car
 				motoSpots[i].getChildren().clear();
+				Motorcycles[i].updateColor();
 				Motorcycles[i].setMyPane(motoSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
 				rect.setStroke(Motorcycles[i].getColor());
@@ -233,6 +242,7 @@ public class GroundFloorPane implements GUIFloor{
 				motoSpots[i].getChildren().addAll(rect, label);
 				motoSpots[i].setTooltip(Motorcycles[i].getModel() + ", " + Motorcycles[i].getTicket().getName());
 				motoSpots[i].setCar(rect);
+				motoSpots[i].setRealCar(Motorcycles[i]);
 			}
 		}
 		Car[] Handicaps = floor.getHandiAr().getAr();
@@ -246,6 +256,7 @@ public class GroundFloorPane implements GUIFloor{
 				handiSpots[i].getChildren().add(label);
 			}else if ((Handicaps[i] != null) && (handiSpots[i].hasCar() == false)) {// if there is car but gui says no car
 				handiSpots[i].getChildren().clear();
+				Handicaps[i].updateColor();
 				Handicaps[i].setMyPane(handiSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
 				rect.setStroke(Handicaps[i].getColor());
@@ -259,6 +270,7 @@ public class GroundFloorPane implements GUIFloor{
 				handiSpots[i].getChildren().addAll(rect, label);
 				handiSpots[i].setTooltip(Handicaps[i].getModel() + ", " + Handicaps[i].getTicket().getName());
 				handiSpots[i].setCar(rect);
+				handiSpots[i].setRealCar(Handicaps[i]);
 			}
 		}
 		Car[] Buses = floor.getBusAr().getAr();
@@ -274,6 +286,7 @@ public class GroundFloorPane implements GUIFloor{
 				busSpots[i].getChildren().clear();
 				Buses[i].setMyPane(busSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
+				Buses[i].updateColor();
 				rect.setStroke(Buses[i].getColor());
 				rect.setFill(Buses[i].getColor());
 				rect.widthProperty().bind(busSpots[i].widthProperty().subtract(10));
@@ -285,6 +298,7 @@ public class GroundFloorPane implements GUIFloor{
 				busSpots[i].getChildren().addAll(rect, label);
 				busSpots[i].setTooltip(Buses[i].getModel() + ", " + Buses[i].getTicket().getName());
 				busSpots[i].setCar(rect);
+				busSpots[i].setRealCar(Buses[i]);
 			}
 		}		
 	}

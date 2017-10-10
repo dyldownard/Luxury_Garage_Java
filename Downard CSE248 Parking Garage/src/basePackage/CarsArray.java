@@ -7,6 +7,11 @@ import guiApplication.GUIFloor;
 
 public class CarsArray implements Serializable{
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5068452776469704527L;
 	private Car[] aR;
 	protected int amountCars;
 	protected int amountSpaces;
@@ -57,6 +62,7 @@ public class CarsArray implements Serializable{
 		amountSpaces++;
 		amountCars--;
 		mygarage.CarPicked();
+		mygarage.removeTicket(myCar.getSpotGlobalArray());
 		this.aR[spotnum] = null;
 		myCar.getFloor().carPicked(myCar);
 
@@ -95,6 +101,7 @@ public class CarsArray implements Serializable{
 		}
 		aR[temp] = myCar;
 		myCar.setSpotGlobalArray(temp);
+		mygarage.addTicket(myCar.getTicket());
 		amountSpaces--;
 		amountCars++;
 	}

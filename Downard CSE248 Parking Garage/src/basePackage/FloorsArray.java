@@ -9,6 +9,10 @@ import guiApplication.ToolTipStackPane;
 
 public class FloorsArray implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 774220173256562317L;
 	private Floor[] aR;
 	
 	//--------------------------------------------------------		

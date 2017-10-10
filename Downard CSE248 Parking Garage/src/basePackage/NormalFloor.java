@@ -6,6 +6,10 @@ import guiApplication.ToolTipStackPane;
 
 public class NormalFloor implements Floor {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8402432774992136787L;
 	private int floorNum;
 	private CarsArray floorCarsAr;
 	

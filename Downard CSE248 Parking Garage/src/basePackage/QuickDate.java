@@ -2,28 +2,21 @@ package basePackage;
 
 import java.util.Date;
 
-@SuppressWarnings("deprecation")
 public class QuickDate extends Date {
 
-	
+
+
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6646815970544194006L;
+	private static final long serialVersionUID = 991629730320004318L;
 	final private int Years;
 	final private int Months;
 	final private int Days;
 	final private int Hours;
 	final private int Minutes;
 
-	@Deprecated
-	public QuickDate() {
-		Years = super.getYear();
-		Months = super.getMonth();
-		Days = super.getDate();
-		Hours = super.getHours();
-		Minutes = super.getMinutes();
-	}
 
 	public QuickDate(long date) {
 		super(date);

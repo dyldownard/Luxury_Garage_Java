@@ -1,5 +1,6 @@
 package guiApplication;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,25 +17,27 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import ticketsPackage.*;
 
-public class PickupCarPane {
+public class PickupCarPane implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4787028376788124247L;
 	GridPane gpane;
 	HBox methodFind;
 	TextField method;
 	Button Find;
 	Label name;
 	HBox dateTime;
-	DatePicker datePick;
+	transient DatePicker datePick;
 	TimePicker timePick;
 	HBox hoursPer;
 	Label hoursBetwix;
@@ -81,7 +84,7 @@ public class PickupCarPane {
                             super.updateItem(item, empty);
                            
                             if (item.isBefore(
-                            		parent.getLocaldate().getValue().plusDays(0))
+                            		parent.getLocaldate().plusDays(0))
                                 ) {
                                     setDisable(true);
                                     setStyle("-fx-background-color: red;");

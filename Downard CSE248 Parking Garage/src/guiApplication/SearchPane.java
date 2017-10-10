@@ -1,5 +1,7 @@
 package guiApplication;
 
+import java.io.Serializable;
+
 import basePackage.ParkingGarage;
 import carsPackage.Car;
 import javafx.geometry.Insets;
@@ -11,8 +13,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class SearchPane {
+public class SearchPane implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1207032711600758933L;
 	VBox vbox;
 	HBox box;
 	Label type;

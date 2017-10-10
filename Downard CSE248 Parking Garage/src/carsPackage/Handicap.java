@@ -4,6 +4,10 @@ import javafx.scene.paint.Color;
 
 public class Handicap extends Car {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5002157763395449384L;
 	final public static double MONEY_MULT = 0.99;
 	final public static String spaceType = "Handicapped";	// i will go on the assumption that a bus cannot be considered "handicapped"
 									// and/or a huge work truck cannot be handicapped, neither can a motorcycle

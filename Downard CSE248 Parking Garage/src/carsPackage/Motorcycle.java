@@ -3,6 +3,10 @@ package carsPackage;
 import javafx.scene.paint.Color;
 
 public class Motorcycle extends Car {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7068638031849639309L;
 	final public static String spaceType = "Motorcycle";
 	final public static double MONEY_MULT = 0.85;
 	

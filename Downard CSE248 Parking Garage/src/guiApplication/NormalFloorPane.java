@@ -1,7 +1,6 @@
 package guiApplication;
 
 import basePackage.*;
-import ticketsPackage.Ticket;
 import carsPackage.Car;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -15,6 +14,10 @@ import javafx.scene.paint.Color;
 
 public class NormalFloorPane implements GUIFloor {	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -10233157191290322L;
 	private GridPane gpane;
 	private int columns;
 	private int rows;
@@ -125,6 +128,7 @@ public class NormalFloorPane implements GUIFloor {
 				parkingSpots[i].getChildren().clear();
 				Cars[i].setMyPane(parkingSpots[i]);
 				SmartRectangle rect = new SmartRectangle();//put car in gui
+				Cars[i].updateColor();
 				rect.setStroke(Cars[i].getColor());
 				rect.setFill(Cars[i].getColor());
 				rect.widthProperty().bind(parkingSpots[i].widthProperty().subtract(10));
@@ -136,6 +140,7 @@ public class NormalFloorPane implements GUIFloor {
 				parkingSpots[i].getChildren().addAll(rect, label);
 				parkingSpots[i].setTooltip(Cars[i].getModel() + ", " + Cars[i].getTicket().getName());
 				parkingSpots[i].setCar(rect);
+				parkingSpots[i].setRealCar(Cars[i]);
 			}
 		}
 		

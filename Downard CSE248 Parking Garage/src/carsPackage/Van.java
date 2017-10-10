@@ -4,6 +4,10 @@ import javafx.scene.paint.Color;
 
 public class Van extends Car {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7035069681938610183L;
 	final public static double MONEY_MULT = 2.5;
 	final public static String spaceType = "Normal";
 	

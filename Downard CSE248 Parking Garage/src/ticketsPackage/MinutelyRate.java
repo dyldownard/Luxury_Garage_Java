@@ -6,12 +6,20 @@ import carsPackage.Car;
 public class MinutelyRate implements Ticket{
 
 	
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6672145981052723400L;
+
 	final static public double RATE = 1.10D;	// 1.10 USD PER MINUTE (unit of time minutes)
 	
 	private String customerName;
 	private String liscensePlate;
 	private QuickDate startTime;
 	
+	private int ticketSpotGlobal;
 	private String ticketNum;
 	private Car myCar;
 	
@@ -78,6 +86,18 @@ public class MinutelyRate implements Ticket{
 	@Override
 	public String getTickNum() {
 		return this.ticketNum;
+	}
+
+
+	@Override
+	public void setTicketGlobal(int spot) {
+		this.ticketSpotGlobal = spot;
+	}
+
+
+	@Override
+	public int getTicketSpot() {
+		return this.ticketSpotGlobal;
 	}
 	
 	
