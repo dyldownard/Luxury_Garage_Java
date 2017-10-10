@@ -17,7 +17,7 @@ public class FloorsArray implements Serializable{
 		aR = new Floor[types.length];
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equals("NormalFloor")) {
-				aR[i] = new NormalFloor(spaces/types.length, i);
+				aR[i] = new NormalFloor(spaces/types.length, i, lot);
 			}else if (types[i].equals("GroundFloor")) {
 				aR[i] = new GroundFloor(spaces/types.length, i, lot);
 			}

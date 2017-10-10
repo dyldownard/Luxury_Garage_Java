@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import basePackage.ParkingGarage;
 import basePackage.QuickDate;
 import carsPackage.Car;
 import javafx.geometry.Pos;
@@ -18,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import ticketsPackage.*;
 
@@ -38,11 +40,18 @@ public class PickupCarPane {
 	Label amountDue;
 	Button pay;
 	
+	ParkingGarage carPark;
+	
+	Main main;
+	ToolTipStackPane parent;
+	
 	Ticket myTick;
 	// TODO make 3; one accepts Car (click on gui), One search by Plate#, one by Ticket#
 	
-	public PickupCarPane(Car myCar, ToolTipStackPane parent) {
-		System.out.println(myCar.getMake());
+	public PickupCarPane(Car myCar, ToolTipStackPane parent, ParkingGarage carPark, Main main) {
+		this.carPark = carPark;
+		this.main = main;
+		this.parent = parent;
 		myTick = myCar.getTicket();
 		
 		bpane = new BorderPane();
@@ -92,11 +101,12 @@ public class PickupCarPane {
 		dateTime.setAlignment(Pos.CENTER);
 		hoursPer.getChildren().addAll(hoursBetwix, perHour);
 		hoursPer.setAlignment(Pos.CENTER);
+		hoursPer.setSpacing(10);
 		bpane.setCenter(vbox);
 		
 		
 		BorderPane.setAlignment(vbox, Pos.CENTER);
-		
+		pickupCar();
 		setActionDate();
 	}
 	
@@ -114,22 +124,33 @@ public class PickupCarPane {
 		LocalDateTime newDate = LocalDateTime.of(datePick.getValue().getYear(), datePick.getValue().getMonth(), datePick.getValue().getDayOfMonth(), timePick.getHour(), timePick.getMin());
 		ZonedDateTime samezone = newDate.atZone(ZoneId.of("America/New_York"));
 		QuickDate endDate = new QuickDate(samezone.toInstant().toEpochMilli());
-		DecimalFormat b = new DecimalFormat(".##");
+		DecimalFormat b = new DecimalFormat("#.00");
 		if (myTick instanceof MonthlyRate) {
 			hoursBetwix.setText("Months: " + (myTick.getDate().compareMonths(endDate) + 1));
 			perHour.setText(myTick.getRate() + " per Month");
-			amountDue.setText(b.format(myTick.calcBill()) + "USD is the amount due");
+			amountDue.setText(b.format(myTick.calculateBill(endDate)) + " USD is the amount due");
 		}else if(myTick instanceof HourlyRate) {
 			hoursBetwix.setText("Hours: " + (myTick.getDate().compareHours(endDate) + 1));
 			perHour.setText(myTick.getRate() + " per Hour");
-			amountDue.setText(b.format(myTick.calcBill()) + "USD is the amount due");
+			amountDue.setText(b.format(myTick.calculateBill(endDate)) + " USD is the amount due");
 		}else if(myTick instanceof MinutelyRate) {
 			hoursBetwix.setText("Minutes: " + (myTick.getDate().compareMinutes(endDate) + 1));
 			perHour.setText(myTick.getRate() + " per Minute");
-			amountDue.setText(b.format(myTick.calcBill()) + "USD is the amount due");
+			amountDue.setText(b.format(myTick.calculateBill(endDate)) + " USD is the amount due");
 		}
 	}
 	
+	public void pickupCar() {
+		pay.setOnMouseClicked(e -> {
+			if (amountDue.getText().equals("") == false) {
+				System.out.println("XD");
+				parent.getRealCar().PickCar();
+				carPark.getCarsArray().getAr()[parent.getRealCar().getSpotGlobalArray()] = null;
+				carPark.getFloorsArray().getAr()[parent.getRealCar().getFloor().getFloorNum()].getCarsAr().getAr()[parent.getRealCar().getSpotnum()] = null;
+				main.tempStage.close();
+			}
+		});
+	}
 	
 	public BorderPane getBorderPane() {
 		return bpane;

@@ -34,10 +34,10 @@ public class GroundFloor implements Floor {
 	
 	public GroundFloor(int spaces, int floorNum, ParkingGarage lot) {
 		this.floorNum = floorNum;
-		NormalCarsAr = new CarsArray(spaces);
-		MotorcycleAr = new CarsArray(amountMotoSpaces);
-		HandiAr = new CarsArray(amountHandiSpaces);
-		BusAr = new CarsArray(amountBusSpaces);
+		NormalCarsAr = new CarsArray(spaces, lot);
+		MotorcycleAr = new CarsArray(amountMotoSpaces, lot);
+		HandiAr = new CarsArray(amountHandiSpaces, lot);
+		BusAr = new CarsArray(amountBusSpaces, lot);
 		lot.AMOUNT_TOTAL_SPACES = lot.AMOUNT_TOTAL_SPACES + amountMotoSpaces + amountHandiSpaces + amountBusSpaces;
 		amountNormalSpaces = spaces;
 		amountNormalEmpty = spaces;

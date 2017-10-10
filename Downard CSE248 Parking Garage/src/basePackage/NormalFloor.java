@@ -17,9 +17,9 @@ public class NormalFloor implements Floor {
 	
 	//--------------------------------------------------------	
 	
-	public NormalFloor(int spaces, int floorNum) {
+	public NormalFloor(int spaces, int floorNum, ParkingGarage lot) {
 		this.floorNum = floorNum;
-		floorCarsAr = new CarsArray(spaces);
+		floorCarsAr = new CarsArray(spaces, lot);
 		amountTotalSpaces = spaces;
 		amountSpaces = spaces;
 		amountCars = 0;

@@ -6,12 +6,13 @@ import carsPackage.Car;
 public class MinutelyRate implements Ticket{
 
 	
-	private double rate = 1.10D;	// 1.10 USD PER MINUTE (unit of time minutes)
+	final static public double RATE = 1.10D;	// 1.10 USD PER MINUTE (unit of time minutes)
 	
 	private String customerName;
 	private String liscensePlate;
 	private QuickDate startTime;
 	
+	private String ticketNum;
 	private Car myCar;
 	
 	public MinutelyRate(String customerName, String liscensePlate, QuickDate date) {
@@ -34,16 +35,11 @@ public class MinutelyRate implements Ticket{
 
 	@Override
 	public double calculateBill(QuickDate endDate) {
-		return (myCar.getMoneyMult() * this.rate) * this.startTime.compareMinutes(endDate);
-	}
-
-	@Override
-	public double calcBill() {
-		return (myCar.getMoneyMult() * this.rate) * 1;
+		return ((myCar.getMoneyMult() * RATE) * this.startTime.compareMinutes(endDate)) + RATE;// + 1 unit since you can never park it on time
 	}
 
 	public double getRate() {
-		return rate;
+		return RATE;
 	}
 
 
@@ -62,10 +58,6 @@ public class MinutelyRate implements Ticket{
 	}
 
 
-	@Override
-	public void setTicket(Ticket tick) {
-	}
-
 
 	@Override
 	public String getName() {
@@ -77,6 +69,15 @@ public class MinutelyRate implements Ticket{
 	public QuickDate getDate() {
 		return this.startTime;
 	}
+	@Override
+	public void setTickNum(String ticketNum) {
+		this.ticketNum = ticketNum;
+	}
 
+
+	@Override
+	public String getTickNum() {
+		return this.ticketNum;
+	}
 	
 }

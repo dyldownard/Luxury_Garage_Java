@@ -12,7 +12,8 @@ public class CarsArray implements Serializable{
 	protected int amountSpaces;
 	private ParkingGarage mygarage;
 	
-	public CarsArray(int amount) {
+	public CarsArray(int amount, ParkingGarage mygarage) {
+		this.mygarage = mygarage;
 		aR = new Car[amount];
 		amountCars = 0;
 		amountSpaces = amount;
@@ -72,6 +73,7 @@ public class CarsArray implements Serializable{
 			}
 		}
 		aR[temp] = myCar;
+		myCar.setSpotGlobalArray(temp);
 		amountSpaces--;
 		amountCars++;
 	}

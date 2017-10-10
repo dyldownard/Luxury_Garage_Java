@@ -2,13 +2,13 @@ package guiApplication;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.Random;
 
 import carsPackage.*;
-import basePackage.ParkingGarage;
 import basePackage.QuickDate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,11 +35,15 @@ public class ParkCarPane {
 	private HBox CarTypeColorBox;
 	private HBox dateTime;
 	private HBox TicketTypePark;
+	private HBox pricePerXBox;
+	private HBox ticketBox;
+	private Label ticketnum;
 	private TextField name;
 	private TextField make;
 	private TextField model;
 	private TextField year;
 	private TextField plate;
+	private Label pricePerX;
 	private DatePicker datePick;
 	private TimePicker timePick;
 	private ComboBox<String> CarType;
@@ -47,6 +51,8 @@ public class ParkCarPane {
 	private ComboBox<String> TicketType;
 	private Button Park;
 	private Main mainGUI;
+	
+	private String ticketNum;
 	
 	private int spot;
 	private GUIFloor floor;
@@ -60,17 +66,14 @@ public class ParkCarPane {
 		gpane = new GridPane();
 		parktypepane = new StackPane();
 		name = new TextField();
-//		name.setFocusTraversable(false);
 		make = new TextField();
-//		make.setFocusTraversable(false);
 		namemake = new HBox();
 		model = new TextField();
-//		model.setFocusTraversable(false);
 		year = new TextField();
-		//year.setFocusTraversable(false);
 		plate = new TextField();
-		//plate.setFocusTraversable(false);
 		modelyearplate = new HBox();
+		ticketBox = new HBox();
+		ticketnum = new Label();
 		CarType = new ComboBox<String>();
 		ColorBox = new ComboBox<String>();
 		CarTypeColorBox = new HBox();
@@ -80,17 +83,32 @@ public class ParkCarPane {
 		TicketType = new ComboBox<String>();
 		Park = new Button("Park Car");
 		TicketTypePark = new HBox();
+		pricePerX = new Label();
+		pricePerXBox = new HBox();
+		
 		
 		gpane.setAlignment(Pos.CENTER);
 		parktypepane.setAlignment(Pos.CENTER);
 		
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 9; i++) {
 			RowConstraints row = new RowConstraints();
 			row.setPercentHeight(100/7);
 			gpane.getRowConstraints().add(row);
 		}
 		
+		String tickChars = "1234567890";
+		StringBuilder sb = new StringBuilder();
+	    Random random = new Random();
+	    for (int i = 0; i < 5; i++) {
+	        sb.append(tickChars.charAt(random.nextInt(tickChars.length())));
+	    }
 		
+	    ticketNum = sb.toString();
+	    ticketnum.setText("Your Ticket # is: " + ticketNum);
+	    ticketnum.setFont(Font.font("Calibri", 20));
+	    ticketBox.getChildren().add(ticketnum);
+	    ticketBox.setAlignment(Pos.CENTER);
+	    
 		namemake.getChildren().addAll(name,make);
 		namemake.setAlignment(Pos.CENTER);
 		namemake.setPadding(new Insets(10));
@@ -117,12 +135,18 @@ public class ParkCarPane {
 		TicketTypePark.setPadding(new Insets(10));
 		TicketTypePark.setSpacing(10);
 		
+		pricePerXBox.getChildren().add(pricePerX);
+		pricePerXBox.setAlignment(Pos.CENTER);
+
+		
 		gpane.add(parktypepane, 0, 0);
-		gpane.add(namemake, 0, 1);
-		gpane.add(modelyearplate, 0, 2);
-		gpane.add(CarTypeColorBox, 0, 3);
-		gpane.add(dateTime, 0, 4);
-		gpane.add(TicketTypePark, 0, 5);
+		gpane.add(ticketBox, 0, 1);
+		gpane.add(namemake, 0, 2);
+		gpane.add(modelyearplate, 0, 3);
+		gpane.add(CarTypeColorBox, 0, 4);
+		gpane.add(dateTime, 0, 5);
+		gpane.add(TicketTypePark, 0, 6);
+		gpane.add(pricePerXBox, 0, 7);
 		
 		name.setPromptText("Name (First Last)");
 		make.setPromptText("Make (Honda)");
@@ -131,6 +155,7 @@ public class ParkCarPane {
 		plate.setPromptText("Plate (ABC-####)");
 		datePick.setPromptText("MM/DD/YYYY");
 		
+		pricePerX.setFont(Font.font("Calibri",20));
 		
 		ColorBox.getItems().addAll(
 			"Black",
@@ -162,6 +187,8 @@ public class ParkCarPane {
 		parktypepane.getChildren().add(parktype);
 		CarType.requestFocus();
 		setParkGo();
+		setTicketChange();
+		setCarChange();
 	}
 	
 	
@@ -212,6 +239,50 @@ public class ParkCarPane {
 		return "";
 	}
 	
+	private void setTicketChange() {
+		TicketType.setOnAction(e -> {
+			UpdatePrice();
+		});
+	}
+	
+	private void setCarChange() {
+		CarType.setOnAction(e -> {
+			UpdatePrice();
+		});
+	}
+	
+	private void UpdatePrice() {
+		if (CarType.getSelectionModel().isEmpty() == false && TicketType.getSelectionModel().isEmpty() == false) {
+			String tick;
+			double amount = 0;
+			String tickType = TicketType.getValue().replaceAll("\\s+", "");
+			System.out.println(tickType);
+			switch (tickType) {
+				case "HourlyRate": tick = "per Hour"; amount = HourlyRate.RATE; break;
+				case "MinutelyRate": tick = "per Minute"; amount = MinutelyRate.RATE; break;
+				case "MonthlyRate": tick = "per Month"; amount = MonthlyRate.RATE; break;
+				default: tick = "Error"; amount = 0; break;
+			}
+			String carType = CarType.getValue().replaceAll("\\s+" , "");
+			switch(carType) {
+				case "Bus": amount = amount * Bus.MONEY_MULT; break;
+				case "Handicap": amount = amount * Handicap.MONEY_MULT; break;
+				case "Motorcycle": amount = amount * Motorcycle.MONEY_MULT; break;
+				case "PickupTruck": amount = amount * PickupTruck.MONEY_MULT; break;
+				case "Sedan": amount = amount * Sedan.MONEY_MULT; break;
+				case "Van": amount = amount * Van.MONEY_MULT; break;
+				case "WorkTruck": amount = amount * WorkTruck.MONEY_MULT; break;
+				default: amount = 0; break;
+			}
+			DecimalFormat b = new DecimalFormat("#.00");
+			pricePerX.setText("The price is " + b.format(amount) + " USD " + tick);
+		}
+	}
+	
+	private void giveTicketNumber(Ticket realTick) {		// cant cast and use method at same time, stupid work-around put in another method
+		realTick.setTickNum(ticketNum);
+	}
+	
 	private void setParkGo() {
 		this.getPark().setOnMouseClicked(e -> {
 			//check for all fields have values
@@ -251,21 +322,17 @@ public class ParkCarPane {
 					} else {
 						System.out.println(floor.getGarage().parkCar((Car) realCar,(Ticket) realTick, floor, (spot - 1), pane));
 					}
-
 					
-					
+					giveTicketNumber((Ticket) realTick);
 					
 				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 					System.out.println("cannot be triggered by user error, only programmer's error via Car/Tickets set up wrong.");
 					e1.printStackTrace();
 				}
-				mainGUI.updateTabs();
 				mainGUI.tempStage.close();
 			}else {
 				parktype.setText(checkItems());
 			}
-			
-			
 			
 		});
 	}

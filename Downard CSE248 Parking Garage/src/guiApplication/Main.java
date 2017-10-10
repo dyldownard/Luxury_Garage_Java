@@ -1,14 +1,12 @@
 package guiApplication;
 
 import basePackage.*;
-import carsPackage.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import ticketsPackage.*;
 
 public class Main extends Application {
 	
@@ -101,7 +99,6 @@ public class Main extends Application {
 		for(int i = 0; i < tpane.getFloors().length; i++) {
 			for(int j = 0; j < tpane.getFloors()[i].getStackPanes().length; j++) {
 				final ToolTipStackPane actionStack = tpane.getFloors()[i].getStackPanes()[j];
-			
 				actionStack.setOnMouseClicked(e -> {
 					if (actionStack.hasCar() == false && inAction == false) {
 						parkPane = new ParkCarPane(actionStack.getSpotNum(), tpane.getFloors()[actionStack.getFloorNum()], actionStack);
@@ -114,9 +111,9 @@ public class Main extends Application {
 						parkPane.getDatePicker().requestFocus();
 						tempStage.showAndWait();
 						inAction = false;
+						updateTabs();
 					}else if(actionStack.hasCar() == true && inAction == false) {
-						pickPane = new PickupCarPane(actionStack.getRealCar(), actionStack);
-						
+						pickPane = new PickupCarPane(actionStack.getRealCar(), actionStack, CarPark, this);
 						Scene tempScene = new Scene(pickPane.getBorderPane(), 500, 500);
 						tempStage = new Stage();
 						inAction = true;
@@ -124,6 +121,7 @@ public class Main extends Application {
 						tempStage.setScene(tempScene);
 						tempStage.showAndWait();
 						inAction = false;
+						updateTabs();
 					}
 				});
 			}

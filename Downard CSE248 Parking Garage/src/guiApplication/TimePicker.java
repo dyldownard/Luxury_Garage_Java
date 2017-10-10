@@ -13,9 +13,6 @@ public class TimePicker {
 	private Spinner<Integer> hourspinner;
 	private Spinner<Integer> minutespinner;
 	private Label conversion;
-	private int initialh;
-	private int initialm;
-	
 	private PickupCarPane parent;
 	
 	public TimePicker() {
@@ -51,14 +48,12 @@ public class TimePicker {
 		}
 		
 		hbox.getChildren().addAll(label, hourspinner,minutespinner, conversion);
-		//setChangedH();
-		//setChangedM();
+		setChangedH(-1,-1);
+		setChangedM(-1,-1);
 	}
 	
 	public TimePicker(int h, int m, PickupCarPane parent) {
 		this.parent = parent;
-		initialh = h;
-		initialm = m;
 		hbox = new HBox();
 		label = new Label("HH:MM");
 		hourspinner = new Spinner<Integer>();
@@ -70,7 +65,7 @@ public class TimePicker {
 		minutespinner.setPrefSize(60, 20);
 		
 		
-		SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,24);
+		SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,23);
 		SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,m,5);
 		
 		hourspinner.setValueFactory(valueFactorHour);
@@ -101,86 +96,100 @@ public class TimePicker {
 	public HBox getHBox() {
 		return this.hbox;
 	}
-//	private void setChangedH() {
-//		hourspinner.setOnMouseClicked(e -> {
-//			parent.updateDifference();
-//			if (hourspinner.getValue() > 12) {
-//				if (minutespinner.getValue() == 0) {
-//					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
-//				}else {
-//					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
-//				}
-//			}else {
-//				if (minutespinner.getValue() == 0) {
-//					conversion.setText(hourspinner.getValue() + ":00 AM");
-//				}else {
-//					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
-//				}
-//			}
-//		});
-//	}
-//	private void setChangedM() {
-//		minutespinner.setOnMouseClicked(e -> {
-//			parent.updateDifference();
-//			if (hourspinner.getValue() > 12) {
-//				if (minutespinner.getValue() == 0) {
-//					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
-//				}else {
-//					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
-//				}
-//			}else {
-//				if (minutespinner.getValue() == 0) {
-//					conversion.setText(hourspinner.getValue() + ":00 AM");
-//				}else {
-//					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
-//				}
-//			}
-//		});
-//	}
+	
+	
 	private void setChangedH(int h, int m) {
 		hourspinner.setOnMouseClicked(e -> {
-			parent.updateDifference();
-			if (hourspinner.getValue() > initialh) {
-				SpinnerValueFactory<Integer> valueFactorMinute;
-				if (initialm <= minutespinner.getValue()) {
-					valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
+			if (h == -1) {
+				if (hourspinner.getValue() > 12) {
+					if (minutespinner.getValue() == 0) {
+						conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+					}else if (minutespinner.getValue() == 5){
+						conversion.setText((hourspinner.getValue()-12) + ":05 PM");
+					}else {
+						conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+					}
 				}else {
-					valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,initialm,5);
+					if (minutespinner.getValue() == 0) {
+						conversion.setText(hourspinner.getValue() + ":00 AM");
+					}else if(minutespinner.getValue() == 5){
+						conversion.setText(hourspinner.getValue() + ":05 AM");
+					}else {
+						conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+					}
 				}
-				minutespinner.setValueFactory(valueFactorMinute);
 			}else {
-				SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(initialm,55,initialm,5);
-				minutespinner.setValueFactory(valueFactorMinute);
-			}
-			if (hourspinner.getValue() > 12) {
-				if (minutespinner.getValue() == 0) {
-					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+				parent.updateDifference();
+				if (hourspinner.getValue() > h) {
+					SpinnerValueFactory<Integer> valueFactorMinute;
+					if (m <= minutespinner.getValue()) {
+						valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
+					}else {
+						valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,m,5);
+					}
+					minutespinner.setValueFactory(valueFactorMinute);
 				}else {
-					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+					SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,m,5);
+					minutespinner.setValueFactory(valueFactorMinute);
 				}
-			}else {
-				if (minutespinner.getValue() == 0) {
-					conversion.setText(hourspinner.getValue() + ":00 AM");
+				if (hourspinner.getValue() > 12) {
+					if (minutespinner.getValue() == 0) {
+						conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+					}else if (minutespinner.getValue() == 5) {
+						conversion.setText((hourspinner.getValue()-12) + ":05 PM");
+					}else {
+						conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+					}
 				}else {
-					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+					if (minutespinner.getValue() == 0) {
+						conversion.setText(hourspinner.getValue() + ":00 AM");
+					}else if(minutespinner.getValue() == 5) {
+						conversion.setText(hourspinner.getValue() + ":05 AM");
+					}else {
+						conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+					}
 				}
 			}
 		});
 	}
 	private void setChangedM(int h, int m) {
 		minutespinner.setOnMouseClicked(e -> {
-			parent.updateDifference();
-			if (hourspinner.getValue() > 12) {
-				if (minutespinner.getValue() == 0) {
-					conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+			if (h == -1) {
+				if (hourspinner.getValue() > 12) {
+					if (minutespinner.getValue() == 0) {
+						conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+					}else if (minutespinner.getValue() == 5){
+						conversion.setText((hourspinner.getValue()-12) + ":05 PM");
+					}else {
+						conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+					}
 				}else {
-					conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+					if (minutespinner.getValue() == 0) {
+						conversion.setText(hourspinner.getValue() + ":00 AM");
+					}else if(minutespinner.getValue() == 5){
+						conversion.setText(hourspinner.getValue() + ":05 AM");
+					}else {
+						conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+					}
 				}
 			}else {
-				if (minutespinner.getValue() == 0) {
-					conversion.setText(hourspinner.getValue() + ":00 AM");
+				parent.updateDifference();
+				if (hourspinner.getValue() > 12) {
+					if (minutespinner.getValue() == 0) {
+						conversion.setText((hourspinner.getValue()-12) + ":00 PM");
+					}else if (minutespinner.getValue() == 5) {
+						conversion.setText((hourspinner.getValue()-12) + ":05 PM");
+					}else {
+						conversion.setText((hourspinner.getValue()-12) + ":" + minutespinner.getValue() + " PM");
+					}
 				}else {
-					conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+					if (minutespinner.getValue() == 0) {
+						conversion.setText(hourspinner.getValue() + ":00 AM");
+					}else if(minutespinner.getValue() == 5) {
+						conversion.setText(hourspinner.getValue() + ":05 AM");
+					}else {
+						conversion.setText(hourspinner.getValue() + ":" + minutespinner.getValue() + " AM");
+					}
 				}
 			}
 		});

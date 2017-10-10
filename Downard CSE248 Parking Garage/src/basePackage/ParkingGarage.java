@@ -32,7 +32,7 @@ public class ParkingGarage implements Serializable{
 	public ParkingGarage() {
 		TOTAL_amountEmptySpaces = AMOUNT_TOTAL_SPACES;
 		fArray = new FloorsArray(FLOORS, AMOUNT_TOTAL_SPACES, this);
-		cArray = new CarsArray(AMOUNT_TOTAL_SPACES);
+		cArray = new CarsArray(AMOUNT_TOTAL_SPACES, this);
 		tArray = new TicketArray(AMOUNT_TOTAL_SPACES);
 	}
 	

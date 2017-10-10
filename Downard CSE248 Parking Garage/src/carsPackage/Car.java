@@ -18,10 +18,13 @@ public abstract class Car implements Serializable{
 	private Floor myFloor;
 	private CarsArray myFloorCarAr;
 	
+	private int spotGlobalArray;
+	
+	
 	private Color color;
 	
 	private String spaceType;
-	private double moneyMult;
+	public final double MONEY_MULT;
 	
 	public Car(String model, String make, String year, String platenum, Color color, int spotnum, String spaceType, double moneyMult) {
 		this.model = model;
@@ -31,7 +34,7 @@ public abstract class Car implements Serializable{
 		this.color = color;
 		this.spotnum = spotnum;
 		this.spaceType = spaceType;
-		this.moneyMult = moneyMult;
+		this.MONEY_MULT = moneyMult;
 	}
 	
 	public void setTicket(Ticket tick) {
@@ -44,7 +47,7 @@ public abstract class Car implements Serializable{
 	}
 	
 	public double getMoneyMult() {
-		return moneyMult;
+		return MONEY_MULT;
 	}
 	
 	public String getSpaceType() {
@@ -94,7 +97,14 @@ public abstract class Car implements Serializable{
 	public void PickCar() {
 		this.myFloorCarAr.CarPicked(this, spotnum);
 	}
-	
+	public int getSpotGlobalArray() {
+		return spotGlobalArray;
+	}
+
+	public void setSpotGlobalArray(int spotGlobalArray) {
+		this.spotGlobalArray = spotGlobalArray;
+	}
+
 	@Override
 	public String toString() {
 		return "ye";

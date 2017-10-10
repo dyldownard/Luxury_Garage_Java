@@ -4,10 +4,10 @@ import javafx.scene.paint.Color;
 
 public class Sedan extends Car {
 	
-	private static double moneyMult = 1.0;
-	private static String spaceType = "Normal";
+	final public static double MONEY_MULT = 1.0;
+	final public static String spaceType = "Normal";
 	
 	public Sedan(String model, String make, String year, String platenum, Color color, int spotnum) {
-		super(model, make, year, platenum, color, spotnum, spaceType, moneyMult);
+		super(model, make, year, platenum, color, spotnum, spaceType, MONEY_MULT);
 	}
 }

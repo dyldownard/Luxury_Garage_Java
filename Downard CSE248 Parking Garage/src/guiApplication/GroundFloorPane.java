@@ -31,7 +31,7 @@ public class GroundFloorPane implements GUIFloor{
 	private String[] allowedNormalTypes = {"Sedan","Pickup Truck", "Van", "Motorcycle","Handicap"};
 	private String[] allowedLargeTypes = {"Bus", "Work Truck"};
 	private String[] allowedMotorTypes = {"Motorcycle"};
-	private String[] allowedHandiTypes = {"Handicapped"};
+	private String[] allowedHandiTypes = {"Handicap"};
 
 	
 	public GroundFloorPane(ParkingGarage CarPark, int floor) {
