@@ -1,0 +1,25 @@
+README:
+
+Warning:
+For some reason, when using Search to pick up your car, the Scene will appear blank. Resizing it by 1px minimum will fix this. 
+After hours of debugging, I gave up on it and figured it was some odd Java bug.
+
+
+Layout:
+
+File -
+	New - Opens new ParkingGarage
+	Save - Saves current Garage
+	Open - Loads saved file
+Edit -
+	Valet - Parks car in first available spot
+	Pickup Car -
+		Search by Ticket - searches for your car VIA your ticket number
+		Search by Plate - searches for your car VIA your licsense plate
+Help -
+	About - my information
+
+	
+How to work:
+Very obvious you park and pick up cars. Just remember to attempt to write down your ticket# for searching. There is also a print
+in the console for your ticket number with respective space.

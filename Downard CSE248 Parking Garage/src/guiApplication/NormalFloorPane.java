@@ -12,6 +12,9 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 
 
+/**
+ *Normal GUIFloor, only has normal type cars
+ */
 public class NormalFloorPane implements GUIFloor {	
 
 	/**
@@ -26,11 +29,19 @@ public class NormalFloorPane implements GUIFloor {
 	
 	private ToolTipStackPane[] parkingSpots;
 	private ParkingGarage CarPark;
-	
+	/**
+	 * allowedTypes types allowed on the floor
+	 */
 	private String[] allowedTypes = {"Sedan","Pickup Truck", "Van", "Motorcylce","Handicapped"};
 	
 	//--------------------------------------------------------	
 	
+	/**
+	 * constructor for floor
+	 * calculates where the spaces should be and where blank road should be
+	 * @param CarPark parking garage associated with
+	 * @param floor floor number
+	 */
 	public NormalFloorPane(ParkingGarage CarPark, int floor) {
 		gpane = new GridPane();
 		gpane.setAlignment(Pos.TOP_CENTER);
@@ -115,11 +126,13 @@ public class NormalFloorPane implements GUIFloor {
 	
 	//--------------------------------------------------------	
 	
+	/* (non-Javadoc)
+	 * @see guiApplication.GUIFloor#updateGrid()
+	 */
 	@Override
 	public void updateGrid() {
 		Floor floor = CarPark.getFloorsArray().getAr()[floorNumber];
 		Car[] Cars = floor.getCarsAr().getAr();
-		System.out.println(floor.getCarsAr());						//remove
 		for (int i = 0; i < floor.getAmountTotalSpaces(); i++) {
 			if ((Cars[i] == null) && (parkingSpots[i].hasCar() == true)) {// if there is no car but gui shows car
 				parkingSpots[i].getChildren().clear();
@@ -153,21 +166,34 @@ public class NormalFloorPane implements GUIFloor {
 	
 	//--------------------------------------------------------	
 	
+	/* (non-Javadoc)
+	 * @see guiApplication.GUIFloor#getStackPanes()
+	 */
 	@Override
 	public ToolTipStackPane[] getStackPanes() {
 		return this.parkingSpots;
 	}
 	
+	/**
+	 * gets root pane
+	 * @return root gridpane
+	 */
 	public GridPane getGridPane() {
 		return this.gpane;
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see guiApplication.GUIFloor#getGarage()
+	 */
 	@Override
 	public ParkingGarage getGarage() {
 		return this.CarPark;
 	}
 	
+	/* (non-Javadoc)
+	 * @see guiApplication.GUIFloor#getFloorNum()
+	 */
 	@Override
 	public int getFloorNum() {
 		return this.floorNumber;

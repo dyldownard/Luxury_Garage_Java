@@ -12,7 +12,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+/**
+ * pane for all of the menus
+ */
 public class MenuPane implements Serializable {
 
 	/**
@@ -38,13 +40,14 @@ public class MenuPane implements Serializable {
 	
 	private Button doIt;
 	
-	//private Stage primaryStage;
 	Boolean inAction; 
 	
 	//--------------------------------------------------------	
-	
-	public MenuPane(Stage primaryStage, Boolean action){
-		//this.primaryStage = primaryStage;
+	/**
+	 * constructor for menuitems
+	 * @param action sees if there is already something happening
+	 */
+	public MenuPane(Boolean action){
 		inAction = action;
 		
 		bar = new MenuBar();
@@ -75,7 +78,9 @@ public class MenuPane implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * event for selecting new in menupane
+	 */
 	private void onNew() {
 		newPark.setOnAction(e -> {
 			if (inAction.booleanValue() == false) {
@@ -101,7 +106,10 @@ public class MenuPane implements Serializable {
 	}
 	
 	//--------------------------------------------------------		
-	
+	/**
+	 * gets root
+	 * @return root menubar
+	 */
 	public MenuBar getMenu() {
 		return this.bar;
 	}

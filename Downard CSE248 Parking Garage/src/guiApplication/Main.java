@@ -25,7 +25,13 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
+/**
+ * @author Dylan Downard
+ * @author downd98@mail.sunysuffolk.edu
+ * @author https://github.com/battlebutts
+ * @version 1.0
+ * 
+ */
 public class Main extends Application implements Serializable {
 	
 	/**
@@ -46,22 +52,34 @@ public class Main extends Application implements Serializable {
 	
 	private ParkingGarage CarPark;
 	
+	/**
+	 * main allows to call inside of eventhandler
+	 */
 	private Main main;
 	
 	private Boolean inAction;
 	
 	int amountTabs;
 	
-	int i;		// for setaction array
+	/**
+	 * i,j sets up handler for all floor panes
+	 */
+	int i;		
 	int j;
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * launch
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
 	@Override
+	/**
+	 * start
+	 */
 	public void start(Stage primaryStage) throws Exception {
 		
 		inAction = false;
@@ -70,7 +88,7 @@ public class Main extends Application implements Serializable {
 		
 		bpane = new BorderPane();
 		
-		mpane = new MenuPane(primaryStage, inAction);
+		mpane = new MenuPane(inAction);
 		bpane.setTop(mpane.getMenu());
 		
 		openRecent();
@@ -80,13 +98,15 @@ public class Main extends Application implements Serializable {
 		setEventMethods();
 		
 		Scene scene = new Scene(bpane, 700, 700);
-		primaryStage.setTitle("Parking Lot CSE248");
+		primaryStage.setTitle("Parking Lot CSE248 - Dylan Downard");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * sets up event methods to be called
+	 */
 	public void setEventMethods() {
 		setCarClicked();
 		setHovered();
@@ -101,7 +121,9 @@ public class Main extends Application implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * shows aboutpane
+	 */
 	private void setAbout() {
 		mpane.getAbout().setOnAction(e -> {
 			inAction = true;
@@ -113,6 +135,10 @@ public class Main extends Application implements Serializable {
 		});
 	}
 	
+	/**
+	 * handles close request. if someone attempts to close during an action (i.e. parking) it denies them.
+	 * otherwise it asks if the person would like to save progress
+	 */
 	private void setExited() {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -131,6 +157,9 @@ public class Main extends Application implements Serializable {
         });
 	}
 	
+	/**
+	 * asks if person would like to save, then opens a new parkinggarage
+	 */
 	private void setNew() {
 		mpane.getNew().setOnAction(e -> {
 			inAction = true;
@@ -145,7 +174,9 @@ public class Main extends Application implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * opens most recent saved file in "Saves"
+	 */
 	public void openRecent() {
 		try {
 			
@@ -192,6 +223,9 @@ public class Main extends Application implements Serializable {
 		}
 	}
 	
+	/**
+	 * Saves and then closes the program, only launched from closerequest method
+	 */
 	public void SaveWithClose() {
 		try {
 			FileChooser filesave = new FileChooser();
@@ -220,6 +254,9 @@ public class Main extends Application implements Serializable {
 		}
 	}
 	
+	/**
+	 * saves program and continues
+	 */
 	public void Save() {
 		try {
 			FileChooser filesave = new FileChooser();
@@ -247,6 +284,9 @@ public class Main extends Application implements Serializable {
 		}
 	}
 	
+	/**
+	 * actionevent for save button
+	 */
 	public void onSaveRequest() {
 		mpane.getSave().setOnAction(e -> {
 			Save();
@@ -254,7 +294,9 @@ public class Main extends Application implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * when any pane in the grid is pressed, it either will have you try to park or try to pickup car
+	 */
 	private void setCarClicked() {
 		for(int i = 0; i < tpane.getFloors().length; i++) {
 			for(int j = 0; j < tpane.getFloors()[i].getStackPanes().length; j++) {
@@ -289,7 +331,9 @@ public class Main extends Application implements Serializable {
 			}
 		}
 	}
-
+	/**
+	 * valet parking method for event of pressing valet
+	 */
 	private void parkValet() {
 		mpane.getValet().setOnAction(e -> {
 			if (inAction == false && CarPark.isFull() == false) {
@@ -318,7 +362,10 @@ public class Main extends Application implements Serializable {
 			}
 		});
 	}
-	
+	/**
+	 * pickup for car. WARNING: sometimes the Stage will not show the scene. you must resize the window by at least 1px in any direction to fix. known bug in java
+	 * @param myCar car to be picked up
+	 */
 	private void PickupCar(Car myCar) {
 		tempStage = null;
 		pickPane = new PickupCarPane(myCar, myCar.getMyPane(), CarPark, this);
@@ -335,7 +382,9 @@ public class Main extends Application implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * turns label on spot red to signify that it is being selected
+	 */
 	private void setHovered() {
 		for(int i = 0; i < tpane.getFloors().length; i++) {
 			for(int j = 0; j < tpane.getFloors()[i].getStackPanes().length; j++) {
@@ -346,6 +395,9 @@ public class Main extends Application implements Serializable {
 			}
 		}
 	}
+	/**
+	 * turns label back to normal after being unhovered
+	 */
 	private void setUnhovered() {
 		for(int i = 0; i < tpane.getFloors().length; i++) {
 			for(int j = 0; j < tpane.getFloors()[i].getStackPanes().length; j++) {
@@ -362,7 +414,9 @@ public class Main extends Application implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * event for searching for ticket to pick up car
+	 */
 	private void setOnTickSearch() {
 		mpane.getTicketSearch().setOnAction(e -> {
 			if (inAction == false) {
@@ -377,7 +431,9 @@ public class Main extends Application implements Serializable {
 			}
 		});
 	}
-	
+	/**
+	 * event for searching for plate# to pick up car
+	 */
 	private void setOnCarSearch() {
 		mpane.getPlateSearch().setOnAction(e -> {
 			if (inAction == false) {
@@ -394,7 +450,10 @@ public class Main extends Application implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * event for go button in search
+	 * @throws InterruptedException
+	 */
 	public void SearchGo() throws InterruptedException {
 		if(searchPane.isFound(CarPark) == true) {
 			tempStage.close();
@@ -406,17 +465,24 @@ public class Main extends Application implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * updates all tabs in TabsPane to show current grids
+	 */
 	public void updateTabs() {		
 		tpane.updateGrid();
 	}
-	
+	/**
+	 * builds new tabpanes for grid
+	 */
 	public void BuildNew() {
 		CarPark.CheckTicks();
 		tpane = new TabPanes(CarPark);
 		bpane.setCenter(tpane.getTabPane());
 	}
-	
+	/**
+	 * builds new tabpanes. used with new parkinggarage
+	 * @param park
+	 */
 	public void BuildNew(ParkingGarage park) {
 		this.CarPark = park;
 		tpane = new TabPanes(CarPark);

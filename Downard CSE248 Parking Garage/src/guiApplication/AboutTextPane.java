@@ -6,6 +6,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * 
+ * signifies author credentials in GUI
+ *
+ */
 public class AboutTextPane {
 
 	VBox vbox;

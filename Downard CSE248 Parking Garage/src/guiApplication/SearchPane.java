@@ -13,6 +13,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+/**
+ * pane that allows people to search for various things based on how its instanced
+ */
 public class SearchPane implements Serializable{
 
 	/**
@@ -28,7 +31,11 @@ public class SearchPane implements Serializable{
 	Main main;
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * constructor
+	 * @param giventype type that will be searched
+	 * @param main Main to call methods
+	 */
 	public SearchPane(String giventype, Main main) {
 		this.main = main;
 		
@@ -62,7 +69,11 @@ public class SearchPane implements Serializable{
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * grabs result from search
+	 * @param park parking garage to grab the car from
+	 * @return car that was searched
+	 */
 	public Car getSearchResult(ParkingGarage park) {
 		
 		if (type.getText().equals("Ticket#:")) {
@@ -74,7 +85,11 @@ public class SearchPane implements Serializable{
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * checks if car is in array
+	 * @param park parking garage to grab car from
+	 * @return if car is found or not
+	 */
 	public boolean isFound(ParkingGarage park) {
 		if (type.getText().equals("Ticket#:")) {
 			if (park.searchTicket(searchby.getText()) == null) {
@@ -89,7 +104,9 @@ public class SearchPane implements Serializable{
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * set action for searching
+	 */
 	private void setOnSearchGo() {
 		search.setOnMouseClicked(e -> {
 			try {
@@ -101,7 +118,10 @@ public class SearchPane implements Serializable{
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * gets root
+	 * @return root vbox
+	 */
 	public VBox getVBox() {
 		return this.vbox;
 	}

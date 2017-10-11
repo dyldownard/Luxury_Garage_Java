@@ -25,7 +25,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import ticketsPackage.*;
-
+/**
+ * universal controller to park cars, valet or not
+ */
 public class ParkCarPane implements Serializable {
 
 	/**
@@ -64,7 +66,12 @@ public class ParkCarPane implements Serializable {
 	private ToolTipStackPane pane;
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * constructor for pane
+	 * @param spot spot being parked in, >0 if it is valet
+	 * @param floor floor originated from
+	 * @param pane pane being used
+	 */
 	public ParkCarPane(int spot, GUIFloor floor, ToolTipStackPane pane) {
 		this.spot = spot;
 		this.floor = floor;
@@ -201,7 +208,10 @@ public class ParkCarPane implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * gets root pane
+	 * @return root gridpane
+	 */
 	public GridPane getGridPane() {
 		return this.gpane;
 	}
@@ -219,7 +229,10 @@ public class ParkCarPane implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/** 
+	 * checks if all items are filled out in order to make a car correctly
+	 * @return true/false based on items
+	 */
 	private String checkItems() {
 		if (name.getText().equals("") == true) {
 			return "Fill out Name field";
@@ -252,13 +265,14 @@ public class ParkCarPane implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * updates price on GUI based on user input
+	 */
 	private void UpdatePrice() {
 		if (CarType.getSelectionModel().isEmpty() == false && TicketType.getSelectionModel().isEmpty() == false) {
 			String tick;
 			double amount = 0;
 			String tickType = TicketType.getValue().replaceAll("\\s+", "");
-			System.out.println(tickType);
 			switch (tickType) {
 				case "HourlyRate": tick = "per Hour"; amount = HourlyRate.RATE; break;
 				case "MinutelyRate": tick = "per Minute"; amount = MinutelyRate.RATE; break;
@@ -282,33 +296,55 @@ public class ParkCarPane implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * event for setting ticket to update price
+	 */
 	private void setTicketChange() {
 		TicketType.setOnAction(e -> {
 			UpdatePrice();
 		});
 	}
 	
+	/**
+	 * event for setting car to update price
+	 */
 	private void setCarChange() {
 		CarType.setOnAction(e -> {
 			UpdatePrice();
 		});
 	}
 	
-	private void giveTicketNumber(Ticket realTick) {		// cant cast and use method at same time, stupid work-around put in another method
+	/**
+	 * cannot cast and use method at same time, cheat by sending casted object to method
+	 * gives ticket a ticketnumber
+	 * @param realTick ticket to be assigned a number
+	 */
+	private void giveTicketNumber(Ticket realTick, ToolTipStackPane pane) {
+		System.out.println("Ticket: " + ticketNum + " @ " + pane.getSpotName());
 		realTick.setTickNum(ticketNum);
-		System.out.println(ticketNum);
 	}
-	
+	/**
+	 * cannot cast and use method at same time, cheat by sending casted object to method
+	 * @param realCar car to get pane from
+	 * @return pane 
+	 */
 	private ToolTipStackPane getPanefromCar(Car realCar) {
 		return realCar.getMyPane();
 	}
+	/**
+	 * cannot cast and use method at same time, cheat by sending casted object to method
+	 * @param realCar car to be assigned a color
+	 * @param newCol color to be assigned
+	 */
 	private void giveColor(Car realCar, Color newCol) {
 		realCar.setColor(newCol, ColorBox.getValue());
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * attempts to park the car based on the fields
+	 * it isn't -possible- to actually throw the exceptions based on user choice. it can only fail if someone edits/adds code incorrectly
+	 */
 	private void setParkGo() {
 		this.getPark().setOnMouseClicked(e -> {
 			//check for all fields have values
@@ -343,12 +379,12 @@ public class ParkCarPane implements Serializable {
 					
 					
 					if (spot < 0) {
-						System.out.println(floor.getGarage().parkValet((Car) realCar,(Ticket) realTick));
+						floor.getGarage().parkValet((Car) realCar,(Ticket) realTick);
 						mainGUI.updateTabs();
 						pane = getPanefromCar((Car) realCar);
 						giveColor((Car) realCar, newCol);
 					} else {
-						System.out.println(floor.getGarage().parkCar((Car) realCar,(Ticket) realTick, floor, (spot - 1), pane));
+						floor.getGarage().parkCar((Car) realCar,(Ticket) realTick, floor, (spot - 1), pane);
 						giveColor((Car) realCar, newCol);
 					}
 					
@@ -356,7 +392,7 @@ public class ParkCarPane implements Serializable {
 					
 					pane.setRealCar((Car) realCar);
 					pane.setLocaldate(datePick.getValue());
-					giveTicketNumber((Ticket) realTick);
+					giveTicketNumber((Ticket) realTick, pane);
 					
 				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 					System.out.println("cannot be triggered by user error, only programmer's error via Car/Tickets set up wrong.");

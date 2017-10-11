@@ -24,7 +24,9 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import ticketsPackage.*;
-
+/**
+ * pane for picking cars up, regardless of method
+ */
 public class PickupCarPane implements Serializable{
 
 	/**
@@ -53,7 +55,13 @@ public class PickupCarPane implements Serializable{
 	Ticket myTick;
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * constructor for the 
+	 * @param myCar car being picked
+	 * @param parent pane where the car came from
+	 * @param carPark ParkingGarage for car
+	 * @param main MainGUI for later use
+	 */
 	public PickupCarPane(Car myCar, ToolTipStackPane parent, ParkingGarage carPark, Main main) {
 		this.carPark = carPark;
 		this.main = main;
@@ -70,6 +78,7 @@ public class PickupCarPane implements Serializable{
 		} else {
 			timePick = new TimePicker((myCar.getTicket().getDate().getHours() + 1), 0, this);
 		}
+		timePick.setCurDate(myCar.localDate);
 		hoursPer = new HBox();
 		hoursBetwix = new Label();
 		perHour = new Label();
@@ -137,16 +146,24 @@ public class PickupCarPane implements Serializable{
 	
 	//--------------------------------------------------------	
 	
+	/**
+	 * sets event for updating label when changing date
+	 */
 	private void setActionDate() {
 		datePick.setOnAction(e -> {
+			timePick.setFutureDate(datePick.getValue());
 			updateDifference();
 		});
 	}
+
 	
 	//--------------------------------------------------------	
 	// Time Frame will always be 1 above, this is under the assumption that you are either 1:59 or 2:01, as a Real
 	// life Parking Lot company would attempt to rig it to make more money. No such thing as "on time."
 	
+	/**
+	 * updates label based on fields given
+	 */
 	public void updateDifference() {
 		LocalDateTime newDate = LocalDateTime.of(datePick.getValue().getYear(), datePick.getValue().getMonth(), datePick.getValue().getDayOfMonth(), timePick.getHour(), timePick.getMin());
 		ZonedDateTime samezone = newDate.atZone(ZoneId.of("America/New_York"));
@@ -168,7 +185,9 @@ public class PickupCarPane implements Serializable{
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * event for when you press pay to destroy car from all references
+	 */
 	public void pickupCar() {
 		pay.setOnMouseClicked(e -> {
 			if (amountDue.getText().equals("") == false) {
@@ -179,7 +198,10 @@ public class PickupCarPane implements Serializable{
 			}
 		});
 	}
-	
+	/**
+	 * gets root pane
+	 * @return root pane
+	 */
 	public GridPane getGridPane() {
 		return gpane;
 	}

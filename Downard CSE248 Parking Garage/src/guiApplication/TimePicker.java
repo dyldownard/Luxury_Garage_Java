@@ -1,13 +1,17 @@
 package guiApplication;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.HBox;
-
+/**
+ * double-spinner pane that allows you to chose a time, 
+ * and can refuse to go before a certain time
+ */
 public class TimePicker implements Serializable {
 
 	/**
@@ -21,8 +25,13 @@ public class TimePicker implements Serializable {
 	private Label conversion;
 	private PickupCarPane parent;
 	
-	//--------------------------------------------------------	
+	private LocalDate curDate;
+	private LocalDate futDate;
 	
+	//--------------------------------------------------------	
+	/**
+	 * constructor for pane
+	 */
 	public TimePicker() {
 		hbox = new HBox();
 		label = new Label("HH:MM");
@@ -61,7 +70,12 @@ public class TimePicker implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * constructor for pane with time restrictions
+	 * @param h hour restriction
+	 * @param m minute restriction
+	 * @param parent parent pane
+	 */
 	public TimePicker(int h, int m, PickupCarPane parent) {
 		this.parent = parent;
 		hbox = new HBox();
@@ -102,7 +116,11 @@ public class TimePicker implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * checks if hour is changed to update the timestamp
+	 * @param h hour
+	 * @param m minute
+	 */
 	private void setChangedH(int h, int m) {
 		hourspinner.setOnMouseClicked(e -> {
 			if (h == -1) {
@@ -125,17 +143,37 @@ public class TimePicker implements Serializable {
 				}
 			}else {
 				parent.updateDifference();
-				if (hourspinner.getValue() > h) {
-					SpinnerValueFactory<Integer> valueFactorMinute;
-					if (m <= minutespinner.getValue()) {
-						valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
+				if (futDate != null) {
+					if ((futDate.getDayOfYear() > curDate.getDayOfYear()) && (futDate.getYear() >= curDate.getYear())) {
+						SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
+						SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23,hourspinner.getValue(), 1);
+						minutespinner.setValueFactory(valueFactorMinute);
+						hourspinner.setValueFactory(valueFactorHour);
 					}else {
-						valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,m,5);
+						if (hourspinner.getValue() <= h) {
+							SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,minutespinner.getValue(),5);
+							SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,23,hourspinner.getValue(), 1);
+							minutespinner.setValueFactory(valueFactorMinute);
+							hourspinner.setValueFactory(valueFactorHour);
+						}else {
+							SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
+							SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,23,hourspinner.getValue(), 1);
+							minutespinner.setValueFactory(valueFactorMinute);
+							hourspinner.setValueFactory(valueFactorHour);
+						}
 					}
-					minutespinner.setValueFactory(valueFactorMinute);
 				}else {
-					SpinnerValueFactory<Integer> valueFactorMinute = new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,m,5);
-					minutespinner.setValueFactory(valueFactorMinute);
+					if (hourspinner.getValue() <= h) {
+						SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,minutespinner.getValue(),5);
+						SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,23,hourspinner.getValue(), 1);
+						minutespinner.setValueFactory(valueFactorMinute);
+						hourspinner.setValueFactory(valueFactorHour);
+					}else {
+						SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
+						SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,23,hourspinner.getValue(), 1);
+						minutespinner.setValueFactory(valueFactorMinute);
+						hourspinner.setValueFactory(valueFactorHour);
+					}
 				}
 				if (hourspinner.getValue() > 12) {
 					if (minutespinner.getValue() == 0) {
@@ -155,10 +193,50 @@ public class TimePicker implements Serializable {
 					}
 				}
 			}
+			if (parent != null) {
+				parent.updateDifference();
+			}
 		});
 	}
+	/**
+	 * checks if hour is changed to update the timestamp
+	 * @param h hour
+	 * @param m minute
+	 */
 	private void setChangedM(int h, int m) {
 		minutespinner.setOnMouseClicked(e -> {
+			if (futDate != null) {
+				if ((futDate.getDayOfYear() > curDate.getDayOfYear()) && (futDate.getYear() >= curDate.getYear())) {
+					SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
+					SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23,hourspinner.getValue(), 1);
+					minutespinner.setValueFactory(valueFactorMinute);
+					hourspinner.setValueFactory(valueFactorHour);
+				}else {
+					if (hourspinner.getValue() <= h) {
+						SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,minutespinner.getValue(),5);
+						SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,23,hourspinner.getValue(), 1);
+						minutespinner.setValueFactory(valueFactorMinute);
+						hourspinner.setValueFactory(valueFactorHour);
+					}else {
+						SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
+						SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,23,hourspinner.getValue(), 1);
+						minutespinner.setValueFactory(valueFactorMinute);
+						hourspinner.setValueFactory(valueFactorHour);
+					}
+				}
+			}else {
+				if (hourspinner.getValue() <= h) {
+					SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(m,55,minutespinner.getValue(),5);
+					SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,23,hourspinner.getValue(), 1);
+					minutespinner.setValueFactory(valueFactorMinute);
+					hourspinner.setValueFactory(valueFactorHour);
+				}else {
+					SpinnerValueFactory<Integer> valueFactorMinute =  new SpinnerValueFactory.IntegerSpinnerValueFactory(0,55,minutespinner.getValue(),5);
+					SpinnerValueFactory<Integer> valueFactorHour = new SpinnerValueFactory.IntegerSpinnerValueFactory(h,23,hourspinner.getValue(), 1);
+					minutespinner.setValueFactory(valueFactorMinute);
+					hourspinner.setValueFactory(valueFactorHour);
+				}
+			}
 			if (h == -1) {
 				if (hourspinner.getValue() > 12) {
 					if (minutespinner.getValue() == 0) {
@@ -178,7 +256,6 @@ public class TimePicker implements Serializable {
 					}
 				}
 			}else {
-				parent.updateDifference();
 				if (hourspinner.getValue() > 12) {
 					if (minutespinner.getValue() == 0) {
 						conversion.setText((hourspinner.getValue()-12) + ":00 PM");
@@ -197,13 +274,36 @@ public class TimePicker implements Serializable {
 					}
 				}
 			}
+			if (parent != null) {
+				parent.updateDifference();
+			}
 		});
 	}
 	
 	//--------------------------------------------------------	
 
+	/**
+	 * root pane
+	 * @return pane 
+	 */
 	public HBox getHBox() {
 		return this.hbox;
+	}
+	
+	/**
+	 * sets base localtime to judge if day is after
+	 * @param time
+	 */
+	public void setCurDate(LocalDate time) {
+		this.curDate = time;
+	}
+	
+	/**
+	 * sets future localtime to judge if day is after
+	 * @param time
+	 */
+	public void setFutureDate(LocalDate time) {
+		this.futDate = time;
 	}
 	
 	public Spinner<Integer> getMinSpin() {

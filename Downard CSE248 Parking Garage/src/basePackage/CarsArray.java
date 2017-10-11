@@ -6,10 +6,7 @@ import carsPackage.*;
 import guiApplication.GUIFloor;
 
 /**
- * @author Dylan
- * @author https://github.com/battlebutts
- *	@version 1.0
- * 
+ * CarsArray Storage and Controller class for Cars
  */
 
 public class CarsArray implements Serializable{
@@ -52,7 +49,6 @@ public class CarsArray implements Serializable{
 	 * 
 	 */
 	public String parkCar(Car myCar, GUIFloor floor, int space) {
-		System.out.println(space + "space");
 		aR[space] = myCar;
 		myCar.setSpotNum(space);
 		amountSpaces--;

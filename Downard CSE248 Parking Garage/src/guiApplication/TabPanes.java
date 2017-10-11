@@ -5,7 +5,9 @@ import java.io.Serializable;
 import basePackage.*;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-
+/**
+ * array with multiple tabs that creates the content within differently
+ */
 public class TabPanes implements Serializable {
 
 	/**
@@ -17,7 +19,10 @@ public class TabPanes implements Serializable {
 	private GUIFloor[] floorGUIAr;
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * constructor, makes different floors depending on FloorArray floors
+	 * @param CarPark parkinggarage to base floors on
+	 */
 	public TabPanes(ParkingGarage CarPark) {
 		//TODO MAKE TABPANES
 		int floors = CarPark.FLOORS.length;
@@ -45,7 +50,9 @@ public class TabPanes implements Serializable {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * updates gridpanes of all tabs
+	 */
 	public void updateGrid() {
 		for (int i = 0; i < floorGUIAr.length; i++) {
 			floorGUIAr[i].updateGrid();
@@ -58,10 +65,17 @@ public class TabPanes implements Serializable {
 		return tabAr.length;
 	}
 	
+	/**
+	 * gets all floors
+	 * @return GUIfloorsArray
+	 */
 	public GUIFloor[] getFloors() {
 		return floorGUIAr;
 	}
-	
+	/**
+	 * gets root pane
+	 * @return root tabpane
+	 */
 	public TabPane getTabPane() {
 		return this.tpane;
 	}

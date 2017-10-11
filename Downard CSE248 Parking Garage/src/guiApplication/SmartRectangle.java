@@ -3,7 +3,9 @@ package guiApplication;
 import java.io.Serializable;
 
 import javafx.scene.shape.Rectangle;
-
+/**
+ * rectangle that resizes correctly
+ */
 public class SmartRectangle extends Rectangle implements Serializable{
 
 	/**

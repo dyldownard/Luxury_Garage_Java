@@ -8,7 +8,9 @@ import java.util.Arrays;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
-
+/**
+ * StackPane that has many other properties such as tooltips, colors, cars, floor, rectangle, and types
+ */
 public class ToolTipStackPane extends StackPane implements Serializable {
 
 
@@ -29,10 +31,17 @@ public class ToolTipStackPane extends StackPane implements Serializable {
 	private String spotName;
 
 	//--------------------------------------------------------	
-	
+	/**
+	 * constructor
+	 */
 	public ToolTipStackPane() {
 		super();
 	}
+	/**
+	 * constructor for actual use
+	 * @param spotNum spot
+	 * @param floorNum floor its on
+	 */
 	public ToolTipStackPane(int spotNum, int floorNum) {
 		super();
 		this.spotNum = spotNum;

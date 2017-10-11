@@ -6,7 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-
+/**
+ * pane that asks user if they'd like to save
+ */
 public class SaveQuestionPane {
 
 	VBox vbox;
@@ -17,7 +19,10 @@ public class SaveQuestionPane {
 	Main main;
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * constructor 
+	 * @param main Main to call methods on events
+	 */
 	public SaveQuestionPane(Main main) {
 		this.main = main;
 		
@@ -38,17 +43,26 @@ public class SaveQuestionPane {
 	}
 	
 	//--------------------------------------------------------	
-	
+	/**
+	 * root pane
+	 * @return root vbox
+	 */
 	public VBox getvbox() {
 		return this.vbox;
 	}
 	
+	/**
+	 * event for pressing save
+	 */
 	private void setSave() {
 		quicksave.setOnMouseClicked(e -> {
 			main.SaveWithClose();
 		});
 	}
 	
+	/**
+	 * event for pressing no
+	 */
 	private void setNo() {
 		nothanks.setOnMouseClicked(e -> {
 			main.tempStage.close();

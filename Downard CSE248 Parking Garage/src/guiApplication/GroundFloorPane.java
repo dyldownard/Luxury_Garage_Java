@@ -12,7 +12,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-
+/**
+ * GUI Layout for ground floor. Has multiple types of spaces to park in
+ */
 public class GroundFloorPane implements GUIFloor {
 
 	
@@ -40,7 +42,12 @@ public class GroundFloorPane implements GUIFloor {
 	private String[] allowedHandiTypes = {"Handicap"};
 
 	//--------------------------------------------------------	
-	
+	/**
+	 * Constructor for GUI
+	 * figures out the positioning of each space and non-space by using gridpane
+	 * @param CarPark ParkingGarage being modified
+	 * @param floor floor number
+	 */
 	public GroundFloorPane(ParkingGarage CarPark, int floor) {
 		gpane = new GridPane();
 		gpane.setAlignment(Pos.TOP_CENTER);
@@ -187,10 +194,12 @@ public class GroundFloorPane implements GUIFloor {
 
 	//--------------------------------------------------------	
 	
+	/* (non-Javadoc)
+	 * @see guiApplication.GUIFloor#updateGrid()
+	 */
 	@Override
 	public void updateGrid() {
 		Floor floor = CarPark.getFloorsArray().getAr()[floorNumber];
-		System.out.println(floor.getCarsAr());					// REMOVE
 		//update each seperately, normal cars first:
 		Car[] NormalCars = floor.getCarsAr().getAr();
 		for (int i = 0; i < floor.getAmountTotalSpaces(); i++) {
@@ -308,21 +317,33 @@ public class GroundFloorPane implements GUIFloor {
 
 	//--------------------------------------------------------	
 	
+	/* (non-Javadoc)
+	 * @see guiApplication.GUIFloor#getStackPanes()
+	 */
 	@Override
 	public ToolTipStackPane[] getStackPanes() {
 		return this.parkingSpots;
 	}
 
+	/* (non-Javadoc)
+	 * @see guiApplication.GUIFloor#getFloorNum()
+	 */
 	@Override
 	public int getFloorNum() {
 		return this.floorNumber;
 	}
 
+	/* (non-Javadoc)
+	 * @see guiApplication.GUIFloor#getGarage()
+	 */
 	@Override
 	public ParkingGarage getGarage() {
 		return this.CarPark;
 	}
 
+	/**
+	 * @return root node
+ 	 */
 	public GridPane getGridPane() {
 		return this.gpane;
 	}
