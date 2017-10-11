@@ -91,6 +91,9 @@ public abstract class Car implements Serializable{
 	 */
 	public void updateColor() {
 		Color newCol = Color.BLACK;
+		if (colorS == null) {
+			newCol = Color.BLACK;
+		}
 		if (colorS.equals("Black")) {
 			newCol = Color.BLACK;
 		}else if(colorS.equals("White")) {

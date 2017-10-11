@@ -335,9 +335,10 @@ public class ParkCarPane implements Serializable {
 	 * cannot cast and use method at same time, cheat by sending casted object to method
 	 * @param realCar car to be assigned a color
 	 * @param newCol color to be assigned
+	 * @param sCol string color to be set
 	 */
-	private void giveColor(Car realCar, Color newCol) {
-		realCar.setColor(newCol, ColorBox.getValue());
+	private void giveColor(Car realCar, Color newCol, String sCol) {
+		realCar.setColor(newCol, sCol);
 	}
 	
 	//--------------------------------------------------------	
@@ -350,17 +351,23 @@ public class ParkCarPane implements Serializable {
 			//check for all fields have values
 			if (checkItems().equals("")) {
 				try {
+					String sCol = "Black";
 					Color newCol = Color.BLACK;
 					if (ColorBox.getValue() == "Black") {
 						newCol = Color.BLACK;
+						sCol = "Black";
 					}else if(ColorBox.getValue() == "White") {
 						newCol = Color.WHITE;
+						sCol = "White";
 					}else if(ColorBox.getValue() == "Red") {
 						newCol = Color.RED;
+						sCol = "Red";
 					}else if(ColorBox.getValue() == "Blue") {
 						newCol = Color.BLUE;
+						sCol = "Blue";
 					}else if(ColorBox.getValue() == "Gray") {
 						newCol = Color.GRAY;
+						sCol = "Gray";
 					}
 					
 					
@@ -382,10 +389,10 @@ public class ParkCarPane implements Serializable {
 						floor.getGarage().parkValet((Car) realCar,(Ticket) realTick);
 						mainGUI.updateTabs();
 						pane = getPanefromCar((Car) realCar);
-						giveColor((Car) realCar, newCol);
+						giveColor((Car) realCar, newCol, sCol);
 					} else {
 						floor.getGarage().parkCar((Car) realCar,(Ticket) realTick, floor, (spot - 1), pane);
-						giveColor((Car) realCar, newCol);
+						giveColor((Car) realCar, newCol, sCol);
 					}
 					
 					
