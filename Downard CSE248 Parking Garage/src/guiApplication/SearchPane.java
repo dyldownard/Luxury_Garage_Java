@@ -109,11 +109,7 @@ public class SearchPane implements Serializable{
 	 */
 	private void setOnSearchGo() {
 		search.setOnMouseClicked(e -> {
-			try {
-				main.SearchGo();
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			main.SearchGo();
 		});
 	}
 	

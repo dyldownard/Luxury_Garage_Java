@@ -41,6 +41,7 @@ public class Main extends Application implements Serializable {
 	
 	private Stage primaryStage;
 	Stage tempStage;
+	Stage pickStage;
 	private BorderPane bpane;
 	private MenuPane mpane;
 	private TabPanes tpane;
@@ -315,17 +316,18 @@ public class Main extends Application implements Serializable {
 						tempStage.showAndWait();
 						inAction = false;
 						updateTabs();
-					}else if(actionStack.hasCar() == true && inAction == false) {
-						pickPane = new PickupCarPane(actionStack.getRealCar(), actionStack, CarPark, this);
-						Scene tempScene = new Scene(pickPane.getGridPane(), 500, 500);
-						tempStage = new Stage();
-						inAction = true;
-						tempStage.setAlwaysOnTop(true);
-						tempStage.setTitle("Pickup Car");
-						tempStage.setScene(tempScene);
-						tempStage.showAndWait();
-						inAction = false;
-						updateTabs();
+					} else if(actionStack.hasCar() == true && inAction == false) {
+						PickupCar(actionStack.getRealCar());
+//						pickPane = new PickupCarPane(actionStack.getRealCar(), actionStack, CarPark, this);
+//						Scene tempScene = new Scene(pickPane.getGridPane(), 500, 500);
+//						tempStage = new Stage();
+//						inAction = true;
+//						tempStage.setAlwaysOnTop(true);
+//						tempStage.setTitle("Pickup Car");
+//						tempStage.setScene(tempScene);
+//						tempStage.showAndWait();
+//						inAction = false;
+//						updateTabs();
 					}
 				});
 			}
@@ -367,16 +369,18 @@ public class Main extends Application implements Serializable {
 	 * @param myCar car to be picked up
 	 */
 	private void PickupCar(Car myCar) {
-		tempStage = null;
+		
+		tempStage.setOpacity(0);
 		pickPane = new PickupCarPane(myCar, myCar.getMyPane(), CarPark, this);
 		//Scene tempScene = new Scene(pickPane.getVBox(), 400, 400);
-		tempStage = new Stage();
+		pickStage = new Stage();
 		
 		inAction = true;
-		tempStage.setAlwaysOnTop(true);
-		tempStage.setTitle("Pickup Car - If empty resize window");
-		tempStage.setScene(new Scene(pickPane.getGridPane(),400,400));
-		tempStage.showAndWait();
+		pickStage.setAlwaysOnTop(true);
+		pickStage.setTitle("Pickup Car - If empty resize window");
+		pickStage.setScene(new Scene(pickPane.getGridPane(),400,400));
+		pickStage.showAndWait();
+		tempStage.close();
 		inAction = false;
 		updateTabs();
 	}
@@ -454,10 +458,8 @@ public class Main extends Application implements Serializable {
 	 * event for go button in search
 	 * @throws InterruptedException
 	 */
-	public void SearchGo() throws InterruptedException {
+	public void SearchGo() {
 		if(searchPane.isFound(CarPark) == true) {
-			tempStage.close();
-			Thread.sleep(1000);
 			PickupCar(searchPane.getSearchResult(CarPark));
 		}else {
 			searchPane.getResult().setText("Could not find from entry.");
