@@ -64,6 +64,4 @@ Help -
 
 How to work:
 
-Very obvious you park and pick up cars. Just remember to attempt to write down your ticket# for searching. There is also a print
-
-in the console for your ticket number with respective space.
+Very obvious you park and pick up cars. Just remember to attempt to write down your ticket# for searching. There is also a print in the console for your ticket number with respective space.
