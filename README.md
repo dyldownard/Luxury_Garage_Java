@@ -6,7 +6,7 @@ README:
 
 @Author Dylan T. Downard, CSE 248 Prof. Chen
 @Email dyldownard@outlook.com
-@github https://github.com/battlebutts
+@github https://github.com/dyldownard
 
 
 
